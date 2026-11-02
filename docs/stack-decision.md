@@ -14,8 +14,8 @@
 
 | | Swift + SwiftUI | Tauri 2 | Electron | Flutter |
 |---|---|---|---|---|
-| App size | **1.4 MB** (Havus 0.1.0, universal) | ~5–15 MB | ~150–250 MB | ~30–50 MB |
-| Idle memory | **~33 MB** (Havus 0.1.0, measured) | ~50–150 MB (app + WebKit processes) | ~150–400 MB | ~60–120 MB |
+| App size | **1.5 MB** (Havus 0.1.0, universal) | ~5–15 MB | ~150–250 MB | ~30–50 MB |
+| Idle memory | **~34 MB** (Havus 0.1.0, measured) | ~50–150 MB (app + WebKit processes) | ~150–400 MB | ~60–120 MB |
 | macOS API access | Direct | Through plugins or bridging | Through native addons | Through platform channels |
 | Contributor toolchain | Xcode | Rust + Node + Xcode | Node + Xcode | Flutter + Xcode |
 | Dependencies | 0 | crates + npm | npm (many) | pub + plugins |
