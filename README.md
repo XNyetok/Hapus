@@ -25,7 +25,7 @@ The app's interface is in casual Indonesian. [Ringkasan dalam Bahasa Indonesia a
 - **Safety first.** Every item is previewed and selectable. Everything goes to the Trash, except when you explicitly empty the Trash.
 - **Only touches what it knows.** Cleanup locations come from an auditable rule list ([`JunkRule+Catalog.swift`](Packages/HavusCore/Sources/HavusCore/Junk/JunkRule+Catalog.swift)), and every deletion is checked again by `PathGuard`.
 - **Private.** No telemetry, no analytics, no network access at all.
-- **Lightweight.** Native Swift + SwiftUI with zero third-party dependencies. Version 0.1.0: 1.4 MB app, about 33 MB of memory when idle.
+- **Lightweight.** Native Swift + SwiftUI with zero third-party dependencies. Version 0.1.0: 1.5 MB app, about 34 MB of memory when idle.
 
 ## Requirements
 
