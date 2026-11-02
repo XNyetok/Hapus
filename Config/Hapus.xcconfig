@@ -1,0 +1,41 @@
+// Hapus: build settings for the app target.
+//
+// This file is committed, so it must never contain personal or secret values.
+// Personal signing settings (Team ID, ...) go in Config/Local.xcconfig, which is gitignored.
+// See Config/Local.xcconfig.example.
+
+PRODUCT_NAME = Hapus
+PRODUCT_BUNDLE_IDENTIFIER = org.elysiumx.hapus
+MARKETING_VERSION = 0.1.0
+CURRENT_PROJECT_VERSION = 1
+
+SDKROOT = macosx
+MACOSX_DEPLOYMENT_TARGET = 14.0
+SWIFT_VERSION = 6.0
+
+// Info.plist is generated from these keys.
+GENERATE_INFOPLIST_FILE = YES
+INFOPLIST_KEY_CFBundleDisplayName = Hapus
+INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
+INFOPLIST_KEY_NSHumanReadableCopyright = © 2026 Debi Kurnia. MIT License.
+
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
+SWIFT_EMIT_LOC_STRINGS = YES
+LOCALIZATION_PREFERS_STRING_CATALOGS = YES
+
+// Hapus is distributed outside the Mac App Store and must read other apps' caches,
+// so it can't be sandboxed. Hardened Runtime stays on: it's required for notarization.
+ENABLE_APP_SANDBOX = NO
+ENABLE_HARDENED_RUNTIME = YES
+ENABLE_USER_SCRIPT_SANDBOXING = YES
+DEAD_CODE_STRIPPING = YES
+COMBINE_HIDPI_IMAGES = YES
+
+// Signing: ad-hoc ("Sign to Run Locally") by default, so anyone can build without an Apple account.
+CODE_SIGN_STYLE = Automatic
+CODE_SIGN_IDENTITY = -
+DEVELOPMENT_TEAM =
+
+// Optional personal overrides. Ignored by Git, see Local.xcconfig.example.
+#include? "Local.xcconfig"

@@ -1,0 +1,36 @@
+name: Release
+
+# Push a tag like v0.1.0 → a DRAFT GitHub Release with a universal, ad-hoc signed zip + SHA-256.
+# Nothing is published until a maintainer reviews the draft. No secrets are used yet.
+on:
+  push:
+    tags: ['v*.*.*']
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    name: Build & draft release
+    runs-on: macos-latest
+    timeout-minutes: 45
+    permissions:
+      contents: write # needed only to create the draft release
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Build zip (universal, ad-hoc signed)
+        run: ./scripts/build-release.sh "${GITHUB_REF_NAME#v}" "$GITHUB_RUN_NUMBER"
+
+      - name: Bikin draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            build/release/Hapus-*.zip \
+            build/release/Hapus-*.zip.sha256 \
+            --repo "$GITHUB_REPOSITORY" \
+            --draft --verify-tag --generate-notes \
+            --title "Hapus ${GITHUB_REF_NAME#v}"

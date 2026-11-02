@@ -1,0 +1,31 @@
+#!/bin/sh
+# Hapus pre-commit hook: blocks sensitive files and scans staged changes for secrets.
+# Enabled by `make setup` (git config core.hooksPath .githooks).
+
+status=0
+
+# 1) Files that must never be committed: certificates, private keys, provisioning profiles,
+#    env files, and personal signing config. Templates ending in .example are fine.
+blocked=$(git diff --cached --name-only --diff-filter=ACMR -z |
+  tr '\0' '\n' |
+  grep -E '(^|/)(Local\.xcconfig|\.env(\..*)?|AuthKey_[^/]*\.p8)$|\.(p12|pfx|cer|crt|der|certSigningRequest|mobileprovision|provisionprofile|p8|pem|key|keychain|keychain-db)$' |
+  grep -vE '\.example$')
+
+if [ -n "$blocked" ]; then
+  echo "pre-commit: commit dibatalkan, file ini kelihatannya sensitif:" >&2
+  printf '%s\n' "$blocked" | sed 's/^/  - /' >&2
+  echo "Keluarin dari staging (file di disk tetap aman): git rm --cached <file>" >&2
+  status=1
+fi
+
+# 2) Secret scan on what is about to be committed.
+if command -v gitleaks >/dev/null 2>&1; then
+  if ! gitleaks git --pre-commit --staged --redact --no-banner --log-level warn .; then
+    echo "pre-commit: gitleaks nemu sesuatu yang mirip secret. Cek output di atas." >&2
+    status=1
+  fi
+else
+  echo "pre-commit: gitleaks belum ke-install (brew install gitleaks). Scan secret dilewati, CI tetap ngecek." >&2
+fi
+
+exit $status

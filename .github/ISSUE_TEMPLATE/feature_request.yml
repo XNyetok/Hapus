@@ -1,0 +1,20 @@
+name: Ide fitur
+description: Punya ide biar Hapus makin berguna?
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Masalah apa yang mau diselesaiin?
+      description: Ceritain situasinya dulu, solusinya belakangan.
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Solusi yang kamu bayangin
+  - type: textarea
+    id: safety
+    attributes:
+      label: Kalau fiturnya menghapus file, kenapa aman?
+      description: "Contoh: datanya cache yang bakal dibikin ulang otomatis oleh app-nya. Sertakan sumber kalau ada."

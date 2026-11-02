@@ -1,0 +1,75 @@
+# ─────────────────────────────────────────────────────────────
+# Hapus .gitignore
+# Prinsip: hasil build, data per-user, dan SEMUA hal yang
+# berhubungan dengan signing/kredensial nggak boleh masuk repo.
+# ─────────────────────────────────────────────────────────────
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+.fseventsd
+.TemporaryItems
+.DocumentRevisions-V100
+
+# Xcode: data per-user & hasil build
+xcuserdata/
+*.xcuserstate
+*.xcscmblueprint
+*.xccheckout
+DerivedData/
+build/
+*.moved-aside
+*.hmap
+*.xcresult
+*.xcarchive
+*.dSYM
+*.dSYM.zip
+timeline.xctimeline
+
+# Swift Package Manager
+.build/
+.swiftpm/
+
+# Artefak rilis
+*.dmg
+*.zip
+*.pkg
+*.ipa
+
+# ── Signing & kredensial: JANGAN pernah di-commit ──────────────
+# Setelan signing pribadi (Team ID, identitas, bundle ID pribadi)
+Config/Local.xcconfig
+# Sertifikat, private key, provisioning profile
+*.p12
+*.pfx
+*.cer
+*.crt
+*.der
+*.certSigningRequest
+*.mobileprovision
+*.provisionprofile
+*.p8
+*.pem
+*.key
+*.keychain
+*.keychain-db
+# Kredensial notarization / App Store Connect
+AuthKey_*.p8
+notarytool*.json
+# Environment & secret umum
+.env
+.env.*
+!.env.example
+*.secret
+secrets/
+.secrets/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*~
