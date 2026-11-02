@@ -6,7 +6,10 @@ enum Format {
 
     /// `1234567890` → `1,23 GB`, and `0` → `0 byte` (not "Nol kB").
     static func bytes(_ value: Int64) -> String {
-        value.formatted(ByteCountFormatStyle(style: .file, spellsOutZero: false, locale: locale))
+        // Below 1 kB the system's Indonesian format says "bita" (seen on macOS 27), so "0 file dipilih · 0 bita".
+        // Use the "byte" everyone says instead.
+        guard value >= 1000 else { return String(localized: "\(value) byte") }
+        return value.formatted(ByteCountFormatStyle(style: .file, spellsOutZero: false, locale: locale))
     }
 
     /// Relative date in Indonesian, e.g. `3 bulan yang lalu` ("3 months ago").

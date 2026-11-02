@@ -132,14 +132,18 @@ private struct JunkResultRow: View {
         if result.status == .noPermission {
             PermissionRow(rule: result.rule)
         } else if result.rule.strategy == .wholeContents, let item = result.items.first {
-            header(state: model.selection.contains(item.id) ? .on : .off) { model.toggle(item) }
+            let state: CheckState = model.selection.contains(item.id) ? .on : .off
+            header(state: state) { model.toggle(item) }
+                .selectableRow(state) { model.toggle(item) }
         } else {
             DisclosureGroup(isExpanded: $isExpanded) {
                 ForEach(result.items) { item in
                     JunkItemRow(item: item, isSelected: model.selection.contains(item.id)) { model.toggle(item) }
                 }
             } label: {
-                header(state: model.selectionState(of: result)) { model.toggleAll(in: result) }
+                let state = model.selectionState(of: result)
+                header(state: state) { model.toggleAll(in: result) }
+                    .selectableGroupLabel(state) { model.toggleAll(in: result) }
             }
         }
     }
@@ -191,6 +195,7 @@ private struct JunkItemRow: View {
                 .monospacedDigit()
                 .foregroundStyle(.secondary)
         }
+        .selectableRow(isSelected ? .on : .off, toggle: toggle)
         .contextMenu {
             Button("Tampilkan di Finder") { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
         }
