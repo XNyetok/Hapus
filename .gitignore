@@ -1,7 +1,7 @@
 # ─────────────────────────────────────────────────────────────
 # Hapus .gitignore
-# Prinsip: hasil build, data per-user, dan SEMUA hal yang
-# berhubungan dengan signing/kredensial nggak boleh masuk repo.
+# Rule of thumb: build output, per-user data, and ANYTHING related
+# to signing or credentials never belongs in the repository.
 # ─────────────────────────────────────────────────────────────
 
 # macOS
@@ -15,7 +15,7 @@
 .TemporaryItems
 .DocumentRevisions-V100
 
-# Xcode: data per-user & hasil build
+# Xcode: per-user data and build output
 xcuserdata/
 *.xcuserstate
 *.xcscmblueprint
@@ -34,16 +34,16 @@ timeline.xctimeline
 .build/
 .swiftpm/
 
-# Artefak rilis
+# Release artifacts
 *.dmg
 *.zip
 *.pkg
 *.ipa
 
-# ── Signing & kredensial: JANGAN pernah di-commit ──────────────
-# Setelan signing pribadi (Team ID, identitas, bundle ID pribadi)
+# ── Signing and credentials: NEVER commit these ─────────────────
+# Personal signing settings (Team ID, identity, personal bundle ID)
 Config/Local.xcconfig
-# Sertifikat, private key, provisioning profile
+# Certificates, private keys, provisioning profiles
 *.p12
 *.pfx
 *.cer
@@ -57,10 +57,10 @@ Config/Local.xcconfig
 *.key
 *.keychain
 *.keychain-db
-# Kredensial notarization / App Store Connect
+# Notarization / App Store Connect credentials
 AuthKey_*.p8
 notarytool*.json
-# Environment & secret umum
+# Environment files and generic secrets
 .env
 .env.*
 !.env.example
@@ -68,7 +68,7 @@ notarytool*.json
 secrets/
 .secrets/
 
-# Editor
+# Editors
 .vscode/
 .idea/
 *.swp

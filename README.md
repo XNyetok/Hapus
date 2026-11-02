@@ -1,52 +1,52 @@
 # Hapus
 
-**Pembersih Mac yang ringan, open source, dan nggak kepo.**
+**A lightweight, open-source Mac cleaner that minds its own business.**
 
-Hapus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, sampai nemuin file gede yang jarang dibuka. Semuanya jalan lokal di Mac kamu: tanpa akun, tanpa iklan, tanpa telemetri.
+Hapus ("delete" in Indonesian) cleans caches, logs and developer junk, uninstalls apps together with their leftovers, and finds large files you rarely open. Everything runs locally on your Mac: no account, no ads, no telemetry.
 
-*English summary at the bottom.*
+The app's interface is in casual Indonesian. [Ringkasan dalam Bahasa Indonesia ada di bawah.](#bahasa-indonesia)
 
 > [!WARNING]
-> Hapus masih tahap awal (pra-rilis). Semua yang dihapus masuk Tong Sampah dulu, tapi tetap cek sebelum bersihin ya.
+> Hapus is in early development. Everything goes to the Trash first, but please review before you clean.
 
-## Fitur
+## Features
 
-| Fitur | Isinya |
+| Feature | What it covers |
 |---|---|
-| **Sampah Sistem** | Cache dan log aplikasi, lampiran Mail yang pernah dibuka, file update iPhone/iPad, isi Tong Sampah |
-| **Sampah Developer** | Xcode (DerivedData, Archives, Device Support, Previews), cache Simulator, Homebrew, npm, Yarn, pnpm, CocoaPods, SwiftPM, pip, Go, Gradle, Bun, Cargo |
-| **Hapus Aplikasi** | Uninstall app sekalian sama file sisanya. Bisa juga cuma buang file sisanya buat "reset" app |
-| **File Gede & Lama** | Cari file besar yang jarang dibuka pakai index Spotlight, jadi cepat |
+| **System junk** (*Sampah Sistem*) | App caches and logs, Mail attachments you opened, iPhone/iPad update files, Trash contents |
+| **Developer junk** (*Sampah Developer*) | Xcode (DerivedData, Archives, Device Support, Previews), Simulator caches, Homebrew, npm, Yarn, pnpm, CocoaPods, SwiftPM, pip, Go, Gradle, Bun, Cargo |
+| **Uninstaller** (*Hapus Aplikasi*) | Removes an app together with its leftovers, or only the leftovers to "reset" it |
+| **Large & old files** (*File Gede & Lama*) | Finds big, rarely opened files using the Spotlight index, so it's fast |
 
-## Prinsip
+## Principles
 
-- **Aman dulu.** Ada preview dan centang per item. Semua dipindah ke Tong Sampah, kecuali saat kamu sengaja ngosongin Tong Sampah.
-- **Cuma nyentuh yang jelas.** Lokasi yang dibersihin terdaftar di aturan yang bisa diaudit ([`JunkRule+Catalog.swift`](Packages/HapusCore/Sources/HapusCore/Junk/JunkRule+Catalog.swift)), dan setiap penghapusan dicek ulang oleh `PathGuard`.
-- **Privasi.** Nggak ada telemetri, analytics, atau koneksi jaringan sama sekali.
-- **Ringan.** Native Swift + SwiftUI tanpa dependency pihak ketiga. Versi 0.1.0: app 1,4 MB, RAM idle sekitar 33 MB.
+- **Safety first.** Every item is previewed and selectable. Everything goes to the Trash, except when you explicitly empty the Trash.
+- **Only touches what it knows.** Cleanup locations come from an auditable rule list ([`JunkRule+Catalog.swift`](Packages/HapusCore/Sources/HapusCore/Junk/JunkRule+Catalog.swift)), and every deletion is checked again by `PathGuard`.
+- **Private.** No telemetry, no analytics, no network access at all.
+- **Lightweight.** Native Swift + SwiftUI with zero third-party dependencies. Version 0.1.0: 1.4 MB app, about 33 MB of memory when idle.
 
-## Kebutuhan
+## Requirements
 
-macOS 14 Sonoma atau lebih baru, Apple Silicon maupun Intel.
+macOS 14 Sonoma or later, on Apple silicon or Intel.
 
-## Instalasi
+## Installation
 
-### Dari GitHub Releases
+### From GitHub Releases
 
-Rilis Hapus belum di-notarize Apple, jadi macOS bakal nahan app-nya pas pertama dibuka.
+Hapus releases aren't notarized by Apple yet, so macOS blocks the app the first time you open it.
 
-1. Unduh `Hapus-x.y.z.zip` dan `Hapus-x.y.z.zip.sha256` dari halaman [Releases](../../releases), lalu cocokin checksum-nya:
+1. Download `Hapus-x.y.z.zip` and `Hapus-x.y.z.zip.sha256` from [Releases](../../releases) and verify the checksum:
 
    ```sh
    shasum -a 256 -c Hapus-x.y.z.zip.sha256
    ```
 
-2. Ekstrak, lalu pindahin `Hapus.app` ke folder **Applications**.
-3. Buka Hapus. Kalau diblokir, buka **System Settings → Privacy & Security**, scroll ke bawah, lalu klik **Open Anyway**.
+2. Unzip it and move `Hapus.app` to your **Applications** folder.
+3. Open Hapus. If macOS blocks it, go to **System Settings → Privacy & Security**, scroll down, and click **Open Anyway**.
 
-### Build sendiri
+### Build from source
 
-Butuh Xcode 26 atau lebih baru.
+Requires Xcode 26 or later.
 
 ```sh
 git clone https://github.com/XNyetok/Hapus.git
@@ -54,37 +54,44 @@ cd Hapus
 make run
 ```
 
-## Izin Akses Disk Penuh
+## Full Disk Access
 
-macOS ngunci beberapa lokasi (Tong Sampah, lampiran Mail, data app lain). Biar hasil scan lengkap, buka **System Settings → Privacy & Security → Full Disk Access**, terus nyalain Hapus. Tanpa izin ini Hapus tetap jalan, cuma sebagian lokasi dilewati.
+macOS protects some locations (the Trash, Mail attachments, other apps' data). For a complete scan, open **System Settings → Privacy & Security → Full Disk Access** and turn on Hapus. Without it, Hapus still works but skips those locations.
 
 > [!NOTE]
-> Selama rilis belum di-notarize, tanda tangan app berubah tiap versi baru, jadi macOS bakal minta izin ini lagi setelah update.
+> Until releases are notarized, the app's signature changes with every version, so macOS asks for this permission again after each update.
 
 ## Roadmap
 
-- [ ] Visualisasi pemakaian disk
-- [ ] Pengelola login items dan launch agents
-- [ ] Maintenance yang butuh akses root (helper `SMAppService` + XPC)
-- [ ] Bersihin data privasi browser
-- [ ] Daftar pengecualian (folder yang nggak boleh disentuh)
-- [ ] Ikon app
-- [ ] Notarization + Homebrew Cask
+- [ ] Disk usage visualization
+- [ ] Login items and launch agents manager
+- [ ] Maintenance tasks that need root (`SMAppService` + XPC helper)
+- [ ] Browser privacy cleanup
+- [ ] Exclusion list (folders Hapus must never touch)
+- [ ] English UI localization
+- [ ] App icon
+- [ ] Notarization and Homebrew Cask
 
-## Kontribusi
+## Contributing
 
-Baca [CONTRIBUTING.md](CONTRIBUTING.md). Yang paling dibutuhin: aturan pembersihan baru (lengkap dengan bukti kalau aman), laporan bug, dan masukan desain. Latar belakang teknisnya ada di [docs/](docs/).
+See [CONTRIBUTING.md](CONTRIBUTING.md). Most wanted: new cleanup rules (with evidence that they're safe), bug reports, and design feedback. Technical background lives in [docs/](docs/).
 
-## Keamanan
+Issues and pull requests in English are preferred; Bahasa Indonesia is welcome too.
 
-Nemu celah keamanan? Jangan bikin issue publik, ikutin [SECURITY.md](SECURITY.md).
+## Security
 
-## Lisensi
+Found a vulnerability? Please don't open a public issue. See [SECURITY.md](SECURITY.md).
+
+## License
 
 [MIT](LICENSE) © 2026 Debi Kurnia
 
 ---
 
-### English summary
+## Bahasa Indonesia
 
-Hapus ("delete" in Indonesian) is a lightweight, open-source Mac cleaner built with Swift and SwiftUI. It cleans caches and logs, developer junk (Xcode, Homebrew, npm and more), uninstalls apps together with their leftovers, and finds large, rarely used files through Spotlight. Everything goes to the Trash first, every deletion passes a path safety check, and the app has no telemetry or network access. The UI is in Indonesian; issues and pull requests in English are welcome.
+**Hapus** adalah pembersih Mac yang ringan, open source, dan nggak kepo. Hapus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, sampai nemuin file gede yang jarang dibuka. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin.
+
+**Cara install:** unduh `Hapus-x.y.z.zip` dari halaman [Releases](../../releases), ekstrak, lalu pindahin `Hapus.app` ke folder **Applications**. Karena belum di-notarize Apple, waktu pertama kali dibuka kamu perlu ke **System Settings → Privacy & Security**, lalu klik **Open Anyway**. Biar hasil scan lengkap, nyalain Hapus di **Privacy & Security → Full Disk Access**.
+
+Mau lapor bug atau kasih ide? Boleh pakai Bahasa Indonesia di [Issues](../../issues).

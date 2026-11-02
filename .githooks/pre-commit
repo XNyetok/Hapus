@@ -12,20 +12,20 @@ blocked=$(git diff --cached --name-only --diff-filter=ACMR -z |
   grep -vE '\.example$')
 
 if [ -n "$blocked" ]; then
-  echo "pre-commit: commit dibatalkan, file ini kelihatannya sensitif:" >&2
+  echo "pre-commit: commit blocked, these files look sensitive:" >&2
   printf '%s\n' "$blocked" | sed 's/^/  - /' >&2
-  echo "Keluarin dari staging (file di disk tetap aman): git rm --cached <file>" >&2
+  echo "Unstage them (the files stay on disk): git rm --cached <file>" >&2
   status=1
 fi
 
 # 2) Secret scan on what is about to be committed.
 if command -v gitleaks >/dev/null 2>&1; then
   if ! gitleaks git --pre-commit --staged --redact --no-banner --log-level warn .; then
-    echo "pre-commit: gitleaks nemu sesuatu yang mirip secret. Cek output di atas." >&2
+    echo "pre-commit: gitleaks found something that looks like a secret. See the output above." >&2
     status=1
   fi
 else
-  echo "pre-commit: gitleaks belum ke-install (brew install gitleaks). Scan secret dilewati, CI tetap ngecek." >&2
+  echo "pre-commit: gitleaks is not installed (brew install gitleaks). Secret scan skipped; CI still checks." >&2
 fi
 
 exit $status

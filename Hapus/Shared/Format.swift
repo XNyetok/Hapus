@@ -9,12 +9,12 @@ enum Format {
         value.formatted(ByteCountFormatStyle(style: .file, spellsOutZero: false, locale: locale))
     }
 
-    /// `3 bulan yang lalu`
+    /// Relative date in Indonesian, e.g. `3 bulan yang lalu` ("3 months ago").
     static func relativeDate(_ date: Date) -> String {
         date.formatted(.relative(presentation: .named).locale(locale))
     }
 
-    /// `/Users/kamu/Downloads/` → `~/Downloads`
+    /// `/Users/someone/Downloads/` → `~/Downloads`
     static func path(_ url: URL) -> String {
         var path = url.path(percentEncoded: false)
         if path.count > 1, path.hasSuffix("/") { path.removeLast() }

@@ -1,16 +1,16 @@
-## Ringkasan
+## Summary
 
-<!-- Apa yang berubah dan kenapa? Tautkan issue terkait, misalnya: Closes #12 -->
+<!-- What changed and why? Link related issues, e.g. "Closes #12". -->
 
-## Cara ngetes
+## How to test
 
-<!-- Langkah buat ngecek perubahan ini -->
+<!-- Steps to verify this change. -->
 
 ## Checklist
 
-- [ ] `make test` lolos dan app ke-build
-- [ ] Udah dites di macOS versi: <!-- isi di sini -->
-- [ ] Nggak ada secret, sertifikat, Team ID, atau data pribadi di perubahan ini
-- [ ] Semua penghapusan file lewat `FileRemover` (nggak manggil `FileManager.removeItem`/`trashItem` langsung)
-- [ ] Kalau nambah/ngubah aturan pembersihan: udah sertakan sumber kenapa aman, plus test-nya
-- [ ] Teks UI pakai bahasa Indonesia santai (sapaan "kamu")
+- [ ] `make test` passes and the app builds
+- [ ] Tested on macOS version: <!-- fill in -->
+- [ ] No secrets, certificates, Team IDs or personal data in this change
+- [ ] Every file removal goes through `FileRemover` (no direct `FileManager.removeItem`/`trashItem` calls)
+- [ ] New or changed cleanup rules include evidence that they're safe, plus tests
+- [ ] UI text is casual Indonesian, addressing the user as "kamu" (see the glossary in CONTRIBUTING.md)

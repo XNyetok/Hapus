@@ -1,4 +1,4 @@
-# Hapus: shortcut buat tugas sehari-hari. Ketik `make` buat lihat daftarnya.
+# Hapus: shortcuts for everyday tasks. Run `make` to list them.
 
 PROJECT    := Hapus.xcodeproj
 SCHEME     := Hapus
@@ -10,38 +10,38 @@ SWIFT_SRC  := Hapus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift
 .DEFAULT_GOAL := help
 .PHONY: help setup open build run test lint format scan release clean
 
-help: ## Tampilkan daftar perintah
+help: ## List available commands
 	@grep -E '^[a-z]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  make %-8s %s\n", $$1, $$2}'
 
-setup: ## Pasang git hooks & cek tools (jalanin sekali setelah clone)
+setup: ## Install git hooks and check tools (run once after cloning)
 	@./scripts/bootstrap.sh
 
-open: ## Buka proyek di Xcode
+open: ## Open the project in Xcode
 	open $(PROJECT)
 
-build: ## Build app (Debug) ke ./build
+build: ## Build the app (Debug) into ./build
 	xcodebuild build -project $(PROJECT) -scheme $(SCHEME) -configuration Debug \
 		-destination 'platform=macOS' -derivedDataPath $(DERIVED) -quiet
 
-run: build ## Build lalu jalanin app
+run: build ## Build and launch the app
 	open $(APP)
 
-test: ## Jalanin unit test HapusCore
+test: ## Run the HapusCore unit tests
 	swift test --package-path $(CORE)
 
-lint: ## Cek format kode
+lint: ## Check code formatting
 	xcrun swift-format lint --recursive $(SWIFT_SRC)
 
-format: ## Rapiin format kode
+format: ## Format the code
 	xcrun swift-format format --in-place --recursive $(SWIFT_SRC)
 
-scan: ## Scan secret di riwayat Git & file kerja (butuh gitleaks)
+scan: ## Scan Git history and the working tree for secrets (needs gitleaks)
 	gitleaks git --redact --no-banner .
 	gitleaks dir --redact --no-banner .
 
-release: ## Build zip rilis lokal: make release VERSION=0.1.0
-	@test -n "$(VERSION)" || (echo "Pakai: make release VERSION=0.1.0" && exit 1)
+release: ## Build a local release zip: make release VERSION=0.1.0
+	@test -n "$(VERSION)" || (echo "Usage: make release VERSION=0.1.0" && exit 1)
 	./scripts/build-release.sh $(VERSION)
 
-clean: ## Hapus folder build
+clean: ## Remove the build folder
 	rm -rf build

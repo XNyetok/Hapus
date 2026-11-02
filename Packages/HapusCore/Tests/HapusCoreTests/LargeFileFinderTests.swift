@@ -33,7 +33,7 @@ struct LargeFileFinderTests {
     }
 
     @Test func eligibility() {
-        let home = ["/", "Users", "kamu"]
+        let home = ["/", "Users", "someone"]
 
         #expect(LargeFileFinder.isEligible(home + ["Downloads", "a.zip"], homeComponents: home))
         #expect(!LargeFileFinder.isEligible(home + ["Library", "a.zip"], homeComponents: home))
