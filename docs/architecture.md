@@ -54,7 +54,7 @@ When a more specific rule lives inside another rule's folder (for example `Libra
 ## Concurrency
 
 - **Core:** `Sendable` types and synchronous (blocking) functions that regularly check `Task.isCancelled`. Kept simple on purpose, so it's easy to test.
-- **App:** `@MainActor @Observable` models. Disk work runs in `TaskGroup` child tasks (a parallel scan per rule, app sizes three at a time) or in `Task.detached`, and the results are sent back to the main actor. Scans can be cancelled at any time.
+- **App:** `@MainActor @Observable` models. Disk work runs in `TaskGroup` child tasks (a parallel scan per rule, app sizes three at a time) or in a detached task, and the results are sent back to the main actor. Scans can be cancelled at any time. Awaiting a bare `Task.detached` ignores the caller's cancellation, so work the user can cancel goes through `Background.run`, which passes it on.
 
 ## macOS permissions
 

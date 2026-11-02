@@ -61,7 +61,7 @@ final class LargeFilesModel {
         phase = .searching
 
         task = Task {
-            let found = await Task.detached(priority: .userInitiated) { finder.find(criteria) }.value
+            let found = await Background.run { finder.find(criteria) }
             guard !Task.isCancelled else { return }
             files = found
             phase = .results
