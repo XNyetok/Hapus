@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <!--
+    Havus app icon: an "H" split by a diagonal cut, like a line struck through it.
+
+    Follows the macOS icon grid: a 1024 x 1024 canvas with an 824 x 824 rounded square
+    (continuous corners) and a soft drop shadow below it. Straight edges sit on an 8 px grid,
+    so they stay sharp at 1024, 512, 256 and 128 px.
+
+    After editing, run `make icon` to render the PNGs in Havus/Assets.xcassets/AppIcon.appiconset.
+  -->
+  <defs>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- Drop shadow, then the rounded square -->
+  <path transform="translate(0 10)" fill="#000000" opacity="0.28" filter="url(#shadow)"
+        d="M 396.64 100 L 627.36 100 C 731.19 100 783.11 100 822.77 120.21 A 185.4 185.4 0 0 1 903.79 201.23
+           C 924 240.89 924 292.81 924 396.64 L 924 627.36 C 924 731.19 924 783.11 903.79 822.77
+           A 185.4 185.4 0 0 1 822.77 903.79 C 783.11 924 731.19 924 627.36 924 L 396.64 924
+           C 292.81 924 240.89 924 201.23 903.79 A 185.4 185.4 0 0 1 120.21 822.77
+           C 100 783.11 100 731.19 100 627.36 L 100 396.64 C 100 292.81 100 240.89 120.21 201.23
+           A 185.4 185.4 0 0 1 201.23 120.21 C 240.89 100 292.81 100 396.64 100 Z"/>
+  <path fill="#0B0B0C"
+        d="M 396.64 100 L 627.36 100 C 731.19 100 783.11 100 822.77 120.21 A 185.4 185.4 0 0 1 903.79 201.23
+           C 924 240.89 924 292.81 924 396.64 L 924 627.36 C 924 731.19 924 783.11 903.79 822.77
+           A 185.4 185.4 0 0 1 822.77 903.79 C 783.11 924 731.19 924 627.36 924 L 396.64 924
+           C 292.81 924 240.89 924 201.23 903.79 A 185.4 185.4 0 0 1 120.21 822.77
+           C 100 783.11 100 731.19 100 627.36 L 100 396.64 C 100 292.81 100 240.89 120.21 201.23
+           A 185.4 185.4 0 0 1 201.23 120.21 C 240.89 100 292.81 100 396.64 100 Z"/>
+
+  <!-- The "H": two halves, cut at 70 degrees through the crossbar and pulled 28 px apart -->
+  <path fill="#FFFFFF" d="M 288 288 H 392 V 464 H 514.57 L 482.54 552 H 392 V 728 H 288 Z"/>
+  <path fill="#FFFFFF" d="M 736 736 H 632 V 560 H 509.43 L 541.46 472 H 632 V 296 H 736 Z"/>
+</svg>
