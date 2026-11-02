@@ -7,8 +7,8 @@ Makasih udah mau bantu Hapus! Dokumen ini jelasin cara setup, aturan main, dan h
 Kebutuhan: macOS 14+, Xcode 26+ (Swift 6.2+). Opsional tapi disarankan: `gitleaks` (`brew install gitleaks`).
 
 ```sh
-git clone https://github.com/debikurnia/hapus.git
-cd hapus
+git clone https://github.com/XNyetok/Hapus.git
+cd Hapus
 make setup   # pasang git hooks: nolak file sensitif + scan secret sebelum commit
 make test    # unit test HapusCore
 make run     # build lalu jalanin app (atau buka Hapus.xcodeproj, lalu ⌘R)

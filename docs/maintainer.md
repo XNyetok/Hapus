@@ -9,11 +9,12 @@
    ```
 
 2. **Scan secret** di riwayat dan file kerja: `make scan`.
-3. **Bikin repo publik dan push:**
+3. **Push ke [XNyetok/Hapus](https://github.com/XNyetok/Hapus).** Repo publiknya sudah ada:
 
    ```sh
-   gh repo create debikurnia/hapus --public --source . --remote origin --description "Pembersih Mac yang ringan, open source, dan nggak kepo"
+   git remote add origin https://github.com/XNyetok/Hapus.git   # kalau remote belum diset
    git push -u origin main
+   gh repo edit XNyetok/Hapus --description "Pembersih Mac yang ringan, open source, dan nggak kepo"
    ```
 
 4. Di **Settings → Advanced Security** (atau *Code security*), nyalain:

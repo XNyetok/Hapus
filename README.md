@@ -49,8 +49,8 @@ Rilis Hapus belum di-notarize Apple, jadi macOS bakal nahan app-nya pas pertama 
 Butuh Xcode 26 atau lebih baru.
 
 ```sh
-git clone https://github.com/debikurnia/hapus.git
-cd hapus
+git clone https://github.com/XNyetok/Hapus.git
+cd Hapus
 make run
 ```
 
