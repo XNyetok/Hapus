@@ -68,6 +68,12 @@ final class LargeFilesModel {
         }
     }
 
+    /// Keeps the list in step with the filters on screen: once a search has run, a filter change searches again.
+    func filtersChanged() {
+        guard phase == .results || phase == .searching else { return }
+        search()
+    }
+
     func cancel() {
         task?.cancel()
         task = nil

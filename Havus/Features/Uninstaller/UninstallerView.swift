@@ -241,6 +241,7 @@ private struct ComponentRow: View {
         }
         .padding(.horizontal, Design.Spacing.l)
         .padding(.vertical, Design.Spacing.m)
+        .selectableRow(isSelected ? .on : .off, toggle: toggle)
     }
 }
 

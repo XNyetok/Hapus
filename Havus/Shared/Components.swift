@@ -94,9 +94,19 @@ struct MessageView: View {
 
 enum CheckState {
     case on, off, mixed
+
+    /// What VoiceOver says after the row, e.g. "Cache npm, 1,2 GB, Dipilih".
+    var accessibilityValue: LocalizedStringKey {
+        switch self {
+        case .on: "Dipilih"
+        case .off: "Nggak dipilih"
+        case .mixed: "Sebagian dipilih"
+        }
+    }
 }
 
 /// Checkbox that can also show a mixed state, for "everything in this group".
+/// VoiceOver skips the box itself: put `selectableRow(_:toggle:)` on the row around it.
 struct SelectionBox: View {
     let state: CheckState
     let action: () -> Void
@@ -110,8 +120,7 @@ struct SelectionBox: View {
                 .contentShape(Rectangle())
         }
         .buttonStyle(.plain)
-        .accessibilityLabel("Pilih")
-        .accessibilityValue(accessibilityValue)
+        .accessibilityHidden(true)
     }
 
     private var symbol: String {
@@ -121,13 +130,24 @@ struct SelectionBox: View {
         case .mixed: "minus.square.fill"
         }
     }
+}
 
-    private var accessibilityValue: LocalizedStringKey {
-        switch state {
-        case .on: "Dipilih"
-        case .off: "Nggak dipilih"
-        case .mixed: "Sebagian dipilih"
-        }
+extension View {
+    /// Makes a row with a `SelectionBox` read as one checkbox in VoiceOver: its name, details and size,
+    /// then the selection state. Without it, every box in a list only said "Pilih", with no item name.
+    func selectableRow(_ state: CheckState, toggle: @escaping () -> Void) -> some View {
+        accessibilityElement(children: .combine)
+            .accessibilityValue(state.accessibilityValue)
+            .accessibilityAddTraits(.isToggle)
+            .accessibilityAction { toggle() }
+    }
+
+    /// The same for a `DisclosureGroup` label. VoiceOver's default action on the label already opens or closes
+    /// the group, and a second default action would fire together with it, so selecting the group is a named action.
+    func selectableGroupLabel(_ state: CheckState, toggleAll: @escaping () -> Void) -> some View {
+        accessibilityElement(children: .combine)
+            .accessibilityValue(state.accessibilityValue)
+            .accessibilityAction(named: state == .on ? "Batal pilih semua" : "Pilih semua") { toggleAll() }
     }
 }
 
@@ -135,10 +155,13 @@ struct SelectionBox: View {
 struct Tag: View {
     let text: LocalizedStringKey
     var tint: Color = .secondary
+    @Environment(\.colorScheme) private var colorScheme
 
     var body: some View {
         Text(text)
             .font(.caption.weight(.medium))
+            // In light mode, orange and red text on the pale capsule reads at only about 2:1 and 3:1, so darken it there.
+            .brightness(colorScheme == .light ? -0.3 : 0)
             .padding(.horizontal, 6)
             .padding(.vertical, 2)
             .foregroundStyle(tint)

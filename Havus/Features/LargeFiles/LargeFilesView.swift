@@ -28,24 +28,29 @@ struct LargeFilesView: View {
 
     private var filters: some View {
         HStack(spacing: Design.Spacing.l) {
-            Picker("Ukuran minimal", selection: $model.minimumSize) {
-                ForEach(LargeFilesModel.MinimumSize.allCases) { size in
-                    Text(size.label).tag(size)
+            Group {
+                Picker("Ukuran minimal", selection: $model.minimumSize) {
+                    ForEach(LargeFilesModel.MinimumSize.allCases) { size in
+                        Text(size.label).tag(size)
+                    }
+                }
+                Picker("Terakhir dibuka", selection: $model.lastOpened) {
+                    ForEach(LargeFilesModel.LastOpened.allCases) { option in
+                        Text(option.label).tag(option)
+                    }
                 }
             }
             .fixedSize()
-            Picker("Terakhir dibuka", selection: $model.lastOpened) {
-                ForEach(LargeFilesModel.LastOpened.allCases) { option in
-                    Text(option.label).tag(option)
-                }
-            }
-            .fixedSize()
+            .disabled(model.phase == .removing)
             Spacer()
             if model.phase != .idle {
                 Button("Cari Ulang") { model.search() }
                     .disabled(model.phase == .searching || model.phase == .removing)
             }
         }
+        // On the HStack, not the Group: a Group would attach each handler to both pickers and search twice.
+        .onChange(of: model.minimumSize) { model.filtersChanged() }
+        .onChange(of: model.lastOpened) { model.filtersChanged() }
     }
 
     @ViewBuilder
@@ -154,6 +159,7 @@ private struct LargeFileRow: View {
                 .frame(minWidth: 72, alignment: .trailing)
         }
         .padding(.vertical, 2)
+        .selectableRow(isSelected ? .on : .off, toggle: toggle)
     }
 
     private var lastUsed: Text {
