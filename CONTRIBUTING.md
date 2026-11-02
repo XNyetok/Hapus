@@ -1,96 +1,118 @@
-# Panduan Kontribusi
+# Contributing to Hapus
 
-Makasih udah mau bantu Hapus! Dokumen ini jelasin cara setup, aturan main, dan hal yang wajib dicek. Ini penting banget karena Hapus adalah app yang **menghapus file**.
+Thanks for helping out! This guide covers setup, ground rules and the checks that matter most, because Hapus is an app that **deletes files**.
+
+Issues and pull requests in English are preferred. Bahasa Indonesia is welcome too.
 
 ## Setup
 
-Kebutuhan: macOS 14+, Xcode 26+ (Swift 6.2+). Opsional tapi disarankan: `gitleaks` (`brew install gitleaks`).
+Requirements: macOS 14+, Xcode 26+ (Swift 6.2+). Optional but recommended: `gitleaks` (`brew install gitleaks`).
 
 ```sh
 git clone https://github.com/XNyetok/Hapus.git
 cd Hapus
-make setup   # pasang git hooks: nolak file sensitif + scan secret sebelum commit
-make test    # unit test HapusCore
-make run     # build lalu jalanin app (atau buka Hapus.xcodeproj, lalu ⌘R)
+make setup   # installs git hooks: blocks sensitive files and scans for secrets before each commit
+make test    # runs the HapusCore unit tests
+make run     # builds and launches the app (or open Hapus.xcodeproj and press ⌘R)
 ```
 
-Ketik `make` buat lihat semua perintah. Kamu **nggak butuh akun Apple Developer**: build default-nya pakai tanda tangan ad-hoc ("Sign to Run Locally").
+Run `make` to list all commands. You **don't need an Apple Developer account**: builds are ad-hoc signed ("Sign to Run Locally") by default.
 
-### Tanda tangan lokal (opsional, tapi bikin hidup lebih enak)
+### Local signing (optional, but makes life easier)
 
-macOS ngikat izin **Akses Disk Penuh** ke tanda tangan app. Build ad-hoc ganti tanda tangan tiap kali build, jadi izinnya reset terus. Biar awet:
+macOS ties the **Full Disk Access** permission to the app's signature. Ad-hoc builds get a new signature on every build, so the permission keeps resetting. To keep it:
 
 1. `cp Config/Local.xcconfig.example Config/Local.xcconfig`
-2. Isi `DEVELOPMENT_TEAM` dengan Team ID kamu. Apple ID gratis juga bisa, cek di Xcode → Settings → Accounts.
+2. Set `DEVELOPMENT_TEAM` to your Team ID. A free Apple ID works; you'll find it in Xcode → Settings → Accounts.
 
-`Config/Local.xcconfig` di-ignore Git, jadi Team ID kamu nggak bakal ke-commit.
+`Config/Local.xcconfig` is gitignored, so your Team ID never gets committed.
 
-## Struktur proyek
+## Project layout
 
 ```
-Hapus/                  App SwiftUI: tampilan, state, dan teks bahasa Indonesia
-Packages/HapusCore/     Logika inti: scan, aturan pembersihan, PathGuard, penghapusan (+ test)
+Hapus/                  SwiftUI app: views, state and the Indonesian UI copy
+Packages/HapusCore/     Core logic: scanning, cleanup rules, PathGuard, removal (+ tests)
 Config/                 Build settings (xcconfig)
-docs/                   Riset stack, arsitektur, panduan maintainer
-scripts/                Bootstrap & build rilis
-.githooks/              Hook pre-commit
-.github/                CI, rilis, template issue & PR
+docs/                   Stack decision, architecture, maintainer guide
+scripts/                Bootstrap and release build
+.githooks/              Pre-commit hook
+.github/                CI, release, issue and PR templates
 ```
 
-Penjelasan lengkapnya ada di [docs/arsitektur.md](docs/arsitektur.md).
+See [docs/architecture.md](docs/architecture.md) for details.
 
-## Aturan emas: jaga data user
+## Golden rules: protect user data
 
-1. **Semua penghapusan wajib lewat `FileRemover`**, yang selalu ngecek `PathGuard` dulu. Jangan pernah manggil `FileManager.removeItem` atau `trashItem` langsung.
-2. **Default ke Tong Sampah.** Hapus permanen cuma buat isi Tong Sampah.
-3. **Nggak ada jaringan & telemetri.** PR yang nambah koneksi jaringan, analytics, atau SDK pihak ketiga bakal ditolak, kecuali udah didiskusiin dulu di issue.
-4. **Nol dependency.** Mau nambah package? Buka issue dulu, karena tiap dependency nambah risiko supply chain.
+1. **Every removal goes through `FileRemover`**, which always checks `PathGuard` first. Never call `FileManager.removeItem` or `trashItem` directly.
+2. **Trash by default.** Permanent deletion is only for the contents of the Trash.
+3. **No network, no telemetry.** PRs that add network access, analytics or third-party SDKs will be declined unless discussed in an issue first.
+4. **Zero dependencies.** Want to add a package? Open an issue first: every dependency adds supply-chain risk.
 
-### Nambah aturan pembersihan baru
+### Adding a cleanup rule
 
-Aturan ada di [`JunkRule+Catalog.swift`](Packages/HapusCore/Sources/HapusCore/Junk/JunkRule+Catalog.swift). Checklist-nya:
+Rules live in [`JunkRule+Catalog.swift`](Packages/HapusCore/Sources/HapusCore/Junk/JunkRule+Catalog.swift). Checklist:
 
-- [ ] Datanya **bisa dibikin ulang** sama app/tool pemiliknya (cache, log, hasil build). Bukan dokumen, database, atau setelan user.
-- [ ] Sertakan **sumber/bukti** di deskripsi PR, misalnya dokumentasi resmi atau perintah resmi seperti `brew cleanup` dan `go clean -cache`.
-- [ ] Pilih `safety`: `.safe` kalau beneran aman dihapus kapan aja, `.review` kalau user perlu ngecek dulu.
-- [ ] Tambah judul dan penjelasan di [`JunkRule+Copy.swift`](Hapus/Features/Junk/JunkRule+Copy.swift). Compiler bakal ngingetin kalau lupa.
-- [ ] Jalanin `make test`. Test `catalogIsCompleteAndConservative` ngecek aturan tetap di dalam folder home dan nggak pernah hapus permanen.
+- [ ] The data is **regenerable** by the app or tool that owns it (caches, logs, build products). Never documents, databases or user settings.
+- [ ] The PR description includes **evidence**, such as official docs or an official command like `brew cleanup` or `go clean -cache`.
+- [ ] Pick a `safety`: `.safe` if it can be deleted at any time, `.review` if the user should look first.
+- [ ] Add the UI title and description in [`JunkRule+Copy.swift`](Hapus/Features/Junk/JunkRule+Copy.swift). The compiler reminds you if you forget.
+- [ ] Run `make test`. `catalogIsCompleteAndConservative` checks that rules stay inside the home folder and never delete permanently.
 
-## Gaya kode
+## Code style
 
-- Nama variabel, fungsi, dan komentar di kode pakai **bahasa Inggris**. Teks UI pakai **bahasa Indonesia**.
-- Rapiin pakai `swift-format` bawaan Xcode: `make format` sebelum commit, `make lint` buat ngecek.
-- Swift 6 strict concurrency: UI dan model pakai `@MainActor`, kerja berat (scan disk) jalan di background task.
-- Logika baru masuk `HapusCore` lengkap dengan test. Test pakai folder home sementara, jangan pernah nyentuh folder home asli.
+- Identifiers, code comments, commit messages and docs are in **English**. Only the app's UI text is in **Indonesian**.
+- Format with the `swift-format` that ships with Xcode: `make format` before committing, `make lint` to check.
+- Swift 6 strict concurrency: UI and models are `@MainActor`; heavy work (disk scans) runs in background tasks.
+- New logic goes into `HapusCore`, with tests. Tests use a temporary home folder and never touch the real one.
 
-## Gaya bahasa UI
+## UI copy (Indonesian)
 
-- Pakai sapaan **"kamu"**, bukan "Anda".
-- Santai tapi jelas. "nggak", "udah", "lagi", "biar" boleh; hindari singkatan alay dan slang berlebihan.
-- Tombol pakai kata kerja: *Pindai*, *Bersihin*, *Pindahin ke Tong Sampah*, *Batal*.
-- Dialog yang menghapus permanen: **jangan bercanda**, jelasin risikonya apa adanya.
+The app speaks casual, friendly Indonesian. Keep it consistent:
 
-## Commit & Pull Request
+- Address the user as **"kamu"**, never "Anda".
+- Casual but clear: "nggak", "udah", "lagi" and "biar" are fine; avoid heavy slang and abbreviations.
+- Buttons are verbs: *Pindai*, *Bersihin*, *Pindahin ke Tong Sampah*, *Batal*.
+- Dialogs that delete permanently are **never** playful: state the risk plainly.
+- Write UI strings as Indonesian literals in SwiftUI; Xcode adds them to `Localizable.xcstrings`.
 
-- Satu PR untuk satu perubahan yang fokus.
-- Pesan commit singkat dan jelas, boleh bahasa Indonesia atau Inggris. Disarankan pakai [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, ...).
-- Pastikan `make test` lolos dan app ke-build. CI bakal ngecek ulang.
-- Isi template PR, termasuk checklist keamanannya.
+Not fluent in Indonesian? Put the English text in your PR description and a maintainer will help with the copy. Use this glossary to stay consistent:
 
-## Jangan commit data sensitif
+| English | UI term |
+|---|---|
+| Scan | Pindai |
+| Clean | Bersihin |
+| Trash | Tong Sampah |
+| Move to Trash | Pindahin ke Tong Sampah |
+| Empty Trash | Kosongin Tong Sampah |
+| Cancel | Batal |
+| Open Settings | Buka Pengaturan |
+| Full Disk Access | Akses Disk Penuh |
+| Leftover files | File sisa |
+| In use | Lagi dipakai |
+| Review first | Cek dulu |
+| Permanent | Permanen |
 
-Hook `pre-commit` (aktif setelah `make setup`) nolak sertifikat (`.p12`, `.cer`), private key (`.p8`, `.pem`, `.key`), provisioning profile, `.env`, dan `Config/Local.xcconfig`, plus scan secret pakai gitleaks. CI juga scan ulang seluruh riwayat Git.
+## Commits and pull requests
 
-Kalau nggak sengaja nge-push secret, **anggap secret itu udah bocor**: cabut atau rotate dulu, baru bersihin riwayatnya.
+- One focused change per PR.
+- Commit messages in English, using [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `chore:`, ...).
+- `main` is protected: changes land through pull requests, CI (`Scan secret` and `Build & test`) must pass, and PRs are squash-merged.
+- Fill in the PR template, including the safety checklist.
 
-Hati-hati juga sama data pribadi di issue dan PR, misalnya screenshot atau log yang nampilin `/Users/nama-kamu` atau nama file pribadi.
+## Never commit sensitive data
 
-## Lisensi kontribusi
+The `pre-commit` hook (enabled by `make setup`) blocks certificates (`.p12`, `.cer`), private keys (`.p8`, `.pem`, `.key`), provisioning profiles, `.env` files and `Config/Local.xcconfig`, and scans staged changes with gitleaks. CI scans the full Git history again, and GitHub push protection is on.
 
-Dengan ngirim kontribusi, kamu setuju kontribusimu dirilis di bawah [lisensi MIT](LICENSE).
+If you accidentally push a secret, **treat it as leaked**: revoke or rotate it first, then clean up the history.
 
-**Jangan salin kode dari proyek lain** yang lisensinya nggak kompatibel. Contohnya proyek GPL (seperti Mole) atau lisensi "Commons Clause"/source-available (seperti Pearcleaner). Boleh terinspirasi, tapi tulis ulang sendiri.
+Also watch for personal data in issues and PRs, such as screenshots or logs that show `/Users/your-name` or private file names.
 
-## Kode etik
+## Licensing
 
-Proyek ini pakai [Kode Etik Contributor Covenant](CODE_OF_CONDUCT.md). Intinya: saling hormat, bahas idenya, bukan orangnya.
+By contributing, you agree that your contributions are released under the [MIT License](LICENSE).
+
+**Don't copy code from projects with incompatible licenses**, such as GPL projects (like Mole) or "Commons Clause"/source-available licenses (like Pearcleaner). Taking inspiration is fine; write your own implementation.
+
+## Code of conduct
+
+This project follows the [Contributor Covenant](CODE_OF_CONDUCT.md). In short: be respectful, and discuss ideas, not people.

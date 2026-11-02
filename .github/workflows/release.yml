@@ -24,7 +24,7 @@ jobs:
       - name: Build zip (universal, ad-hoc signed)
         run: ./scripts/build-release.sh "${GITHUB_REF_NAME#v}" "$GITHUB_RUN_NUMBER"
 
-      - name: Bikin draft release
+      - name: Create draft release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |

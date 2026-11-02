@@ -1,30 +1,30 @@
-# Kebijakan Keamanan
+# Security Policy
 
-Hapus adalah app yang menghapus file, jadi bug keamanan di sini bisa berarti **data user hilang**. Laporan kamu sangat berarti.
+Hapus deletes files, so a security bug here can mean **lost user data**. Your report matters.
 
-## Versi yang didukung
+## Supported versions
 
-Selama masih pra-1.0, cuma rilis terbaru yang dapat perbaikan keamanan.
+Until 1.0, only the latest release receives security fixes.
 
-## Cara melapor
+## Reporting a vulnerability
 
-**Jangan laporin celah keamanan lewat issue publik.**
+**Please don't report security issues in public issues.**
 
-1. Utamakan **GitHub Private Vulnerability Reporting**: buka tab *Security*, lalu *Report a vulnerability*.
-2. Atau kirim email ke **debi@elysiumx.org** dengan subjek `[SECURITY] Hapus`.
+1. Preferred: **GitHub Private Vulnerability Reporting**. Open the *Security* tab and choose *Report a vulnerability*.
+2. Or email **debi@elysiumx.org** with the subject `[SECURITY] Hapus`.
 
-Sertakan versi Hapus dan macOS, langkah buat ngulangin, dan dampaknya. Jangan sertakan data pribadi yang nggak perlu.
+Include the Hapus and macOS versions, steps to reproduce, and the impact. Please leave out personal data that isn't needed.
 
-Kami usahain bales dalam 7 hari, kasih kabar progresnya, dan rilis perbaikan secepatnya sesuai tingkat keparahan. Kalau kamu mau, nama kamu bakal dicantumin di catatan rilis.
+We aim to reply within 7 days, keep you posted on progress, and ship a fix as fast as the severity requires. If you'd like, we'll credit you in the release notes.
 
-## Yang termasuk lingkup
+## In scope
 
-- Hapus menghapus atau mindahin file di luar lokasi yang seharusnya (path traversal, symlink, race condition).
-- Aturan pembersihan yang ternyata menghapus data user yang nggak bisa dibikin ulang.
-- Cara pihak lain bisa memicu Hapus menghapus file.
-- Secret atau kredensial yang nggak sengaja ke-commit ke repo ini.
+- Hapus deleting or moving files outside the locations it should touch (path traversal, symlinks, race conditions).
+- A cleanup rule that deletes user data that can't be regenerated.
+- Ways for a third party to make Hapus delete files.
+- Secrets or credentials accidentally committed to this repository.
 
-## Di luar lingkup
+## Out of scope
 
-- Peringatan Gatekeeper karena rilis belum di-notarize (keterbatasan yang udah diketahui).
-- Bug di macOS itu sendiri.
+- Gatekeeper warnings because releases aren't notarized yet (a known limitation).
+- Bugs in macOS itself.

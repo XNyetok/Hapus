@@ -1,69 +1,69 @@
-name: Laporan bug
-description: Ada yang nggak beres? Laporin di sini.
+name: Bug report
+description: Something not working right? Let us know.
 labels: [bug]
 body:
   - type: markdown
     attributes:
       value: |
-        Makasih udah mau lapor! 🙏
-        **Celah keamanan jangan dilaporin di sini**, ikutin [SECURITY.md](../blob/main/SECURITY.md) ya.
-        Sebelum kirim, sensor dulu data pribadi: nama user di path (`/Users/...`), nama file pribadi, dan sejenisnya.
+        Thanks for reporting! English is preferred, but Bahasa Indonesia is welcome too.
+        **Please don't report security vulnerabilities here**; follow [SECURITY.md](../blob/main/SECURITY.md) instead.
+        Before submitting, redact personal data such as your username in paths (`/Users/...`) and private file names.
   - type: textarea
     id: what-happened
     attributes:
-      label: Apa yang terjadi?
-      description: Ceritain singkat masalahnya. Screenshot boleh banget.
+      label: What happened?
+      description: Describe the problem briefly. Screenshots are welcome.
     validations:
       required: true
   - type: textarea
     id: steps
     attributes:
-      label: Langkah buat ngulangin
+      label: Steps to reproduce
       placeholder: |
-        1. Buka Sampah Sistem
-        2. Klik Pindai Sekarang
+        1. Open "Sampah Sistem"
+        2. Click "Pindai Sekarang"
         3. ...
     validations:
       required: true
   - type: textarea
     id: expected
     attributes:
-      label: Harusnya gimana?
+      label: Expected behavior
   - type: input
     id: version
     attributes:
-      label: Versi Hapus
+      label: Hapus version
       placeholder: "0.1.0"
     validations:
       required: true
   - type: input
     id: macos
     attributes:
-      label: Versi macOS
+      label: macOS version
       placeholder: "macOS 15.4"
     validations:
       required: true
   - type: dropdown
     id: chip
     attributes:
-      label: Jenis Mac
+      label: Mac type
       options:
-        - Apple Silicon
+        - Apple silicon
         - Intel
     validations:
       required: true
   - type: dropdown
     id: full-disk-access
     attributes:
-      label: Akses Disk Penuh aktif?
+      label: Is Full Disk Access enabled for Hapus?
       options:
-        - "Ya"
-        - "Nggak"
-        - "Nggak tahu"
+        - "Yes"
+        - "No"
+        - "Not sure"
   - type: checkboxes
     id: privacy
     attributes:
-      label: Privasi
+      label: Privacy
       options:
-        - label: Aku udah ngecek laporan ini nggak berisi data pribadi atau secret.
+        - label: I checked that this report contains no personal data or secrets.
           required: true

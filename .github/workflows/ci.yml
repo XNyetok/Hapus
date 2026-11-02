@@ -19,13 +19,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout (seluruh riwayat)
+      - name: Checkout (full history)
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Pasang gitleaks (checksum diverifikasi)
+      - name: Install gitleaks (verified checksum)
         env:
           GITLEAKS_VERSION: 8.30.1
           GITLEAKS_SHA256: 551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb
@@ -36,7 +36,7 @@ jobs:
           echo "${GITLEAKS_SHA256}  gitleaks.tar.gz" | sha256sum --check --strict
           tar -xzf gitleaks.tar.gz gitleaks
 
-      - name: Scan seluruh riwayat Git
+      - name: Scan the full Git history
         run: |
           "$RUNNER_TEMP/gitleaks" git --redact --no-banner --verbose .
 
@@ -49,7 +49,7 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Versi toolchain
+      - name: Toolchain versions
         run: |
           xcodebuild -version
           swift --version
@@ -57,7 +57,7 @@ jobs:
       - name: Test HapusCore
         run: swift test --package-path Packages/HapusCore
 
-      - name: Build app (tanpa signing)
+      - name: Build app (unsigned)
         run: |
           xcodebuild build \
             -project Hapus.xcodeproj \
@@ -67,6 +67,6 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             -quiet
 
-      - name: Cek format (informasi, nggak bikin gagal)
+      - name: Check formatting (informational)
         continue-on-error: true
         run: xcrun swift-format lint --recursive Hapus Packages/HapusCore/Sources Packages/HapusCore/Tests

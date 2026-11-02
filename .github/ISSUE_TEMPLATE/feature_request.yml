@@ -1,20 +1,23 @@
-name: Ide fitur
-description: Punya ide biar Hapus makin berguna?
+name: Feature request
+description: Have an idea to make Hapus more useful?
 labels: [enhancement]
 body:
+  - type: markdown
+    attributes:
+      value: English is preferred, but Bahasa Indonesia is welcome too.
   - type: textarea
     id: problem
     attributes:
-      label: Masalah apa yang mau diselesaiin?
-      description: Ceritain situasinya dulu, solusinya belakangan.
+      label: What problem does this solve?
+      description: Describe the situation first, then the solution.
     validations:
       required: true
   - type: textarea
     id: solution
     attributes:
-      label: Solusi yang kamu bayangin
+      label: Proposed solution
   - type: textarea
     id: safety
     attributes:
-      label: Kalau fiturnya menghapus file, kenapa aman?
-      description: "Contoh: datanya cache yang bakal dibikin ulang otomatis oleh app-nya. Sertakan sumber kalau ada."
+      label: If it deletes files, why is that safe?
+      description: "For example: the data is a cache that the owning app regenerates automatically. Include sources if you have them."
