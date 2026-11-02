@@ -106,9 +106,7 @@ final class UninstallerModel {
         let finder = self.finder
         let otherApps = Set(apps.map(\.bundleIdentifier)).subtracting([app.bundleIdentifier])
         leftoverTask = Task {
-            let found = await Task.detached(priority: .userInitiated) {
-                finder.leftovers(for: app, otherBundleIdentifiers: otherApps)
-            }.value
+            let found = await Background.run { finder.leftovers(for: app, otherBundleIdentifiers: otherApps) }
             guard !Task.isCancelled, selectedAppID == app.id else { return }
             leftovers = found
             // Name-based matches need a human look, so they start unselected.
