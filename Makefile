@@ -5,10 +5,10 @@ SCHEME     := Havus
 DERIVED    := build/DerivedData
 APP        := $(DERIVED)/Build/Products/Debug/Havus.app
 CORE       := Packages/HavusCore
-SWIFT_SRC  := Havus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift
+SWIFT_SRC  := Havus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift scripts/render-icon.swift
 
 .DEFAULT_GOAL := help
-.PHONY: help setup open build run test lint format scan release clean
+.PHONY: help setup open build run test lint format scan icon release clean
 
 help: ## List available commands
 	@grep -E '^[a-z]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  make %-8s %s\n", $$1, $$2}'
@@ -38,6 +38,9 @@ format: ## Format the code
 scan: ## Scan Git history and the working tree for secrets (needs gitleaks)
 	gitleaks git --redact --no-banner .
 	gitleaks dir --redact --no-banner .
+
+icon: ## Render the app icon PNGs from design/AppIcon.svg
+	swift scripts/render-icon.swift
 
 release: ## Build a local release zip: make release VERSION=0.1.0
 	@test -n "$(VERSION)" || (echo "Usage: make release VERSION=0.1.0" && exit 1)

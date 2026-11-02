@@ -1,3 +1,5 @@
+<img src="design/AppIcon.svg" width="128" alt="Havus app icon">
+
 # Havus
 
 **A lightweight, open-source Mac cleaner that minds its own business.**
@@ -69,7 +71,7 @@ macOS protects some locations (the Trash, Mail attachments, other apps' data). F
 - [ ] Browser privacy cleanup
 - [ ] Exclusion list (folders Havus must never touch)
 - [ ] English UI localization
-- [ ] App icon
+- [x] App icon
 - [ ] Notarization and Homebrew Cask
 
 ## Contributing

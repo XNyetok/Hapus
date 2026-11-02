@@ -33,8 +33,9 @@ macOS ties the **Full Disk Access** permission to the app's signature. Ad-hoc bu
 Havus/                  SwiftUI app: views, state and the Indonesian UI copy
 Packages/HavusCore/     Core logic: scanning, cleanup rules, PathGuard, removal (+ tests)
 Config/                 Build settings (xcconfig)
+design/                 App icon source (SVG), rendered to PNGs by make icon
 docs/                   Stack decision, architecture, maintainer guide
-scripts/                Bootstrap and release build
+scripts/                Bootstrap, release build and icon rendering
 .githooks/              Pre-commit hook
 .github/                CI, release, issue and PR templates
 ```
