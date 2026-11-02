@@ -147,6 +147,8 @@ final class UninstallerModel {
     // MARK: - Removing
 
     func removeSelection() {
+        // The app may have been opened since it was selected.
+        refreshRunningState()
         guard canRemove, let app = selectedApp else { return }
         let appTargets = includesApp ? [app.url] : []
         let leftoverTargets = selectedLeftovers
