@@ -20,7 +20,16 @@ struct UninstallerView: View {
             }
         }
         .searchable(text: $model.searchText, placement: .toolbar, prompt: "Cari aplikasi")
-        .task { model.loadAppsIfNeeded() }
+        .task {
+            model.loadAppsIfNeeded()
+            model.refreshRunningState()
+        }
+        // Keep the running-app warning accurate while this page is open.
+        .onReceive(
+            NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didLaunchApplicationNotification)
+        ) {
+            _ in model.refreshRunningState()
+        }
         .onReceive(
             NSWorkspace.shared.notificationCenter.publisher(for: NSWorkspace.didTerminateApplicationNotification)
         ) {
