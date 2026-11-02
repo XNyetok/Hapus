@@ -1,11 +1,11 @@
-# Hapus: shortcuts for everyday tasks. Run `make` to list them.
+# Havus: shortcuts for everyday tasks. Run `make` to list them.
 
-PROJECT    := Hapus.xcodeproj
-SCHEME     := Hapus
+PROJECT    := Havus.xcodeproj
+SCHEME     := Havus
 DERIVED    := build/DerivedData
-APP        := $(DERIVED)/Build/Products/Debug/Hapus.app
-CORE       := Packages/HapusCore
-SWIFT_SRC  := Hapus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift
+APP        := $(DERIVED)/Build/Products/Debug/Havus.app
+CORE       := Packages/HavusCore
+SWIFT_SRC  := Havus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift
 
 .DEFAULT_GOAL := help
 .PHONY: help setup open build run test lint format scan release clean
@@ -26,7 +26,7 @@ build: ## Build the app (Debug) into ./build
 run: build ## Build and launch the app
 	open $(APP)
 
-test: ## Run the HapusCore unit tests
+test: ## Run the HavusCore unit tests
 	swift test --package-path $(CORE)
 
 lint: ## Check code formatting

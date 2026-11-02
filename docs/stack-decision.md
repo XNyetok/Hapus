@@ -1,6 +1,6 @@
 # Stack Decision
 
-> Technical decision record for Hapus, written on 2 November 2026 when the project started.
+> Technical decision record for Havus, written on 2 November 2026 when the project started.
 > If a decision changes, update this document together with the reasoning.
 
 ## Requirements
@@ -14,14 +14,14 @@
 
 | | Swift + SwiftUI | Tauri 2 | Electron | Flutter |
 |---|---|---|---|---|
-| App size | **1.4 MB** (Hapus 0.1.0, universal) | ~5–15 MB | ~150–250 MB | ~30–50 MB |
-| Idle memory | **~33 MB** (Hapus 0.1.0, measured) | ~50–150 MB (app + WebKit processes) | ~150–400 MB | ~60–120 MB |
+| App size | **1.4 MB** (Havus 0.1.0, universal) | ~5–15 MB | ~150–250 MB | ~30–50 MB |
+| Idle memory | **~33 MB** (Havus 0.1.0, measured) | ~50–150 MB (app + WebKit processes) | ~150–400 MB | ~60–120 MB |
 | macOS API access | Direct | Through plugins or bridging | Through native addons | Through platform channels |
 | Contributor toolchain | Xcode | Rust + Node + Xcode | Node + Xcode | Flutter + Xcode |
 | Dependencies | 0 | crates + npm | npm (many) | pub + plugins |
 | Look and feel | Native, follows the latest macOS design | Web | Web | Custom |
 
-The Swift numbers were measured on the Hapus 0.1.0 release build: `du -sh` for the app size and `footprint` for idle memory after 5 seconds. The other columns are rough estimates from public benchmarks. For example, Hopp's benchmark measured an 8.6 MB Tauri demo app against 244 MB for Electron, and about 172 MB against 409 MB of memory with six windows open. Those numbers were not measured in this project.
+The Swift numbers were measured on the Havus 0.1.0 release build: `du -sh` for the app size and `footprint` for idle memory after 5 seconds. The other columns are rough estimates from public benchmarks. For example, Hopp's benchmark measured an 8.6 MB Tauri demo app against 244 MB for Electron, and about 172 MB against 409 MB of memory with six windows open. Those numbers were not measured in this project.
 
 ## Decision: Swift 6 + SwiftUI, zero third-party dependencies
 
@@ -33,7 +33,7 @@ Why:
 - **Contributors only need Xcode.** The core tests run with `swift test`.
 - **A native look for free.** Standard SwiftUI controls follow the latest macOS design automatically, including Liquid Glass on macOS 26 and later.
 
-Trade-offs: Hapus runs only on macOS (which is the goal), and contributors need to know Swift.
+Trade-offs: Havus runs only on macOS (which is the goal), and contributors need to know Swift.
 
 ## Technical details
 
@@ -44,11 +44,11 @@ Trade-offs: Hapus runs only on macOS (which is the goal), and contributors need 
 | State | Observation (`@Observable`) | Requires macOS 14 |
 | Minimum OS | macOS 14 Sonoma | Older Intel Macs stuck on Sonoma are still supported |
 | CPU architecture | Universal (arm64 + x86_64) | Verified with `lipo -archs` |
-| Core module | Local Swift package `HapusCore` | Testable without the UI |
+| Core module | Local Swift package `HavusCore` | Testable without the UI |
 | Tests | Swift Testing | `swift test`, or ⌘U in Xcode |
 | Formatting | `swift-format` from the toolchain | Nothing extra to install |
 | Xcode project | Synchronized folders (Xcode 16+ format) | Adding files doesn't touch `project.pbxproj`, so fewer merge conflicts |
-| Sandbox | Off | A cleaner must read other apps' caches. As a result, Hapus can't ship on the Mac App Store |
+| Sandbox | Off | A cleaner must read other apps' caches. As a result, Havus can't ship on the Mac App Store |
 | Hardened Runtime | On | Required for notarization later |
 | UI language | Indonesian (String Catalog, source language `id`) | Ready for more localizations |
 
@@ -56,7 +56,7 @@ Trade-offs: Hapus runs only on macOS (which is the goal), and contributors need 
 
 - **System and developer junk:** a `FileManager` enumerator with `totalFileAllocatedSizeKey` (symlinks are never followed), then `FileManager.trashItem`.
 - **Uninstaller:** reads `Info.plist`, then looks for leftovers by bundle ID in `~/Library/...`. `NSRunningApplication` checks whether the app is running. System apps are recognized by their location in `/System`, a symlink into the system *cryptex* (for example Safari), or the SIP `restricted` flag.
-- **Large and old files:** Spotlight `MDQuery` (`kMDItemFSSize`, `kMDItemLastUsedDate`). If Spotlight returns nothing, Hapus scans the standard folders directly. Files inside *packages* (such as the Photos library) and in `~/Library` are always skipped.
+- **Large and old files:** Spotlight `MDQuery` (`kMDItemFSSize`, `kMDItemLastUsedDate`). If Spotlight returns nothing, Havus scans the standard folders directly. Files inside *packages* (such as the Photos library) and in `~/Library` are always skipped.
 - **Permissions:** Full Disk Access is detected by trying to open a TCC-protected file, which never triggers a prompt. An `x-apple.systempreferences:` deep link takes the user straight to the right settings page.
 - **Later (root access):** `SMAppService.daemon` + XPC, validating the caller's *code signing requirement* on the connection.
 

@@ -1,6 +1,6 @@
-# Contributing to Hapus
+# Contributing to Havus
 
-Thanks for helping out! This guide covers setup, ground rules and the checks that matter most, because Hapus is an app that **deletes files**.
+Thanks for helping out! This guide covers setup, ground rules and the checks that matter most, because Havus is an app that **deletes files**.
 
 Issues and pull requests in English are preferred. Bahasa Indonesia is welcome too.
 
@@ -9,11 +9,11 @@ Issues and pull requests in English are preferred. Bahasa Indonesia is welcome t
 Requirements: macOS 14+, Xcode 26+ (Swift 6.2+). Optional but recommended: `gitleaks` (`brew install gitleaks`).
 
 ```sh
-git clone https://github.com/XNyetok/Hapus.git
-cd Hapus
+git clone https://github.com/XNyetok/Havus.git
+cd Havus
 make setup   # installs git hooks: blocks sensitive files and scans for secrets before each commit
-make test    # runs the HapusCore unit tests
-make run     # builds and launches the app (or open Hapus.xcodeproj and press ⌘R)
+make test    # runs the HavusCore unit tests
+make run     # builds and launches the app (or open Havus.xcodeproj and press ⌘R)
 ```
 
 Run `make` to list all commands. You **don't need an Apple Developer account**: builds are ad-hoc signed ("Sign to Run Locally") by default.
@@ -30,8 +30,8 @@ macOS ties the **Full Disk Access** permission to the app's signature. Ad-hoc bu
 ## Project layout
 
 ```
-Hapus/                  SwiftUI app: views, state and the Indonesian UI copy
-Packages/HapusCore/     Core logic: scanning, cleanup rules, PathGuard, removal (+ tests)
+Havus/                  SwiftUI app: views, state and the Indonesian UI copy
+Packages/HavusCore/     Core logic: scanning, cleanup rules, PathGuard, removal (+ tests)
 Config/                 Build settings (xcconfig)
 docs/                   Stack decision, architecture, maintainer guide
 scripts/                Bootstrap and release build
@@ -50,12 +50,12 @@ See [docs/architecture.md](docs/architecture.md) for details.
 
 ### Adding a cleanup rule
 
-Rules live in [`JunkRule+Catalog.swift`](Packages/HapusCore/Sources/HapusCore/Junk/JunkRule+Catalog.swift). Checklist:
+Rules live in [`JunkRule+Catalog.swift`](Packages/HavusCore/Sources/HavusCore/Junk/JunkRule+Catalog.swift). Checklist:
 
 - [ ] The data is **regenerable** by the app or tool that owns it (caches, logs, build products). Never documents, databases or user settings.
 - [ ] The PR description includes **evidence**, such as official docs or an official command like `brew cleanup` or `go clean -cache`.
 - [ ] Pick a `safety`: `.safe` if it can be deleted at any time, `.review` if the user should look first.
-- [ ] Add the UI title and description in [`JunkRule+Copy.swift`](Hapus/Features/Junk/JunkRule+Copy.swift). The compiler reminds you if you forget.
+- [ ] Add the UI title and description in [`JunkRule+Copy.swift`](Havus/Features/Junk/JunkRule+Copy.swift). The compiler reminds you if you forget.
 - [ ] Run `make test`. `catalogIsCompleteAndConservative` checks that rules stay inside the home folder and never delete permanently.
 
 ## Code style
@@ -63,7 +63,7 @@ Rules live in [`JunkRule+Catalog.swift`](Packages/HapusCore/Sources/HapusCore/Ju
 - Identifiers, code comments, commit messages and docs are in **English**. Only the app's UI text is in **Indonesian**.
 - Format with the `swift-format` that ships with Xcode: `make format` before committing, `make lint` to check.
 - Swift 6 strict concurrency: UI and models are `@MainActor`; heavy work (disk scans) runs in background tasks.
-- New logic goes into `HapusCore`, with tests. Tests use a temporary home folder and never touch the real one.
+- New logic goes into `HavusCore`, with tests. Tests use a temporary home folder and never touch the real one.
 
 ## UI copy (Indonesian)
 

@@ -1,0 +1,239 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A5000000000000000000014 /* HavusCore in Frameworks */ = {isa = PBXBuildFile; productRef = 4A5000000000000000000013 /* HavusCore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		4A5000000000000000000015 /* HavusCore */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = HavusCore; path = Packages/HavusCore; sourceTree = "<group>"; };
+		4A5000000000000000000006 /* Havus.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Havus.xcconfig; sourceTree = "<group>"; };
+		4A5000000000000000000007 /* Havus.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Havus.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		4A5000000000000000000004 /* Havus */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Havus;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4A500000000000000000000A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A5000000000000000000014 /* HavusCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A5000000000000000000002 = {
+			isa = PBXGroup;
+			children = (
+				4A5000000000000000000004 /* Havus */,
+				4A5000000000000000000015 /* HavusCore */,
+				4A5000000000000000000005 /* Config */,
+				4A5000000000000000000003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4A5000000000000000000003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A5000000000000000000007 /* Havus.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4A5000000000000000000005 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				4A5000000000000000000006 /* Havus.xcconfig */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4A5000000000000000000008 /* Havus */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A500000000000000000000F /* Build configuration list for PBXNativeTarget "Havus" */;
+			buildPhases = (
+				4A5000000000000000000009 /* Sources */,
+				4A500000000000000000000A /* Frameworks */,
+				4A500000000000000000000B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				4A5000000000000000000004 /* Havus */,
+			);
+			name = Havus;
+			packageProductDependencies = (
+				4A5000000000000000000013 /* HavusCore */,
+			);
+			productName = Havus;
+			productReference = 4A5000000000000000000007 /* Havus.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4A5000000000000000000001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2700;
+				LastUpgradeCheck = 2700;
+				TargetAttributes = {
+					4A5000000000000000000008 = {
+						CreatedOnToolsVersion = 27.2;
+					};
+				};
+			};
+			buildConfigurationList = 4A500000000000000000000C /* Build configuration list for PBXProject "Havus" */;
+			developmentRegion = id;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				id,
+				Base,
+			);
+			mainGroup = 4A5000000000000000000002;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 4A5000000000000000000003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4A5000000000000000000008 /* Havus */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		4A500000000000000000000B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4A5000000000000000000009 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4A500000000000000000000D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		4A500000000000000000000E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		4A5000000000000000000010 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A5000000000000000000006 /* Havus.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		4A5000000000000000000011 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A5000000000000000000006 /* Havus.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A500000000000000000000C /* Build configuration list for PBXProject "Havus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A500000000000000000000D /* Debug */,
+				4A500000000000000000000E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A500000000000000000000F /* Build configuration list for PBXNativeTarget "Havus" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A5000000000000000000010 /* Debug */,
+				4A5000000000000000000011 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+
+/* Begin XCSwiftPackageProductDependency section */
+		4A5000000000000000000013 /* HavusCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HavusCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 4A5000000000000000000001 /* Project object */;
+}

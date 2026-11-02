@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Builds a universal (Apple silicon + Intel), ad-hoc signed Hapus.app and packs it
-# as build/release/Hapus-<version>.zip plus a SHA-256 checksum file.
+# Builds a universal (Apple silicon + Intel), ad-hoc signed Havus.app and packs it
+# as build/release/Havus-<version>.zip plus a SHA-256 checksum file.
 #
 # Usage: scripts/build-release.sh <version> [build-number]
 #
@@ -22,15 +22,15 @@ fi
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 OUT="$ROOT/build/release"
-ARCHIVE="$OUT/Hapus.xcarchive"
-ZIP="Hapus-$VERSION.zip"
+ARCHIVE="$OUT/Havus.xcarchive"
+ZIP="Havus-$VERSION.zip"
 
 rm -rf "$OUT"
 mkdir -p "$OUT"
 
 xcodebuild archive \
-  -project "$ROOT/Hapus.xcodeproj" \
-  -scheme Hapus \
+  -project "$ROOT/Havus.xcodeproj" \
+  -scheme Havus \
   -configuration Release \
   -destination 'generic/platform=macOS' \
   -archivePath "$ARCHIVE" \
@@ -41,9 +41,9 @@ xcodebuild archive \
   DEVELOPMENT_TEAM= \
   -quiet
 
-APP="$ARCHIVE/Products/Applications/Hapus.app"
+APP="$ARCHIVE/Products/Applications/Havus.app"
 codesign --verify --strict "$APP"
-echo "Architectures: $(lipo -archs "$APP/Contents/MacOS/Hapus")"
+echo "Architectures: $(lipo -archs "$APP/Contents/MacOS/Havus")"
 
 cd "$OUT"
 ditto -c -k --sequesterRsrc --keepParent "$APP" "$ZIP"
