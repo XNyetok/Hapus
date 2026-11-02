@@ -65,7 +65,9 @@ macOS protects some locations (the Trash, Mail attachments, other apps' data). F
 
 ## Roadmap
 
-- [ ] Disk usage visualization
+Everything Havus does today is free and will stay free. Items marked *(Pro candidate)* may become part of an optional paid tier later. Safety features, such as the exclusion list, will always be free.
+
+- [ ] Disk usage visualization *(Pro candidate)*
 - [ ] Login items and launch agents manager
 - [ ] Maintenance tasks that need root (`SMAppService` + XPC helper)
 - [ ] Browser privacy cleanup
@@ -86,7 +88,7 @@ Found a vulnerability? Please don't open a public issue. See [SECURITY.md](SECUR
 
 ## License
 
-[MIT](LICENSE) © 2026 Debi Kurnia
+The source code is released under the [MIT License](LICENSE) © 2026 Debi Kurnia. The Havus name and app icon aren't covered by that license; see [TRADEMARKS.md](TRADEMARKS.md).
 
 ---
 
@@ -95,5 +97,7 @@ Found a vulnerability? Please don't open a public issue. See [SECURITY.md](SECUR
 **Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, sampai nemuin file gede yang jarang dibuka. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin.
 
 **Cara install:** unduh `Havus-x.y.z.zip` dari halaman [Releases](../../releases), ekstrak, lalu pindahin `Havus.app` ke folder **Applications**. Karena belum di-notarize Apple, waktu pertama kali dibuka kamu perlu ke **System Settings → Privacy & Security**, lalu klik **Open Anyway**. Biar hasil scan lengkap, nyalain Havus di **Privacy & Security → Full Disk Access**.
+
+Semua fitur yang ada sekarang gratis dan bakal tetap gratis. Nanti mungkin ada fitur tambahan berbayar, tapi fitur keamanan selalu gratis.
 
 Mau lapor bug atau kasih ide? Boleh pakai Bahasa Indonesia di [Issues](../../issues).
