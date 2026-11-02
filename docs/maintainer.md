@@ -2,7 +2,7 @@
 
 ## Repository settings
 
-These are enabled on [XNyetok/Hapus](https://github.com/XNyetok/Hapus). Keep them on, and use this list to recreate them if needed:
+These are enabled on [XNyetok/Havus](https://github.com/XNyetok/Havus). Keep them on, and use this list to recreate them if needed:
 
 - **Secret scanning** with **push protection**
 - **Private vulnerability reporting** (used by [SECURITY.md](../SECURITY.md))
@@ -50,11 +50,11 @@ GitHub deletes the remote branch automatically, and with `fetch.prune` enabled, 
 2. Create and push a version tag:
 
    ```sh
-   git tag -a v0.1.0 -m "Hapus 0.1.0"
+   git tag -a v0.1.0 -m "Havus 0.1.0"
    git push origin v0.1.0
    ```
 
-3. The **Release** workflow builds a universal, ad-hoc signed app and creates a **draft release** with `Hapus-0.1.0.zip` and `Hapus-0.1.0.zip.sha256`.
+3. The **Release** workflow builds a universal, ad-hoc signed app and creates a **draft release** with `Havus-0.1.0.zip` and `Havus-0.1.0.zip.sha256`.
 4. Review the draft, edit the release notes, and publish.
 
 The app version comes from the tag name, so there's no need to edit `MARKETING_VERSION` by hand. To try it locally first, run `make release VERSION=0.1.0`; the output lands in `build/release/`.

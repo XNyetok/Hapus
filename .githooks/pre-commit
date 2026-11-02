@@ -1,5 +1,5 @@
 #!/bin/sh
-# Hapus pre-commit hook: blocks sensitive files and scans staged changes for secrets.
+# Havus pre-commit hook: blocks sensitive files and scans staged changes for secrets.
 # Enabled by `make setup` (git config core.hooksPath .githooks).
 
 status=0

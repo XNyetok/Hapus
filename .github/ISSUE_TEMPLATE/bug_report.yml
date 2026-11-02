@@ -32,7 +32,7 @@ body:
   - type: input
     id: version
     attributes:
-      label: Hapus version
+      label: Havus version
       placeholder: "0.1.0"
     validations:
       required: true
@@ -55,7 +55,7 @@ body:
   - type: dropdown
     id: full-disk-access
     attributes:
-      label: Is Full Disk Access enabled for Hapus?
+      label: Is Full Disk Access enabled for Havus?
       options:
         - "Yes"
         - "No"

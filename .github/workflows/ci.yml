@@ -54,14 +54,14 @@ jobs:
           xcodebuild -version
           swift --version
 
-      - name: Test HapusCore
-        run: swift test --package-path Packages/HapusCore
+      - name: Test HavusCore
+        run: swift test --package-path Packages/HavusCore
 
       - name: Build app (unsigned)
         run: |
           xcodebuild build \
-            -project Hapus.xcodeproj \
-            -scheme Hapus \
+            -project Havus.xcodeproj \
+            -scheme Havus \
             -configuration Debug \
             -destination 'platform=macOS' \
             CODE_SIGNING_ALLOWED=NO \
@@ -69,4 +69,4 @@ jobs:
 
       - name: Check formatting (informational)
         continue-on-error: true
-        run: xcrun swift-format lint --recursive Hapus Packages/HapusCore/Sources Packages/HapusCore/Tests
+        run: xcrun swift-format lint --recursive Havus Packages/HavusCore/Sources Packages/HavusCore/Tests

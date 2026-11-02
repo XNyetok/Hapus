@@ -29,8 +29,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           gh release create "$GITHUB_REF_NAME" \
-            build/release/Hapus-*.zip \
-            build/release/Hapus-*.zip.sha256 \
+            build/release/Havus-*.zip \
+            build/release/Havus-*.zip.sha256 \
             --repo "$GITHUB_REPOSITORY" \
             --draft --verify-tag --generate-notes \
-            --title "Hapus ${GITHUB_REF_NAME#v}"
+            --title "Havus ${GITHUB_REF_NAME#v}"

@@ -3,7 +3,7 @@
 ## Overview
 
 ```
-┌─────────────── Hapus.app (SwiftUI, @MainActor) ───────────────┐
+┌─────────────── Havus.app (SwiftUI, @MainActor) ───────────────┐
 │  RootView (NavigationSplitView)                               │
 │   ├─ Ringkasan          DiskSpace, FullDiskAccess             │
 │   ├─ Sampah Sistem      JunkCleanerModel(group: .system)      │
@@ -12,7 +12,7 @@
 │   └─ File Gede & Lama   LargeFilesModel                       │
 └───────────────┬───────────────────────────────────────────────┘
                 │ runs in the background (TaskGroup / Task.detached)
-┌───────────────▼──────── HapusCore (Swift package, no UI) ─────┐
+┌───────────────▼──────── HavusCore (Swift package, no UI) ─────┐
 │  JunkScanner + JunkRule.catalog                               │
 │  AppCatalog + LeftoverFinder                                  │
 │  LargeFileFinder (Spotlight, folder scan fallback)            │
@@ -22,7 +22,7 @@
 └───────────────────────────────────────────────────────────────┘
 ```
 
-**The app** (`Hapus/`) contains only views, state and the Indonesian UI copy (the page names above are what users see). **HapusCore** (`Packages/HapusCore/`) contains all logic that touches the disk, and all of it is testable without the UI.
+**The app** (`Havus/`) contains only views, state and the Indonesian UI copy (the page names above are what users see). **HavusCore** (`Packages/HavusCore/`) contains all logic that touches the disk, and all of it is testable without the UI.
 
 ## Removal flow
 
@@ -59,12 +59,12 @@ When a more specific rule lives inside another rule's folder (for example `Libra
 ## macOS permissions
 
 - **Full Disk Access:** checked without a prompt by trying to open a TCC-protected file. Checked again whenever the app becomes active, for example after the user comes back from System Settings.
-- **App Management:** macOS sometimes requires it to move other apps to the Trash. If it's denied, Hapus shows a button that opens the right settings page.
+- **App Management:** macOS sometimes requires it to move other apps to the Trash. If it's denied, Havus shows a button that opens the right settings page.
 
 ## Adding a feature
 
-1. Logic → `Packages/HapusCore/Sources/HapusCore/<Feature>/`, with tests in `Tests/HapusCoreTests/`.
-2. UI → `Hapus/Features/<Feature>/` (model + view). Use the components in `Hapus/Shared/Components.swift` and the tokens in `Design.swift`.
+1. Logic → `Packages/HavusCore/Sources/HavusCore/<Feature>/`, with tests in `Tests/HavusCoreTests/`.
+2. UI → `Havus/Features/<Feature>/` (model + view). Use the components in `Havus/Shared/Components.swift` and the tokens in `Design.swift`.
 3. Need a new page? Add a case to `SidebarItem`.
 4. Write UI text as Indonesian literals in SwiftUI; Xcode adds them to `Localizable.xcstrings`. See the glossary in [CONTRIBUTING.md](../CONTRIBUTING.md).
 
@@ -73,6 +73,6 @@ When a more specific rule lives inside another rule's folder (for example `Libra
 Some features, such as system maintenance and caches in `/Library`, need root. The plan:
 
 - A separate helper daemon registered with `SMAppService.daemon(plistName:)`. The user approves it in System Settings → Login Items.
-- App ↔ helper communication over XPC. The helper validates the caller's *code signing requirement* (`NSXPCConnection.setCodeSigningRequirement`), so only Hapus can command it.
+- App ↔ helper communication over XPC. The helper validates the caller's *code signing requirement* (`NSXPCConnection.setCodeSigningRequirement`), so only Havus can command it.
 - The helper accepts only commands from a fixed allowlist, never arbitrary paths, and runs its own root-side `PathGuard`.
 - Prerequisite: a Developer ID, since an ad-hoc signed helper isn't suitable for production.

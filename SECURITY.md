@@ -1,6 +1,6 @@
 # Security Policy
 
-Hapus deletes files, so a security bug here can mean **lost user data**. Your report matters.
+Havus deletes files, so a security bug here can mean **lost user data**. Your report matters.
 
 ## Supported versions
 
@@ -11,17 +11,17 @@ Until 1.0, only the latest release receives security fixes.
 **Please don't report security issues in public issues.**
 
 1. Preferred: **GitHub Private Vulnerability Reporting**. Open the *Security* tab and choose *Report a vulnerability*.
-2. Or email **debi@elysiumx.org** with the subject `[SECURITY] Hapus`.
+2. Or email **debi@elysiumx.org** with the subject `[SECURITY] Havus`.
 
-Include the Hapus and macOS versions, steps to reproduce, and the impact. Please leave out personal data that isn't needed.
+Include the Havus and macOS versions, steps to reproduce, and the impact. Please leave out personal data that isn't needed.
 
 We aim to reply within 7 days, keep you posted on progress, and ship a fix as fast as the severity requires. If you'd like, we'll credit you in the release notes.
 
 ## In scope
 
-- Hapus deleting or moving files outside the locations it should touch (path traversal, symlinks, race conditions).
+- Havus deleting or moving files outside the locations it should touch (path traversal, symlinks, race conditions).
 - A cleanup rule that deletes user data that can't be regenerated.
-- Ways for a third party to make Hapus delete files.
+- Ways for a third party to make Havus delete files.
 - Secrets or credentials accidentally committed to this repository.
 
 ## Out of scope
