@@ -77,3 +77,4 @@ After this, users' Full Disk Access permission no longer resets on every update,
 - Review Dependabot PRs (GitHub Actions versions).
 - Run `make scan` before every release.
 - Update the minimum Xcode and macOS versions in README and CONTRIBUTING when the CI runners change.
+- Run `scripts/download-stats.sh` once a week. It appends each asset's download count to `../Havus-stats/download-stats.csv`, outside the repo. GitHub keeps only the running total, so the history exists only if it's recorded.
