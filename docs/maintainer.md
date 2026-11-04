@@ -57,6 +57,8 @@ GitHub deletes the remote branch automatically, and with `fetch.prune` enabled, 
 3. The **Release** workflow builds a universal, ad-hoc signed app and creates a **draft release** with `Havus-0.1.0.zip` and `Havus-0.1.0.zip.sha256`.
 4. Review the draft, edit the release notes, and publish.
 
+Publishing is what reaches users: Havus's update check reads GitHub's *latest* release, so users who turned the check on hear about it within a day. Drafts and prereleases never show up. Keep tags in the `vX.Y.Z` form, because the app ignores any other tag and links to the release by it (`havus.web.id/changelog/#vX.Y.Z`).
+
 The app version comes from the tag name, so there's no need to edit `MARKETING_VERSION` by hand. To try it locally first, run `make release VERSION=0.1.0`; the output lands in `build/release/`.
 
 ## Upgrading to notarization

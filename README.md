@@ -24,7 +24,7 @@ The app's interface is in casual Indonesian. [Ringkasan dalam Bahasa Indonesia a
 
 - **Safety first.** Every item is previewed and selectable. Everything goes to the Trash, except when you explicitly empty the Trash.
 - **Only touches what it knows.** Cleanup locations come from an auditable rule list ([`JunkRule+Catalog.swift`](Packages/HavusCore/Sources/HavusCore/Junk/JunkRule+Catalog.swift)), and every deletion is checked again by `PathGuard`.
-- **Private.** No telemetry, no analytics, no network access at all.
+- **Private.** No telemetry, no analytics. Havus goes online for one thing only, and only if you turn it on: once a day it asks GitHub for the latest version number. Nothing about you or your Mac is sent.
 - **Lightweight.** Native Swift + SwiftUI with zero third-party dependencies. Version 0.1.0: 1.5 MB app, about 34 MB of memory when idle.
 
 ## Requirements
@@ -45,6 +45,10 @@ Havus releases aren't notarized by Apple yet, so macOS blocks the app the first 
 
 2. Unzip it and move `Havus.app` to your **Applications** folder.
 3. Open Havus. If macOS blocks it, go to **System Settings → Privacy & Security**, scroll down, and click **Open Anyway**.
+
+### Updating
+
+Havus can't install updates by itself yet, but it can tell you when there's a new version. Choose **Nyalain** when *Ringkasan* asks, or turn on **Havus → Cek Versi Baru Otomatis** in the menu bar. **Havus → Cek Versi Baru…** checks right away. When a new version is out, Havus links to [what's new](https://havus.web.id/changelog/), and [havus.web.id/update](https://havus.web.id/update/) has the steps to install it.
 
 ### Build from source
 
@@ -97,6 +101,8 @@ The source code is released under the [MIT License](LICENSE) © 2026 Debi Kurnia
 **Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, sampai nemuin file gede yang jarang dibuka. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin.
 
 **Cara install:** unduh `Havus-x.y.z.zip` dari halaman [Releases](../../releases), ekstrak, lalu pindahin `Havus.app` ke folder **Applications**. Karena belum di-notarize Apple, waktu pertama kali dibuka kamu perlu ke **System Settings → Privacy & Security**, lalu klik **Open Anyway**. Biar hasil scan lengkap, nyalain Havus di **Privacy & Security → Full Disk Access**.
+
+**Cara update:** Havus belum bisa pasang update sendiri, tapi bisa ngabarin kalau ada versi baru. Nyalain lewat menu **Havus → Cek Versi Baru Otomatis**: sehari sekali Havus nanya nomor versi terbaru ke GitHub, tanpa ngirim data apa pun soal kamu. Langkah update-nya ada di [havus.web.id/update](https://havus.web.id/update/).
 
 Semua fitur yang ada sekarang gratis dan bakal tetap gratis. Nanti mungkin ada fitur tambahan berbayar, tapi fitur keamanan selalu gratis.
 

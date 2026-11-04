@@ -61,6 +61,15 @@ When a more specific rule lives inside another rule's folder (for example `Libra
 - **Full Disk Access:** checked without a prompt by trying to open a TCC-protected file. Checked again whenever the app becomes active, for example after the user comes back from System Settings.
 - **App Management:** macOS sometimes requires it to move other apps to the Trash. If it's denied, Havus shows a button that opens the right settings page.
 
+## Update check
+
+The only network access in Havus. It tells the user about a new version; it never downloads or installs anything.
+
+- **Off until the user turns it on.** *Ringkasan* asks once (*Mau dikabarin kalau ada versi baru?*). The app menu has **Cek Versi Baru…** and the **Cek Versi Baru Otomatis** toggle. Once it's on, `UpdateCenter` checks when Havus starts or comes to the front, at most once a day.
+- **One request that carries nothing about the user.** `UpdateCheck` sends a GET to GitHub's `releases/latest` endpoint for XNyetok/Havus, which never returns drafts or prereleases. It uses an ephemeral session with no cookies and no cache. It also replaces the default `User-Agent` and `Accept-Language`, which would name the macOS version and the user's languages, with `Havus` and `en`.
+- **Only the tag is read.** The tag must look like `vX.Y.Z`; the release notes and assets are ignored. The answer can't change anything in the app except the version number shown, and the link always goes to `https://havus.web.id/changelog/#vX.Y.Z`. The website builds that page from the same GitHub releases.
+- **Failures stay quiet.** When an automatic check fails, Havus tries again the next day. A check started from the menu shows an alert that it couldn't connect.
+
 ## Adding a feature
 
 1. Logic → `Packages/HavusCore/Sources/HavusCore/<Feature>/`, with tests in `Tests/HavusCoreTests/`.

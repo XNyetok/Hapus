@@ -7,7 +7,7 @@
 
 1. **Lightweight.** Small app, low idle memory, instant launch.
 2. **Powerful.** Full access to macOS APIs: Full Disk Access, the Trash, Spotlight, app metadata, and later a helper with root privileges.
-3. **Safe.** Controlled deletion, no network access, and the smallest possible supply chain.
+3. **Safe.** Controlled deletion, no network access beyond an opt-in update check, and the smallest possible supply chain.
 4. **Contributor-friendly.** Few tools to install, builds without a paid account, fast tests.
 
 ## Candidates
@@ -71,6 +71,8 @@ What that means:
 - Homebrew 5.0 (November 2025) removed the `--no-quarantine` option, and casks that fail Gatekeeper checks were scheduled to be disabled on 1 September 2026. The official Homebrew Cask only becomes realistic after notarization.
 
 The upgrade path: Apple Developer Program → Developer ID certificate → notarization (`notarytool`) → Homebrew Cask, and optionally Sparkle for auto-updates. The steps are in [maintainer.md](maintainer.md).
+
+**Update check (added 5 November 2026).** Havus couldn't tell users about new versions, so they had to find out from GitHub or havus.web.id. The app now has an opt-in check: once a day it asks GitHub's API for the latest release tag, then links to the changelog on havus.web.id. It uses plain `URLSession`, so there's still no third-party dependency. Real auto-updates with Sparkle wait for notarization. Until then, an ad-hoc signed app with the Hardened Runtime may refuse to load `Sparkle.framework` unless library validation is turned off. That isn't worth it in an app with Full Disk Access, especially since the permission would still reset after every update. Details in [architecture.md](architecture.md#update-check).
 
 ## Open-source repository security
 
