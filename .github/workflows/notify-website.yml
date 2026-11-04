@@ -1,0 +1,34 @@
+name: Notify website
+
+# When a release changes, start the website's "Build & deploy" (debikurnia/Havusweb), so havus.web.id
+# shows the new version, download links and release notes right away instead of at its daily rebuild.
+#
+# Needs the secret HAVUSWEB_DISPATCH_TOKEN: a fine-grained personal access token for
+# debikurnia/Havusweb with only "Actions: Read and write". That's enough to start a workflow there,
+# but not to change its code. Without the secret, this workflow does nothing.
+
+on:
+  release:
+    types: [published, unpublished, edited, deleted]
+
+# The job brings its own token, so GITHUB_TOKEN gets no permissions.
+permissions: {}
+
+jobs:
+  notify:
+    name: Rebuild havus.web.id
+    # Drafts never show on the website, but a release turned back into a draft has to disappear from it.
+    if: ${{ github.event.action == 'unpublished' || !github.event.release.draft }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Start the website's Build & deploy
+        env:
+          GH_TOKEN: ${{ secrets.HAVUSWEB_DISPATCH_TOKEN }}
+        run: |
+          if [ -z "$GH_TOKEN" ]; then
+            echo "::notice::HAVUSWEB_DISPATCH_TOKEN isn't set, so havus.web.id picks this release up at its daily rebuild."
+            exit 0
+          fi
+          gh api --method POST repos/debikurnia/Havusweb/actions/workflows/deploy.yml/dispatches -f ref=main
+          echo "Started Build & deploy for havus.web.id."
