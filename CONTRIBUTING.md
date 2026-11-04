@@ -46,7 +46,7 @@ See [docs/architecture.md](docs/architecture.md) for details.
 
 1. **Every removal goes through `FileRemover`**, which always checks `PathGuard` first. Never call `FileManager.removeItem` or `trashItem` directly.
 2. **Trash by default.** Permanent deletion is only for the contents of the Trash.
-3. **No network, no telemetry.** PRs that add network access, analytics or third-party SDKs will be declined unless discussed in an issue first.
+3. **No network, no telemetry.** Havus goes online for one thing only: the update check, which stays off until the user turns it on and asks GitHub only for the latest version number (see [docs/architecture.md](docs/architecture.md#update-check)). PRs that add other network access, analytics or third-party SDKs will be declined unless discussed in an issue first.
 4. **Zero dependencies.** Want to add a package? Open an issue first: every dependency adds supply-chain risk.
 
 ### Adding a cleanup rule

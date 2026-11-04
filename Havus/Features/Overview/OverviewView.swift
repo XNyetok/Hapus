@@ -9,6 +9,7 @@ struct OverviewView: View {
         ScrollView {
             VStack(alignment: .leading, spacing: Design.Spacing.xl) {
                 PageHeader(item: .overview)
+                UpdateBanner()
                 if let disk {
                     DiskCard(disk: disk)
                 }
@@ -24,11 +25,10 @@ struct OverviewView: View {
                         FeatureTile(item: .largeFiles) { open(.largeFiles) }
                     }
                 }
-                Label(
-                    "Semua proses jalan di Mac kamu. Havus nggak ngirim data apa pun ke internet.", systemImage: "lock"
-                )
-                .font(.footnote)
-                .foregroundStyle(.secondary)
+                AutomaticCheckPrompt()
+                Label("Semua proses jalan di Mac kamu. Havus nggak ngirim data kamu ke internet.", systemImage: "lock")
+                    .font(.footnote)
+                    .foregroundStyle(.secondary)
             }
             .padding(Design.Spacing.xxl)
             .frame(maxWidth: Design.readableWidth, alignment: .leading)

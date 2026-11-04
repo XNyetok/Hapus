@@ -169,35 +169,53 @@ struct Tag: View {
     }
 }
 
+/// Card with an icon, a title, a short explanation and a row of buttons, such as the Full Disk Access banner.
+struct NoticeCard<Actions: View>: View {
+    let symbol: String
+    var tint: Color = .accentColor
+    let title: Text
+    let message: Text
+    @ViewBuilder var actions: Actions
+
+    var body: some View {
+        HStack(alignment: .top, spacing: Design.Spacing.m) {
+            Image(systemName: symbol)
+                .font(.title2)
+                .foregroundStyle(tint)
+                .accessibilityHidden(true)
+            VStack(alignment: .leading, spacing: Design.Spacing.xs) {
+                title
+                    .font(.headline)
+                message
+                    .font(.callout)
+                    .foregroundStyle(.secondary)
+                    .fixedSize(horizontal: false, vertical: true)
+                HStack { actions }
+                    .padding(.top, Design.Spacing.xs)
+            }
+            Spacer(minLength: 0)
+        }
+        .card()
+    }
+}
+
 /// Explains why Full Disk Access helps, and links to System Settings. Hidden once granted.
 struct FullDiskAccessBanner: View {
     @Environment(PermissionCenter.self) private var permissions
 
     var body: some View {
         if !permissions.hasFullDiskAccess {
-            HStack(alignment: .top, spacing: Design.Spacing.m) {
-                Image(systemName: "lock.shield")
-                    .font(.title2)
-                    .foregroundStyle(.orange)
-                    .accessibilityHidden(true)
-                VStack(alignment: .leading, spacing: Design.Spacing.xs) {
-                    Text("Akses Disk Penuh belum aktif")
-                        .font(.headline)
-                    Text(
-                        "Tanpa izin ini, beberapa lokasi (kayak Tong Sampah, lampiran Mail, dan data app lain) bakal dilewati. Buka **Privacy & Security → Full Disk Access**, terus nyalain Havus."
-                    )
-                    .font(.callout)
-                    .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    HStack {
-                        Button("Buka Pengaturan") { permissions.openFullDiskAccessSettings() }
-                        Button("Cek Lagi") { permissions.refresh() }
-                    }
-                    .padding(.top, Design.Spacing.xs)
-                }
-                Spacer(minLength: 0)
+            NoticeCard(
+                symbol: "lock.shield",
+                tint: .orange,
+                title: Text("Akses Disk Penuh belum aktif"),
+                message: Text(
+                    "Tanpa izin ini, beberapa lokasi (kayak Tong Sampah, lampiran Mail, dan data app lain) bakal dilewati. Buka **Privacy & Security → Full Disk Access**, terus nyalain Havus."
+                )
+            ) {
+                Button("Buka Pengaturan") { permissions.openFullDiskAccessSettings() }
+                Button("Cek Lagi") { permissions.refresh() }
             }
-            .card()
         }
     }
 }

@@ -3,6 +3,7 @@ import SwiftUI
 
 struct RootView: View {
     @Environment(PermissionCenter.self) private var permissions
+    @Environment(UpdateCenter.self) private var updates
     @State private var selection: SidebarItem = .overview
     @State private var systemJunk = JunkCleanerModel(group: .system)
     @State private var developerJunk = JunkCleanerModel(group: .developer)
@@ -28,8 +29,11 @@ struct RootView: View {
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
         }
         .hidingToolbarTitle()
+        .updateCheckAlert(updates)
+        .task { updates.checkIfDue() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             permissions.refresh()
+            updates.checkIfDue()
         }
     }
 
