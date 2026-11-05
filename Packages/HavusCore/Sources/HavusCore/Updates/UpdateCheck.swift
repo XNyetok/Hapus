@@ -60,6 +60,18 @@ public enum UpdateCheck {
         return version
     }
 
+    /// Where Havus links for `version`: the release on the changelog at havus.web.id, anchored by its tag (`#v0.3.0`).
+    /// The site has the changelog in English too, under /en/, so the link follows the language Havus runs in,
+    /// `language` (such as `en` or `id`, from `Bundle.main.preferredLocalizations`). Any other language gets the
+    /// Indonesian page, just as the app falls back to Indonesian.
+    public static func changelogURL(for version: AppVersion, language: String?) -> URL? {
+        let isEnglish = language.map { Locale(identifier: $0).language.languageCode == .english } ?? false
+        var components = URLComponents(
+            string: isEnglish ? "https://havus.web.id/en/changelog/" : "https://havus.web.id/changelog/")
+        components?.fragment = "v\(version)"
+        return components?.url
+    }
+
     /// Keeps nothing between checks: no cookies, no cache, no credentials.
     private static let session: URLSession = {
         let configuration = URLSessionConfiguration.ephemeral
