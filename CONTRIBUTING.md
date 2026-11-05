@@ -95,6 +95,7 @@ Not fluent in Indonesian? Put the English text in your PR description and a main
 | Exclusions | Pengecualian |
 | Add to Exclusions | Masukin ke Pengecualian |
 | Excluded | Dikecualiin |
+| Can't be read | Nggak kebaca |
 
 ## Commits and pull requests
 

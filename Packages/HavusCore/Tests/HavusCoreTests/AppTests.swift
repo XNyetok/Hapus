@@ -59,6 +59,23 @@ struct LeftoverFinderTests {
         #expect(found.allSatisfy { $0.match == .bundleIdentifier && $0.size > 0 })
     }
 
+    @Test func flagsLeftoversItCantRead() throws {
+        let home = try TemporaryHome()
+        let support = try home.makeFolder("Library/Application Support/com.example.Example")
+        try home.makeFile("Library/Application Support/com.example.Example/profile.db", bytes: 100_000)
+        try home.makeFile("Library/Caches/com.example.Example/cache")
+        try home.lock(support)
+
+        let found = LeftoverFinder(home: home.url).leftovers(for: app)
+        let unreadable = try #require(found.first { $0.kind == .applicationSupport })
+        let readable = try #require(found.first { $0.kind == .caches })
+
+        #expect(!unreadable.isFullyReadable)
+        #expect(unreadable.size == 0)
+        #expect(readable.isFullyReadable)
+        #expect(readable.size > 0)
+    }
+
     @Test func leavesDataOfMoreSpecificInstalledApps() throws {
         let home = try TemporaryHome()
         try home.makeFile("Library/Application Support/com.example.Example.Beta/data")

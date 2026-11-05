@@ -110,6 +110,7 @@ private struct AppDetail: View {
     let model: UninstallerModel
     let onRemove: () -> Void
     @Environment(ExclusionStore.self) private var exclusions
+    @Environment(PermissionCenter.self) private var permissions
 
     var body: some View {
         VStack(spacing: 0) {
@@ -118,6 +119,9 @@ private struct AppDetail: View {
                     header
                     if model.isSelectedAppRunning {
                         runningWarning
+                    }
+                    if !permissions.hasFullDiskAccess, model.leftovers.contains(where: { !$0.isFullyReadable }) {
+                        unreadableNotice
                     }
                     components
                 }
@@ -172,6 +176,22 @@ private struct AppDetail: View {
         .card()
     }
 
+    /// Some leftovers are in places macOS hides without Full Disk Access, so their size is unknown or too low.
+    private var unreadableNotice: some View {
+        HStack(spacing: Design.Spacing.m) {
+            Image(systemName: "lock.fill")
+                .foregroundStyle(.orange)
+                .accessibilityHidden(true)
+            Text(
+                "Ada file sisa yang nggak bisa dibaca Havus, jadi ukurannya belum lengkap. Nyalain Akses Disk Penuh biar kebaca semua."
+            )
+            .fixedSize(horizontal: false, vertical: true)
+            Spacer()
+            Button("Buka Pengaturan") { permissions.openFullDiskAccessSettings() }
+        }
+        .card()
+    }
+
     private var components: some View {
         VStack(alignment: .leading, spacing: 0) {
             ComponentRow(
@@ -196,6 +216,7 @@ private struct AppDetail: View {
                 ForEach(model.leftovers) { leftover in
                     ComponentRow(
                         title: leftover.kind.title, path: Format.path(leftover.url), size: leftover.size,
+                        isSizeComplete: leftover.isFullyReadable,
                         tag: leftover.match == .appName ? "Cocok dari nama, cek dulu" : nil,
                         isSelected: model.leftoverSelection.contains(leftover.id)
                     ) { model.toggleLeftover(leftover) }
@@ -215,6 +236,8 @@ private struct ComponentRow: View {
     let title: LocalizedStringKey
     let path: String
     let size: Int64?
+    /// `false` when Havus couldn't read all of it, so `size` is only what it could read.
+    var isSizeComplete = true
     var tag: LocalizedStringKey?
     var tagTint: Color = .orange
     let isSelected: Bool
@@ -241,7 +264,7 @@ private struct ComponentRow: View {
             }
             Spacer()
             if let size {
-                Text(Format.bytes(size))
+                sizeLabel(size)
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
             } else {
@@ -252,6 +275,21 @@ private struct ComponentRow: View {
         .padding(.vertical, Design.Spacing.m)
         .selectableRow(isSelected ? .on : .off, toggle: toggle)
         .disabled(!isEnabled)
+    }
+
+    /// A folder Havus couldn't read says so, instead of looking empty ("0 byte").
+    @ViewBuilder
+    private func sizeLabel(_ size: Int64) -> some View {
+        if isSizeComplete {
+            Text(Format.bytes(size))
+        } else if size == 0 {
+            Text("Nggak kebaca")
+                .help("macOS nggak ngizinin Havus baca isinya, jadi ukurannya belum ketahuan.")
+        } else {
+            Text(verbatim: "\(Format.bytes(size))+")
+                .help("Sebagian isinya nggak bisa dibaca Havus, jadi ukuran aslinya bisa lebih gede.")
+                .accessibilityLabel("Lebih dari \(Format.bytes(size))")
+        }
     }
 }
 
