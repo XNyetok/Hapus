@@ -3,6 +3,7 @@ import SwiftUI
 
 struct LargeFilesView: View {
     @Bindable var model: LargeFilesModel
+    @Environment(ExclusionStore.self) private var exclusions
     @State private var isConfirming = false
 
     var body: some View {
@@ -104,6 +105,8 @@ struct LargeFilesView: View {
                             .contextMenu {
                                 Button("Tampilkan di Finder") { model.reveal(file) }
                                 Button("Buka") { model.open(file) }
+                                Divider()
+                                Button("Masukin ke Pengecualian") { exclusions.add([file.url]) }
                             }
                     }
                 } header: {

@@ -47,22 +47,36 @@ final class LargeFilesModel {
 
     @ObservationIgnored private let finder = LargeFileFinder()
     @ObservationIgnored private var task: Task<Void, Never>?
+    @ObservationIgnored private var exclusions = ExclusionList()
 
     var selectedFiles: [LargeFile] { files.filter { selection.contains($0.id) } }
     var selectedSize: Int64 { selectedFiles.reduce(0) { $0 + $1.size } }
     var totalSize: Int64 { files.reduce(0) { $0 + $1.size } }
 
+    /// Searches and removals use `list` from now on, and files it blocks go away right away.
+    func setExclusions(_ list: ExclusionList) {
+        guard list != exclusions else { return }
+        exclusions = list
+        files.removeAll { list.blocks($0.url) }
+        selection.formIntersection(files.map(\.id))
+    }
+
     func search() {
         task?.cancel()
         let finder = self.finder
+        let exclusions = self.exclusions
         let criteria = LargeFileFinder.Criteria(minimumSize: minimumSize.rawValue, notOpenedSince: lastOpened.cutoff)
         selection = []
         lastRemoval = nil
         phase = .searching
 
         task = Task {
-            let found = await Background.run { finder.find(criteria) }
+            var found = await Background.run { finder.find(criteria, excluding: exclusions) }
             guard !Task.isCancelled else { return }
+            // The list may have changed during the search.
+            if self.exclusions != exclusions {
+                found.removeAll { self.exclusions.blocks($0.url) }
+            }
             files = found
             phase = .results
         }
@@ -100,11 +114,12 @@ final class LargeFilesModel {
         let targets = selectedFiles
         guard !targets.isEmpty else { return }
         let home = finder.home
+        let exclusions = self.exclusions
         phase = .removing
 
         task = Task {
             let report = await Task.detached(priority: .userInitiated) {
-                FileRemover(pathGuard: PathGuard(home: home))
+                FileRemover(pathGuard: PathGuard(home: home, exclusions: exclusions))
                     .remove(targets.map(\.url), method: .moveToTrash, allowedRoots: [home])
             }.value
             let removed = Set(report.removed)

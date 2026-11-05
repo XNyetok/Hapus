@@ -40,8 +40,8 @@ public struct LargeFileFinder: Sendable {
         self.usesSpotlight = usesSpotlight
     }
 
-    /// Blocking. Sorted from largest to smallest.
-    public func find(_ criteria: Criteria) -> [LargeFile] {
+    /// Blocking. Sorted from largest to smallest. Files that `exclusions` blocks are left out.
+    public func find(_ criteria: Criteria, excluding exclusions: ExclusionList = ExclusionList()) -> [LargeFile] {
         var candidates = usesSpotlight ? spotlightCandidates(minimumSize: criteria.minimumSize) : []
         if candidates.isEmpty {
             candidates = fileSystemCandidates(minimumSize: criteria.minimumSize)
@@ -52,7 +52,9 @@ public struct LargeFileFinder: Sendable {
         var files: [LargeFile] = []
         for candidate in candidates {
             if Task.isCancelled { break }
-            if let file = refine(candidate, criteria, homeComponents: homeComponents, packageCache: &packageCache) {
+            if let file = refine(candidate, criteria, homeComponents: homeComponents, packageCache: &packageCache),
+                !exclusions.blocks(file.url)
+            {
                 files.append(file)
             }
         }

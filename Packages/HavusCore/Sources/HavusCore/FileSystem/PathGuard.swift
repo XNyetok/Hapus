@@ -19,16 +19,21 @@ public struct PathGuard: Sendable {
         case insideProtectedArea
         /// Not strictly inside any of the folders the caller is allowed to clean.
         case outsideAllowedRoots
+        /// On the user's exclusion list, inside an excluded folder, or a folder that contains an excluded item.
+        case excluded
     }
 
     /// Fully resolved home folder used for all checks.
     public let home: URL
+    /// Files and folders the user told Havus never to touch.
+    public let exclusions: ExclusionList
     private let protectedLocations: Set<[String]>
     private let protectedAreas: [[String]]
 
-    public init(home: URL = .homeDirectory) {
+    public init(home: URL = .homeDirectory, exclusions: ExclusionList = ExclusionList()) {
         let home = Self.resolved(home)
         self.home = home
+        self.exclusions = exclusions
 
         let homeLocations = [
             "Applications", "Desktop", "Documents", "Downloads", "Library", "Movies", "Music",
@@ -58,6 +63,9 @@ public struct PathGuard: Sendable {
         }
         if protectedAreas.contains(where: { Self.isStrictlyInside(target, $0) }) {
             return .denied(.insideProtectedArea)
+        }
+        if exclusions.blocks(url) {
+            return .denied(.excluded)
         }
         let roots = allowedRoots.map { Self.resolved($0).pathComponents }
         guard roots.contains(where: { Self.isStrictlyInside(target, $0) }) else {

@@ -109,6 +109,7 @@ private struct AppDetail: View {
     let app: InstalledApp
     let model: UninstallerModel
     let onRemove: () -> Void
+    @Environment(ExclusionStore.self) private var exclusions
 
     var body: some View {
         VStack(spacing: 0) {
@@ -175,7 +176,8 @@ private struct AppDetail: View {
         VStack(alignment: .leading, spacing: 0) {
             ComponentRow(
                 title: "Aplikasi", path: Format.path(app.url), size: model.sizes[app.id],
-                isSelected: model.includesApp
+                tag: model.isSelectedAppExcluded ? "Dikecualiin" : nil, tagTint: .secondary,
+                isSelected: model.includesApp, isEnabled: !model.isSelectedAppExcluded
             ) { model.includesApp.toggle() }
 
             Divider()
@@ -197,6 +199,11 @@ private struct AppDetail: View {
                         tag: leftover.match == .appName ? "Cocok dari nama, cek dulu" : nil,
                         isSelected: model.leftoverSelection.contains(leftover.id)
                     ) { model.toggleLeftover(leftover) }
+                    .contextMenu {
+                        Button("Tampilkan di Finder") { NSWorkspace.shared.activateFileViewerSelecting([leftover.url]) }
+                        Divider()
+                        Button("Masukin ke Pengecualian") { exclusions.add([leftover.url]) }
+                    }
                 }
             }
         }
@@ -209,7 +216,9 @@ private struct ComponentRow: View {
     let path: String
     let size: Int64?
     var tag: LocalizedStringKey?
+    var tagTint: Color = .orange
     let isSelected: Bool
+    var isEnabled = true
     let toggle: () -> Void
 
     var body: some View {
@@ -220,7 +229,7 @@ private struct ComponentRow: View {
                     Text(title)
                         .font(.body.weight(.medium))
                     if let tag {
-                        Tag(text: tag, tint: .orange)
+                        Tag(text: tag, tint: tagTint)
                     }
                 }
                 Text(path)
@@ -242,6 +251,7 @@ private struct ComponentRow: View {
         .padding(.horizontal, Design.Spacing.l)
         .padding(.vertical, Design.Spacing.m)
         .selectableRow(isSelected ? .on : .off, toggle: toggle)
+        .disabled(!isEnabled)
     }
 }
 

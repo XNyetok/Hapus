@@ -25,6 +25,8 @@ final class UninstallerModel {
     private(set) var isLoadingLeftovers = false
     var leftoverSelection: Set<Leftover.ID> = []
     var includesApp = true
+    /// The selected app is on the exclusion list, so it can't be removed. Its leftovers still can.
+    private(set) var isSelectedAppExcluded = false
     private(set) var isSelectedAppRunning = false
     private(set) var isRemoving = false
     private(set) var outcome: UninstallOutcome?
@@ -33,6 +35,7 @@ final class UninstallerModel {
     @ObservationIgnored private let finder = LeftoverFinder()
     @ObservationIgnored private var appsTask: Task<Void, Never>?
     @ObservationIgnored private var leftoverTask: Task<Void, Never>?
+    @ObservationIgnored private var exclusions = ExclusionList()
 
     var filteredApps: [InstalledApp] {
         let query = searchText.trimmingCharacters(in: .whitespaces)
@@ -94,7 +97,8 @@ final class UninstallerModel {
         selectedAppID = id
         leftovers = []
         leftoverSelection = []
-        includesApp = true
+        isSelectedAppExcluded = selectedApp.map { exclusions.blocks($0.url) } ?? false
+        includesApp = !isSelectedAppExcluded
         outcome = nil
         refreshRunningState()
         guard let app = selectedApp else {
@@ -104,10 +108,17 @@ final class UninstallerModel {
 
         isLoadingLeftovers = true
         let finder = self.finder
+        let exclusions = self.exclusions
         let otherApps = Set(apps.map(\.bundleIdentifier)).subtracting([app.bundleIdentifier])
         leftoverTask = Task {
-            let found = await Background.run { finder.leftovers(for: app, otherBundleIdentifiers: otherApps) }
+            var found = await Background.run {
+                finder.leftovers(for: app, otherBundleIdentifiers: otherApps, excluding: exclusions)
+            }
             guard !Task.isCancelled, selectedAppID == app.id else { return }
+            // The list may have changed while Havus was looking.
+            if self.exclusions != exclusions {
+                found.removeAll { self.exclusions.blocks($0.url) }
+            }
             leftovers = found
             // Name-based matches need a human look, so they start unselected.
             leftoverSelection = Set(found.filter { $0.match == .bundleIdentifier }.map(\.id))
@@ -120,6 +131,18 @@ final class UninstallerModel {
             leftoverSelection.remove(leftover.id)
         } else {
             leftoverSelection.insert(leftover.id)
+        }
+    }
+
+    /// Finding and removing use `list` from now on, and leftovers it blocks go away right away.
+    func setExclusions(_ list: ExclusionList) {
+        guard list != exclusions else { return }
+        exclusions = list
+        leftovers.removeAll { list.blocks($0.url) }
+        leftoverSelection.formIntersection(leftovers.map(\.id))
+        isSelectedAppExcluded = selectedApp.map { list.blocks($0.url) } ?? false
+        if isSelectedAppExcluded {
+            includesApp = false
         }
     }
 
@@ -148,16 +171,17 @@ final class UninstallerModel {
         // The app may have been opened since it was selected.
         refreshRunningState()
         guard canRemove, let app = selectedApp else { return }
-        let appTargets = includesApp ? [app.url] : []
+        let appTargets = includesApp && !isSelectedAppExcluded ? [app.url] : []
         let leftoverTargets = selectedLeftovers
         let appSize = sizes[app.id] ?? 0
         let appRoots = catalog.searchRoots
         let leftoverRoots = finder.searchRoots
+        let exclusions = self.exclusions
         isRemoving = true
 
         Task {
             let (appReport, leftoverReport) = await Task.detached(priority: .userInitiated) {
-                let remover = FileRemover(pathGuard: PathGuard())
+                let remover = FileRemover(pathGuard: PathGuard(exclusions: exclusions))
                 return (
                     remover.remove(appTargets, method: .moveToTrash, allowedRoots: appRoots),
                     remover.remove(leftoverTargets.map(\.url), method: .moveToTrash, allowedRoots: leftoverRoots)
