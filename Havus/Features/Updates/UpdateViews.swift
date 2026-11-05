@@ -29,7 +29,7 @@ struct AutomaticCheckPrompt: View {
                 symbol: "bell.badge",
                 title: Text("Mau dikabarin kalau ada versi baru?"),
                 message: Text(
-                    "Havus bisa ngecek ke GitHub sehari sekali. Yang ditanyain cuma nomor versi terbarunya, tanpa data apa pun soal kamu atau Mac kamu. Bisa kamu ubah kapan aja di menu **Havus → Cek Versi Baru Otomatis**."
+                    "Sehari sekali, Havus bisa ngecek lewat internet apakah ada versi baru. Nggak ada data apa pun soal kamu atau Mac kamu yang dikirim. Bisa kamu ubah kapan aja di menu **Havus → Cek Versi Baru Otomatis**."
                 )
             ) {
                 Button("Nyalain") { updates.setChecksAutomatically(true) }
@@ -99,7 +99,7 @@ private struct UpdateCheckAlert: ViewModifier {
             } else {
                 Text("Versi yang kamu pakai ini udah yang paling baru.")
             }
-        case .failed: Text("Havus nggak bisa nyambung ke GitHub. Cek koneksi internet kamu, lalu coba lagi.")
+        case .failed: Text("Cek koneksi internet kamu, lalu coba lagi nanti.")
         }
     }
 }
