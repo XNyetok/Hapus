@@ -27,6 +27,8 @@ macOS ties the **Full Disk Access** permission to the app's signature. Ad-hoc bu
 
 `Config/Local.xcconfig` is gitignored, so your Team ID never gets committed.
 
+Debug builds use their own bundle ID, `id.nyetok.havus.debug`, and show up as **Havus Debug** in System Settings. They have their own Full Disk Access entry and settings, so they never switch off the permission of a Havus release installed on the same Mac.
+
 ## Project layout
 
 ```

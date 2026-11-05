@@ -51,9 +51,11 @@ Havus releases aren't notarized by Apple yet, so macOS blocks the app the first 
 2. Unzip it and move `Havus.app` to your **Applications** folder.
 3. Open Havus. If macOS blocks it, go to **System Settings → Privacy & Security**, scroll down, and click **Open Anyway**.
 
+Every release since 0.3.0 is signed with the same Havus certificate. To check a copy, run `codesign -d -r- /Applications/Havus.app`: the output ends with `certificate leaf = H"9e4a60cb751d37f504f5290a9ead326f31e739b5"`.
+
 ### Updating
 
-Havus can't install updates by itself yet, but it can tell you when there's a new version. Choose **Turn On** when *Overview* asks, or turn on **Havus → Check for Updates Automatically** in the menu bar. **Havus → Check for Updates…** checks right away. When a new version is out, Havus links to [what's new](https://havus.web.id/changelog/), and [havus.web.id/update](https://havus.web.id/update/) has the steps to install it.
+Havus can't install updates by itself yet, but it can tell you when there's a new version. Choose **Turn On** when *Overview* asks, or turn on **Havus → Check for Updates Automatically** in the menu bar. **Havus → Check for Updates…** checks right away. When a new version is out, Havus links to [what's new](https://havus.web.id/changelog/), and [havus.web.id/update](https://havus.web.id/update/) has the steps to install it. Since 0.3.0, Full Disk Access stays on when you update.
 
 ### Build from source
 
@@ -70,7 +72,7 @@ make run
 macOS protects some locations (the Trash, Mail attachments, other apps' data). For a complete scan, open **System Settings → Privacy & Security → Full Disk Access** and turn on Havus. Without it, Havus still works but skips those locations.
 
 > [!NOTE]
-> Until releases are notarized, the app's signature changes with every version, so macOS asks for this permission again after each update.
+> Since 0.3.0, every release is signed with the same certificate, so macOS keeps this permission when you update. Coming from 0.2.0 or earlier, turn it on one more time.
 
 ## Roadmap
 
@@ -110,7 +112,7 @@ The source code is released under the [MIT License](LICENSE) © 2026 Debi Kurnia
 
 **Bahasa:** Havus bisa bahasa Indonesia dan Inggris, dan ngikutin bahasa yang duluan di daftar **System Settings → General → Language & Region**. Mac kamu pakai bahasa Inggris, tapi mau Havus tetap bahasa Indonesia? Di halaman yang sama, klik **+** di bagian **Applications**, pilih Havus, lalu pilih Bahasa Indonesia.
 
-**Cara install:** unduh `Havus-x.y.z.zip` dari halaman [Releases](../../releases), ekstrak, lalu pindahin `Havus.app` ke folder **Applications**. Karena belum di-notarize Apple, waktu pertama kali dibuka kamu perlu ke **System Settings → Privacy & Security**, lalu klik **Open Anyway**. Biar hasil scan lengkap, nyalain Havus di **Privacy & Security → Full Disk Access**.
+**Cara install:** unduh `Havus-x.y.z.zip` dari halaman [Releases](../../releases), ekstrak, lalu pindahin `Havus.app` ke folder **Applications**. Karena belum di-notarize Apple, waktu pertama kali dibuka kamu perlu ke **System Settings → Privacy & Security**, lalu klik **Open Anyway**. Biar hasil scan lengkap, nyalain Havus di **Privacy & Security → Full Disk Access**. Mulai versi 0.3.0, izin ini tetap nyala walaupun Havus di-update.
 
 **Cara update:** Havus belum bisa pasang update sendiri, tapi bisa ngabarin kalau ada versi baru. Nyalain lewat menu **Havus → Cek Versi Baru Otomatis**: sehari sekali Havus nanya nomor versi terbaru ke GitHub, tanpa ngirim data apa pun soal kamu. Langkah update-nya ada di [havus.web.id/update](https://havus.web.id/update/).
 
