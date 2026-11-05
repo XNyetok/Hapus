@@ -3,8 +3,6 @@ import SwiftUI
 enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
     case overview, systemJunk, developerJunk, uninstaller, largeFiles, startupItems
 
-    static let features: [SidebarItem] = [.systemJunk, .developerJunk, .uninstaller, .largeFiles, .startupItems]
-
     var id: Self { self }
 
     var title: LocalizedStringKey {

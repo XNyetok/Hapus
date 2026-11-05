@@ -22,6 +22,7 @@ We aim to reply within 7 days, keep you posted on progress, and ship a fix as fa
 - Havus deleting or moving files outside the locations it should touch (path traversal, symlinks, race conditions).
 - A cleanup rule that deletes user data that can't be regenerated.
 - Ways for a third party to make Havus delete files.
+- Ways to make Havus turn off, turn on or load a launch agent other than the one the user chose (Jalan Otomatis).
 - Secrets or credentials accidentally committed to this repository.
 
 ## Out of scope

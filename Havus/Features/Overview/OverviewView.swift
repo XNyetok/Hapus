@@ -14,7 +14,8 @@ struct OverviewView: View {
                     DiskCard(disk: disk)
                 }
                 FullDiskAccessBanner()
-                // Always 2×2, so the four features stay balanced at any window width.
+                // Always 2×2 with the four cleanup tools, so they stay balanced at any window width.
+                // Jalan Otomatis is in the sidebar only.
                 Grid(horizontalSpacing: Design.Spacing.l, verticalSpacing: Design.Spacing.l) {
                     GridRow {
                         FeatureTile(item: .systemJunk) { open(.systemJunk) }
