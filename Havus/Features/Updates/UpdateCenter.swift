@@ -2,8 +2,8 @@ import AppKit
 import HavusCore
 import Observation
 
-/// Lets the user know when a newer Havus is out. Havus can't install it by itself, so it links to the release
-/// on havus.web.id/changelog/, which also has the download and the update steps.
+/// Lets the user know when a newer Havus is out. Havus can't install it by itself, so it links to the release on the
+/// changelog at havus.web.id, in the language Havus runs in. The page also has the download and the update steps.
 ///
 /// Nothing goes online until the user asks: either with "Cek Versi Baru…", or by turning on the daily check.
 @MainActor
@@ -74,10 +74,9 @@ final class UpdateCenter {
     }
 
     func openChangelog(for version: AppVersion) {
-        // Each release on the changelog is anchored by its tag, e.g. #v0.2.0.
-        guard var components = URLComponents(string: "https://havus.web.id/changelog/") else { return }
-        components.fragment = "v\(version)"
-        guard let url = components.url else { return }
+        // macOS picks the language Havus runs in from the user's languages; the changelog follows it.
+        guard let url = UpdateCheck.changelogURL(for: version, language: Bundle.main.preferredLocalizations.first)
+        else { return }
         NSWorkspace.shared.open(url)
     }
 

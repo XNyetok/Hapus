@@ -93,7 +93,7 @@ The only network access in Havus. It tells the user about a new version; it neve
 
 - **Off until the user turns it on.** *Ringkasan* asks once (*Mau dikabarin kalau ada versi baru?*). The app menu has **Cek Versi Baru…** and the **Cek Versi Baru Otomatis** toggle. Once it's on, `UpdateCenter` checks when Havus starts or comes to the front, at most once a day.
 - **One request that carries nothing about the user.** `UpdateCheck` sends a GET to GitHub's `releases/latest` endpoint for XNyetok/Havus, which never returns drafts or prereleases. It uses an ephemeral session with no cookies and no cache. It also replaces the default `User-Agent` and `Accept-Language`, which would name the macOS version and the user's languages, with `Havus` and `en`.
-- **Only the tag is read.** The tag must look like `vX.Y.Z`; the release notes and assets are ignored. The answer can't change anything in the app except the version number shown, and the link always goes to `https://havus.web.id/changelog/#vX.Y.Z`. The website builds that page from the same GitHub releases.
+- **Only the tag is read.** The tag must look like `vX.Y.Z`; the release notes and assets are ignored. The answer can't change anything in the app except the version number shown, and the link always goes to the release on the changelog at havus.web.id, in the language Havus runs in: `https://havus.web.id/en/changelog/#vX.Y.Z` in English, `https://havus.web.id/changelog/#vX.Y.Z` otherwise. The website builds that page from the same GitHub releases.
 - **Failures stay quiet.** When an automatic check fails, Havus tries again the next day. A check started from the menu shows an alert that it couldn't connect.
 
 ## Languages

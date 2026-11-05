@@ -28,6 +28,18 @@ struct AppVersionTests {
 }
 
 struct UpdateCheckTests {
+    @Test func linksToTheChangelogInTheLanguageHavusRunsIn() throws {
+        let version = try #require(AppVersion("0.3.0"))
+        let link = { (language: String?) in UpdateCheck.changelogURL(for: version, language: language)?.absoluteString }
+
+        #expect(link("en") == "https://havus.web.id/en/changelog/#v0.3.0")
+        #expect(link("en-GB") == "https://havus.web.id/en/changelog/#v0.3.0")
+        #expect(link("id") == "https://havus.web.id/changelog/#v0.3.0")
+        // Languages the site doesn't have get the Indonesian page, like the app falls back to Indonesian.
+        #expect(link("de") == "https://havus.web.id/changelog/#v0.3.0")
+        #expect(link(nil) == "https://havus.web.id/changelog/#v0.3.0")
+    }
+
     private func response(_ statusCode: Int) throws -> HTTPURLResponse {
         try #require(
             HTTPURLResponse(
