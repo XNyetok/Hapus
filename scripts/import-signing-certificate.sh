@@ -7,7 +7,8 @@
 #
 # The Release workflow runs it with values from GitHub secrets. A maintainer can run it with the
 # backup from the password manager to sign a release locally. It prints nothing secret.
-# Delete the keychain when you're done: security delete-keychain <new-keychain-path>
+# The keychain goes first in the user's search list. Delete it when you're done, which also takes it
+# off the list: security delete-keychain <new-keychain-path>
 set -euo pipefail
 
 KEYCHAIN="${1:?Usage: scripts/import-signing-certificate.sh <new-keychain-path>}"
@@ -23,12 +24,11 @@ work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
 printf '%s' "$HAVUS_SIGNING_P12_BASE64" | base64 --decode > "$work/signing.p12"
 
-# create-keychain also adds the keychain to the user's search list. Put the list back afterwards:
-# build-release.sh names the keychain explicitly, and nothing else should find this certificate.
 search_list="$(security list-keychains -d user)"
 keychain_password="$(uuidgen)"
 security create-keychain -p "$keychain_password" "$KEYCHAIN"
-printf '%s\n' "$search_list" | xargs security list-keychains -d user -s
+# codesign on macOS 26 only finds an identity in a keychain on the search list, even with --keychain.
+printf '%s\n' "\"$KEYCHAIN\"" "$search_list" | xargs security list-keychains -d user -s
 
 security set-keychain-settings -lut 3600 "$KEYCHAIN"
 security unlock-keychain -p "$keychain_password" "$KEYCHAIN"
