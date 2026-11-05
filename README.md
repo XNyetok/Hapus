@@ -72,14 +72,17 @@ macOS protects some locations (the Trash, Mail attachments, other apps' data). F
 
 Everything Havus does today is free and will stay free. Items marked *(Pro candidate)* may become part of an optional paid tier later. Safety features, such as the exclusion list, will always be free.
 
-- [ ] Disk usage visualization *(Pro candidate)*
-- [ ] Login items and launch agents manager
-- [ ] Maintenance tasks that need root (`SMAppService` + XPC helper)
-- [ ] Browser privacy cleanup
-- [ ] Exclusion list (folders Havus must never touch)
-- [ ] English UI localization
+Each open item has its own issue, where you can follow progress, share ideas or offer to help. The [roadmap label](https://github.com/XNyetok/Havus/issues?q=label%3Aroadmap) lists them all.
+
+- [ ] Disk usage visualization *(Pro candidate)*: [#17](https://github.com/XNyetok/Havus/issues/17)
+- [ ] Login items and launch agents manager: [#18](https://github.com/XNyetok/Havus/issues/18)
+- [ ] Maintenance tasks that need root (`SMAppService` + XPC helper): [#19](https://github.com/XNyetok/Havus/issues/19)
+- [ ] Browser privacy cleanup: [#20](https://github.com/XNyetok/Havus/issues/20)
+- [ ] Exclusion list (files and folders Havus must never touch): [#21](https://github.com/XNyetok/Havus/issues/21)
+- [ ] English UI localization: [#22](https://github.com/XNyetok/Havus/issues/22)
+- [ ] Notarization and Homebrew Cask: [#23](https://github.com/XNyetok/Havus/issues/23)
 - [x] App icon
-- [ ] Notarization and Homebrew Cask
+- [x] New version notifications (opt-in, once a day)
 
 ## Contributing
 
