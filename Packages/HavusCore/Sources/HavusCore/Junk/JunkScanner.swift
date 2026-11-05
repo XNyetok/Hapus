@@ -27,6 +27,16 @@ public struct JunkScanResult: Sendable, Identifiable {
 
     public var id: JunkRule.ID { rule.id }
     public var totalSize: Int64 { items.reduce(0) { $0 + $1.size } }
+
+    /// The same result without the items `exclusions` blocks, for exclusions added after the scan.
+    ///
+    /// An item goes away as a whole when any of its removal targets is blocked: its size covers all of them, so a
+    /// new scan is what brings back the rest.
+    public func excluding(_ exclusions: ExclusionList) -> JunkScanResult {
+        guard !exclusions.isEmpty else { return self }
+        let kept = items.filter { !$0.removalTargets.contains(where: exclusions.blocks) }
+        return JunkScanResult(rule: rule, status: status, items: kept)
+    }
 }
 
 public struct JunkScanner: Sendable {
@@ -42,8 +52,12 @@ public struct JunkScanner: Sendable {
     }
 
     /// Blocking. Call from a background task.
-    /// - Parameter inUseNames: Bundle identifiers of running apps; matching items start unselected.
-    public func scan(_ rule: JunkRule, inUseNames: Set<String> = []) -> JunkScanResult {
+    /// - Parameters:
+    ///   - inUseNames: Bundle identifiers of running apps; matching items start unselected.
+    ///   - exclusions: Entries they block are left out, and aren't measured either.
+    public func scan(
+        _ rule: JunkRule, inUseNames: Set<String> = [], excluding exclusions: ExclusionList = ExclusionList()
+    ) -> JunkScanResult {
         let location = rule.location(in: home)
         var isDirectory: ObjCBool = false
         guard FileManager.default.fileExists(atPath: location.path(percentEncoded: false), isDirectory: &isDirectory),
@@ -60,7 +74,7 @@ public struct JunkScanner: Sendable {
             ).filter { child in
                 let name = child.lastPathComponent
                 return !Self.ignoredNames.contains(name) && !rule.excludedNames.contains(name)
-                    && !claimed.contains(name)
+                    && !claimed.contains(name) && !exclusions.blocks(child)
             }
         } catch {
             return JunkScanResult(rule: rule, status: .noPermission, items: [])

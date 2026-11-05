@@ -4,6 +4,7 @@ import SwiftUI
 struct RootView: View {
     @Environment(PermissionCenter.self) private var permissions
     @Environment(UpdateCenter.self) private var updates
+    @Environment(ExclusionStore.self) private var exclusions
     @State private var selection: SidebarItem = .overview
     @State private var systemJunk = JunkCleanerModel(group: .system)
     @State private var developerJunk = JunkCleanerModel(group: .developer)
@@ -30,6 +31,13 @@ struct RootView: View {
         }
         .hidingToolbarTitle()
         .updateCheckAlert(updates)
+        // Every page scans and removes with the latest list, and drops results the user just excluded.
+        .onChange(of: exclusions.list, initial: true) { _, list in
+            systemJunk.setExclusions(list)
+            developerJunk.setExclusions(list)
+            uninstaller.setExclusions(list)
+            largeFiles.setExclusions(list)
+        }
         .task { updates.checkIfDue() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
             permissions.refresh()

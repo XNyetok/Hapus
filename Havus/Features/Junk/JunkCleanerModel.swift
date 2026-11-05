@@ -28,6 +28,7 @@ final class JunkCleanerModel {
 
     @ObservationIgnored private let scanner: JunkScanner
     @ObservationIgnored private var task: Task<Void, Never>?
+    @ObservationIgnored private var exclusions = ExclusionList()
 
     init(group: JunkRule.Group, scanner: JunkScanner = JunkScanner()) {
         self.group = group
@@ -80,12 +81,21 @@ final class JunkCleanerModel {
         }
     }
 
+    /// Scans and removals use `list` from now on, and results it blocks go away right away.
+    func setExclusions(_ list: ExclusionList) {
+        guard list != exclusions else { return }
+        exclusions = list
+        results = results.map { $0.excluding(list) }
+        selection.formIntersection(results.flatMap(\.items).map(\.id))
+    }
+
     // MARK: - Scanning
 
     func scan() {
         task?.cancel()
         let rules = self.rules
         let scanner = self.scanner
+        let exclusions = self.exclusions
         let runningApps = Set(NSWorkspace.shared.runningApplications.compactMap(\.bundleIdentifier))
         results = []
         selection = []
@@ -94,13 +104,15 @@ final class JunkCleanerModel {
         task = Task {
             await withTaskGroup(of: JunkScanResult.self) { group in
                 for rule in rules {
-                    group.addTask { scanner.scan(rule, inUseNames: runningApps) }
+                    group.addTask { scanner.scan(rule, inUseNames: runningApps, excluding: exclusions) }
                 }
-                for await result in group {
+                for await scanned in group {
                     if Task.isCancelled {
                         group.cancelAll()
                         break
                     }
+                    // The list may have changed while this rule was being scanned.
+                    let result = self.exclusions == exclusions ? scanned : scanned.excluding(self.exclusions)
                     results.append(result)
                     if result.rule.safety == .safe {
                         selection.formUnion(result.items.filter { !$0.isInUse }.map(\.id))
@@ -129,11 +141,12 @@ final class JunkCleanerModel {
         guard !items.isEmpty else { return }
         let rules = Dictionary(uniqueKeysWithValues: scanner.rules.map { ($0.id, $0) })
         let home = scanner.home
+        let exclusions = self.exclusions
         phase = .cleaning
 
         task = Task {
             let summary = await Task.detached(priority: .userInitiated) {
-                JunkCleanerModel.remove(items, rules: rules, home: home)
+                JunkCleanerModel.remove(items, rules: rules, home: home, exclusions: exclusions)
             }.value
             results = []
             selection = []
@@ -144,13 +157,15 @@ final class JunkCleanerModel {
     func emptyTrash() {
         guard let rule = scanner.rules.first(where: { $0.id == .trash }) else { return }
         let scanner = self.scanner
+        let exclusions = self.exclusions
         phase = .cleaning
 
         task = Task {
             let summary = await Task.detached(priority: .userInitiated) {
-                let result = scanner.scan(rule)
+                let result = scanner.scan(rule, excluding: exclusions)
                 guard result.status != .noPermission else { return CleanupSummary(trashNeedsPermission: true) }
-                return JunkCleanerModel.remove(result.items, rules: [rule.id: rule], home: scanner.home)
+                return JunkCleanerModel.remove(
+                    result.items, rules: [rule.id: rule], home: scanner.home, exclusions: exclusions)
             }.value
             phase = .finished(summary)
         }
@@ -158,9 +173,9 @@ final class JunkCleanerModel {
 
     /// Runs off the main actor. Every removal goes through `FileRemover`, which checks `PathGuard`.
     nonisolated private static func remove(
-        _ items: [JunkItem], rules: [JunkRule.ID: JunkRule], home: URL
+        _ items: [JunkItem], rules: [JunkRule.ID: JunkRule], home: URL, exclusions: ExclusionList
     ) -> CleanupSummary {
-        let remover = FileRemover(pathGuard: PathGuard(home: home))
+        let remover = FileRemover(pathGuard: PathGuard(home: home, exclusions: exclusions))
         var summary = CleanupSummary()
         for item in items {
             guard let rule = rules[item.ruleID] else { continue }

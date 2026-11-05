@@ -92,6 +92,9 @@ Not fluent in Indonesian? Put the English text in your PR description and a main
 | In use | Lagi dipakai |
 | Review first | Cek dulu |
 | Permanent | Permanen |
+| Exclusions | Pengecualian |
+| Add to Exclusions | Masukin ke Pengecualian |
+| Excluded | Dikecualiin |
 
 ## Commits and pull requests
 

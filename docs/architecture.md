@@ -10,12 +10,14 @@
 │   ├─ Sampah Developer   JunkCleanerModel(group: .developer)   │
 │   ├─ Hapus Aplikasi     UninstallerModel                      │
 │   └─ File Gede & Lama   LargeFilesModel                       │
+│  Pengaturan             ExclusionStore ──► every page model   │
 └───────────────┬───────────────────────────────────────────────┘
                 │ runs in the background (TaskGroup / Task.detached)
 ┌───────────────▼──────── HavusCore (Swift package, no UI) ─────┐
 │  JunkScanner + JunkRule.catalog                               │
 │  AppCatalog + LeftoverFinder                                  │
 │  LargeFileFinder (Spotlight, folder scan fallback)            │
+│  ExclusionList (checked by every scanner and by PathGuard)    │
 │                         │                                     │
 │              FileRemover ──► PathGuard ──► FileManager        │
 │              (the only way to delete anything)                │
@@ -31,7 +33,7 @@ Every deletion goes through this path, no exceptions:
 1. A scanner produces items. Each item has `removalTargets`: the URLs that will actually be removed.
 2. The user reviews and selects items in the UI, then confirms in a dialog.
 3. `FileRemover.remove(_:method:allowedRoots:)` processes each URL:
-   - `PathGuard.check` **rejects** the URL if it isn't a file URL; if it's a protected location (the home folder, `~/Documents`, `~/Library`, `/System`, `/Applications` and similar); if it's inside iCloud Drive or `~/Library/CloudStorage`; or if it isn't **strictly inside** one of the `allowedRoots`. `..` and symlinks in parent folders are resolved first, so traversal tricks can't slip through.
+   - `PathGuard.check` **rejects** the URL if it isn't a file URL; if it's a protected location (the home folder, `~/Documents`, `~/Library`, `/System`, `/Applications` and similar); if it's inside iCloud Drive or `~/Library/CloudStorage`; if it's on the user's [exclusion list](#exclusion-list), inside an excluded folder, or holds an excluded item; or if it isn't **strictly inside** one of the `allowedRoots`. `..` and symlinks in parent folders are resolved first, so traversal tricks can't slip through.
    - If it passes, the item is moved with `trashItem` (the default) or deleted with `removeItem` (only for the contents of the Trash).
 4. The result lists what succeeded and what failed, with reasons, and is shown to the user.
 
@@ -50,6 +52,15 @@ Rules (`JunkRule`) are data, not code:
 | `excludedNames` | Entries that are never offered, such as iCloud sync state |
 
 When a more specific rule lives inside another rule's folder (for example `Library/Caches/Homebrew` inside `Library/Caches`), that folder appears only under the more specific rule, so nothing is counted twice.
+
+## Exclusion list
+
+Files and folders the user protects in **Pengaturan → Pengecualian**, or with **Masukin ke Pengecualian** in a result's right-click menu.
+
+- **What it blocks.** `ExclusionList.blocks(_:)` is true for an excluded path, anything inside it, and any folder that holds it, since removing that folder would remove the excluded item too. Paths are compared in their literal and symlink-resolved forms, without regard to case or Unicode normalization, so a mismatch can only block more.
+- **Where it's checked.** `JunkScanner`, `LeftoverFinder` and `LargeFileFinder` leave blocked items out and don't measure them. `PathGuard` checks the list again before every removal (`.excluded`), so an item that gets past a scanner still can't be removed.
+- **How pages get it.** `ExclusionStore` keeps the list in UserDefaults (`Exclusions.paths`). `RootView` hands every page model the current `ExclusionList` whenever it changes, and each model drops the results it now blocks. A `.wholeContents` item goes away as a whole when any of its targets is blocked, because its size covers all of them; the next scan brings back the rest. Removing an exclusion takes effect on the next scan.
+- **Apps.** `AppCatalog` still lists excluded apps, so their bundle identifiers keep protecting their data when another app's leftovers are searched. **Hapus Aplikasi** marks them *Dikecualiin* and only offers their leftovers.
 
 ## Concurrency
 
@@ -76,6 +87,7 @@ The only network access in Havus. It tells the user about a new version; it neve
 2. UI → `Havus/Features/<Feature>/` (model + view). Use the components in `Havus/Shared/Components.swift` and the tokens in `Design.swift`.
 3. Need a new page? Add a case to `SidebarItem`.
 4. Write UI text as Indonesian literals in SwiftUI; Xcode adds them to `Localizable.xcstrings`. See the glossary in [CONTRIBUTING.md](../CONTRIBUTING.md).
+5. Offering files for removal? Take the page's `ExclusionList` (see `setExclusions(_:)` in the existing models) and pass it to the scanner and to `PathGuard`.
 
 ## Root helper plan (next phase)
 

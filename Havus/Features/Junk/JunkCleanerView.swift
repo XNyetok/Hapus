@@ -179,6 +179,7 @@ private struct JunkItemRow: View {
     let item: JunkItem
     let isSelected: Bool
     let toggle: () -> Void
+    @Environment(ExclusionStore.self) private var exclusions
 
     var body: some View {
         HStack(spacing: Design.Spacing.m) {
@@ -198,6 +199,8 @@ private struct JunkItemRow: View {
         .selectableRow(isSelected ? .on : .off, toggle: toggle)
         .contextMenu {
             Button("Tampilkan di Finder") { NSWorkspace.shared.activateFileViewerSelecting([item.url]) }
+            Divider()
+            Button("Masukin ke Pengecualian") { exclusions.add([item.url]) }
         }
     }
 }

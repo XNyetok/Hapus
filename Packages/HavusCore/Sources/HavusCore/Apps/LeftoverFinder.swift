@@ -65,8 +65,13 @@ public struct LeftoverFinder: Sendable {
     }
 
     /// Blocking.
-    /// - Parameter otherBundleIdentifiers: IDs of the other installed apps, so their data is never claimed.
-    public func leftovers(for app: InstalledApp, otherBundleIdentifiers: Set<String> = []) -> [Leftover] {
+    /// - Parameters:
+    ///   - otherBundleIdentifiers: IDs of the other installed apps, so their data is never claimed.
+    ///   - exclusions: Leftovers they block are left out.
+    public func leftovers(
+        for app: InstalledApp, otherBundleIdentifiers: Set<String> = [],
+        excluding exclusions: ExclusionList = ExclusionList()
+    ) -> [Leftover] {
         let bundleID = app.bundleIdentifier.lowercased()
         let others = otherBundleIdentifiers.map { $0.lowercased() }.filter { $0.count > bundleID.count }
         let names = Self.nameCandidates(for: app)
@@ -93,7 +98,7 @@ public struct LeftoverFinder: Sendable {
                 } else {
                     continue
                 }
-                guard seen.insert(child.pathComponents).inserted else { continue }
+                guard !exclusions.blocks(child), seen.insert(child.pathComponents).inserted else { continue }
                 results.append(
                     Leftover(
                         url: child, kind: location.kind, match: match,
