@@ -78,11 +78,11 @@ Each open item has its own issue, where you can follow progress, share ideas or 
 - [ ] Login items and launch agents manager: [#18](https://github.com/XNyetok/Havus/issues/18)
 - [ ] Maintenance tasks that need root (`SMAppService` + XPC helper): [#19](https://github.com/XNyetok/Havus/issues/19)
 - [ ] Browser privacy cleanup: [#20](https://github.com/XNyetok/Havus/issues/20)
-- [ ] Exclusion list (files and folders Havus must never touch): [#21](https://github.com/XNyetok/Havus/issues/21)
 - [ ] English UI localization: [#22](https://github.com/XNyetok/Havus/issues/22)
 - [ ] Notarization and Homebrew Cask: [#23](https://github.com/XNyetok/Havus/issues/23)
 - [x] App icon
 - [x] New version notifications (opt-in, once a day)
+- [x] Exclusion list (files and folders Havus never touches)
 
 ## Contributing
 
