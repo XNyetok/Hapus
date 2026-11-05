@@ -49,6 +49,32 @@
         }
       }
     },
+    "%@ bisa bikin lagi agent ini waktu dibuka. Biar beres, hapus %@ lewat Hapus Aplikasi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ may recreate this agent when it opens. To get rid of it for good, remove %2$@ in Uninstaller."
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ bisa bikin lagi agent ini waktu dibuka. Biar beres, hapus %2$@ lewat Hapus Aplikasi."
+          }
+        }
+      }
+    },
+    "%@ bisa bikin lagi agent ini. Kalau cuma mau agent ini berhenti, matiin aja." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ may recreate this agent. If you just want it to stop, turn it off instead."
+          }
+        }
+      }
+    },
     "%@ bisa dibersihin" : {
       "localizations" : {
         "en" : {
@@ -145,6 +171,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "%@ deleted permanently."
+          }
+        }
+      }
+    },
+    "%@ udah dipindah ke Tong Sampah." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ moved to the Trash."
           }
         }
       }
@@ -431,6 +467,28 @@
         }
       }
     },
+    "%lld launch agent" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld launch agent"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld launch agents"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "Ada file sisa yang nggak bisa dibaca Havus, jadi ukurannya belum lengkap. Nyalain Akses Disk Penuh biar kebaca semua." : {
       "localizations" : {
         "en" : {
@@ -487,6 +545,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Deselect All"
+          }
+        }
+      }
+    },
+    "Belum ada aplikasi yang masang launch agent di akun kamu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No app has added a launch agent to your account."
           }
         }
       }
@@ -619,6 +687,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open"
+          }
+        }
+      }
+    },
+    "Buka %@ di Hapus Aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show %@ in Uninstaller"
+          }
+        }
+      }
+    },
+    "Buka Login Items" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Login Items"
           }
         }
       }
@@ -1043,6 +1131,16 @@
         }
       }
     },
+    "Dimatiin di Pengaturan Sistem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turned off in System Settings"
+          }
+        }
+      }
+    },
     "Dipilih" : {
       "localizations" : {
         "en" : {
@@ -1079,6 +1177,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Large & Old Files"
+          }
+        }
+      }
+    },
+    "File ini ada di daftar Pengecualian." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file is on your exclusion list."
+          }
+        }
+      }
+    },
+    "File ini kosong atau rusak, jadi macOS nggak pernah ngejalaninnya. Aman dibuang." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This file is empty or broken, so macOS never runs it. It's safe to remove."
           }
         }
       }
@@ -1129,6 +1247,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iPhone update files"
+          }
+        }
+      }
+    },
+    "File-nya kosong atau rusak, jadi nggak pernah dijalanin macOS." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file is empty or broken, so macOS never runs it."
+          }
+        }
+      }
+    },
+    "File-nya udah nggak ada." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The file is already gone."
           }
         }
       }
@@ -1360,6 +1498,46 @@
         }
       }
     },
+    "Havus nggak bisa matiin %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus couldn't turn off %@"
+          }
+        }
+      }
+    },
+    "Havus nggak bisa mindahin %@ ke Tong Sampah" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus couldn't move %@ to the Trash"
+          }
+        }
+      }
+    },
+    "Havus nggak bisa nyalain %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus couldn't turn on %@"
+          }
+        }
+      }
+    },
+    "Havus nggak boleh nyentuh file di lokasi ini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus isn't allowed to touch files in this location."
+          }
+        }
+      }
+    },
     "Havus pakai index Spotlight buat nyari file gede di folder kamu (di luar Library). Nggak ada yang dihapus tanpa persetujuan kamu." : {
       "localizations" : {
         "en" : {
@@ -1410,6 +1588,56 @@
         }
       }
     },
+    "Item lain, kayak aplikasi yang kebuka pas login, diatur di Pengaturan Sistem." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Other items, like apps that open at login, are managed in System Settings."
+          }
+        }
+      }
+    },
+    "Jalan Otomatis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Startup Items"
+          }
+        }
+      }
+    },
+    "Kalau dibutuhin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "When needed"
+          }
+        }
+      }
+    },
+    "Kalau ternyata masih butuh, kamu bisa balikin file-nya dari Tong Sampah." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "If it turns out you still need it, you can put the file back from the Trash."
+          }
+        }
+      }
+    },
+    "Kamu cuma bisa nyalain lagi di Pengaturan Sistem, lewat General → Login Items & Extensions." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can only turn this back on in System Settings, under General → Login Items & Extensions."
+          }
+        }
+      }
+    },
     "Kamu masih pakai versi %@. Lihat apa aja yang baru, sekalian cara update-nya, di havus.web.id." : {
       "localizations" : {
         "en" : {
@@ -1426,6 +1654,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Any time"
+          }
+        }
+      }
+    },
+    "Kata launchctl: %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "launchctl says: %@"
           }
         }
       }
@@ -1506,6 +1744,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "In use"
+          }
+        }
+      }
+    },
+    "Lagi jalan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Running"
+          }
+        }
+      }
+    },
+    "Lagi ngecek yang jalan otomatis…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Checking what starts automatically…"
           }
         }
       }
@@ -1646,6 +1904,16 @@
         }
       }
     },
+    "Masih jalan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Still running"
+          }
+        }
+      }
+    },
     "Masukin ke Pengecualian" : {
       "localizations" : {
         "en" : {
@@ -1656,12 +1924,42 @@
         }
       }
     },
+    "Matiin Aja" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn Off Instead"
+          }
+        }
+      }
+    },
+    "Matiin biar nggak jalan otomatis lagi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn off so it no longer starts automatically"
+          }
+        }
+      }
+    },
     "Mau dikabarin kalau ada versi baru?" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Want to know when there's a new version?"
+          }
+        }
+      }
+    },
+    "Mending dimatiin aja. Banyak aplikasi bikin lagi agent-nya kalau file-nya dihapus, sedangkan agent yang dimatiin biasanya tetap mati. Biar beres, hapus aplikasinya lewat **Hapus Aplikasi**." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turning an agent off usually works better. Many apps recreate their agent when its file is deleted, but one that's turned off usually stays off. To get rid of it for good, remove the app in **Uninstaller**."
           }
         }
       }
@@ -1702,6 +2000,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "No leftover files found."
+          }
+        }
+      }
+    },
+    "Nggak ada launch agent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No launch agents"
           }
         }
       }
@@ -1766,6 +2074,16 @@
         }
       }
     },
+    "Nggak kepakai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unused"
+          }
+        }
+      }
+    },
     "Ngitung ukuran…" : {
       "localizations" : {
         "en" : {
@@ -1782,6 +2100,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Turn On"
+          }
+        }
+      }
+    },
+    "Nyalain biar jalan otomatis lagi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn on so it starts automatically again"
           }
         }
       }
@@ -1896,12 +2224,32 @@
         }
       }
     },
+    "Pilihan lain buat %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More options for %@"
+          }
+        }
+      }
+    },
     "Pindahin %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Move %@ to Trash"
+          }
+        }
+      }
+    },
+    "Pindahin %@ ke Tong Sampah?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move %@ to the Trash?"
           }
         }
       }
@@ -1934,6 +2282,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Move to Trash"
+          }
+        }
+      }
+    },
+    "Pindahin ke Tong Sampah…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move to Trash…"
           }
         }
       }
@@ -1984,6 +2342,46 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Preferences"
+          }
+        }
+      }
+    },
+    "Program yang jalan sendiri di belakang layar, tanpa kamu buka." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Programs that run in the background without you opening them."
+          }
+        }
+      }
+    },
+    "Program yang mau dijalanin udah dihapus, jadi agent ini cuma gagal tiap kali dicoba." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The program it should run was deleted, so this agent fails every time it tries to start."
+          }
+        }
+      }
+    },
+    "Programnya udah nggak ada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Program missing"
+          }
+        }
+      }
+    },
+    "Programnya udah nggak ada, jadi agent ini nggak bisa jalan lagi. Aman dibuang." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Its program is gone, so this agent can't run anymore. It's safe to remove."
           }
         }
       }
@@ -2074,6 +2472,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Once a day, Havus can check online whether there's a new version. Nothing about you or your Mac is sent. You can change this anytime in **Havus → Check for Updates Automatically**."
+          }
+        }
+      }
+    },
+    "Selalu jalan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Always running"
           }
         }
       }
@@ -2218,12 +2626,52 @@
         }
       }
     },
+    "Terjadwal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "On a schedule"
+          }
+        }
+      }
+    },
+    "Tiap %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Every %@"
+          }
+        }
+      }
+    },
+    "Tiap login" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "At login"
+          }
+        }
+      }
+    },
     "Tutup %@" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Quit %@"
+          }
+        }
+      }
+    },
+    "Udah dimatiin, tapi programnya baru berhenti setelah kamu logout." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "It's turned off, but the program keeps running until you log out."
           }
         }
       }
@@ -2300,6 +2748,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "macOS doesn't let Havus read what's inside, so its size is unknown."
+          }
+        }
+      }
+    },
+    "macOS nggak ngizinin Havus mindahin file ini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS didn't let Havus move this file."
           }
         }
       }

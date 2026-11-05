@@ -4,7 +4,7 @@
 
 **A lightweight, open-source Mac cleaner that minds its own business.**
 
-Havus (a playful twist on *hapus*, Indonesian for "delete") cleans caches, logs and developer junk, uninstalls apps together with their leftovers, and finds large files you rarely open. Everything runs locally on your Mac: no account, no ads, no telemetry.
+Havus (a playful twist on *hapus*, Indonesian for "delete") cleans caches, logs and developer junk, uninstalls apps together with their leftovers, finds large files you rarely open, and turns off programs that start on their own. Everything runs locally on your Mac: no account, no ads, no telemetry.
 
 The app speaks casual Indonesian and English, following your Mac's language. [Ringkasan dalam Bahasa Indonesia ada di bawah.](#bahasa-indonesia)
 
@@ -19,6 +19,7 @@ The app speaks casual Indonesian and English, following your Mac's language. [Ri
 | **Developer junk** (*Sampah Developer*) | Xcode (DerivedData, Archives, Device Support, Previews), Simulator caches, Homebrew, npm, Yarn, pnpm, CocoaPods, SwiftPM, pip, Go, Gradle, Bun, Cargo |
 | **Uninstaller** (*Hapus Aplikasi*) | Removes an app together with its leftovers, or only the leftovers to "reset" it |
 | **Large & old files** (*File Gede & Lama*) | Finds big, rarely opened files using the Spotlight index, so it's fast |
+| **Startup items** (*Jalan Otomatis*) | Lists the launch agents in your Library with the app each belongs to. Turn one off, or move it to the Trash |
 
 ## Principles
 
@@ -81,7 +82,7 @@ Everything Havus does today is free and will stay free. Items marked *(Pro candi
 Each open item has its own issue, where you can follow progress, share ideas or offer to help. The [roadmap label](https://github.com/XNyetok/Havus/issues?q=label%3Aroadmap) lists them all.
 
 - [ ] Disk usage visualization *(Pro candidate)*: [#17](https://github.com/XNyetok/Havus/issues/17)
-- [ ] Login items and launch agents manager: [#18](https://github.com/XNyetok/Havus/issues/18)
+- [ ] Login items and launch agents manager: [#18](https://github.com/XNyetok/Havus/issues/18) (your own launch agents are done; system-wide ones need root)
 - [ ] Maintenance tasks that need root (`SMAppService` + XPC helper): [#19](https://github.com/XNyetok/Havus/issues/19)
 - [ ] Browser privacy cleanup: [#20](https://github.com/XNyetok/Havus/issues/20)
 - [ ] Notarization and Homebrew Cask: [#23](https://github.com/XNyetok/Havus/issues/23)
@@ -108,7 +109,7 @@ The source code is released under the [MIT License](LICENSE) © 2026 Debi Kurnia
 
 ## Bahasa Indonesia
 
-**Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, sampai nemuin file gede yang jarang dibuka. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin. Ada file atau folder yang nggak boleh disentuh? Masukin ke **Pengaturan → Pengecualian**, atau klik kanan item di hasil pindai.
+**Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, nemuin file gede yang jarang dibuka, sampai matiin program yang jalan otomatis. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin. Ada file atau folder yang nggak boleh disentuh? Masukin ke **Pengaturan → Pengecualian**, atau klik kanan item di hasil pindai.
 
 **Bahasa:** Havus bisa bahasa Indonesia dan Inggris, dan ngikutin bahasa yang duluan di daftar **System Settings → General → Language & Region**. Mac kamu pakai bahasa Inggris, tapi mau Havus tetap bahasa Indonesia? Di halaman yang sama, klik **+** di bagian **Applications**, pilih Havus, lalu pilih Bahasa Indonesia.
 

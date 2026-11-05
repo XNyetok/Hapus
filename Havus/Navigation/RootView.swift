@@ -10,6 +10,7 @@ struct RootView: View {
     @State private var developerJunk = JunkCleanerModel(group: .developer)
     @State private var uninstaller = UninstallerModel()
     @State private var largeFiles = LargeFilesModel()
+    @State private var startupItems = StartupItemsModel()
 
     var body: some View {
         NavigationSplitView {
@@ -22,6 +23,7 @@ struct RootView: View {
                 Section("Kelola") {
                     row(.uninstaller)
                     row(.largeFiles)
+                    row(.startupItems)
                 }
             }
             .navigationSplitViewColumnWidth(min: 220, ideal: 250, max: 300)
@@ -37,6 +39,7 @@ struct RootView: View {
             developerJunk.setExclusions(list)
             uninstaller.setExclusions(list)
             largeFiles.setExclusions(list)
+            startupItems.setExclusions(list)
         }
         .task { updates.checkIfDue() }
         .onReceive(NotificationCenter.default.publisher(for: NSApplication.didBecomeActiveNotification)) { _ in
@@ -69,6 +72,11 @@ struct RootView: View {
             UninstallerView(model: uninstaller)
         case .largeFiles:
             LargeFilesView(model: largeFiles)
+        case .startupItems:
+            StartupItemsView(model: startupItems) { app in
+                uninstaller.show(app)
+                selection = .uninstaller
+            }
         }
     }
 }

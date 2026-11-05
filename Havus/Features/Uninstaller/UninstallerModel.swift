@@ -36,6 +36,8 @@ final class UninstallerModel {
     @ObservationIgnored private var appsTask: Task<Void, Never>?
     @ObservationIgnored private var leftoverTask: Task<Void, Never>?
     @ObservationIgnored private var exclusions = ExclusionList()
+    /// An app to select once the list is loaded, asked for by ``show(_:)``.
+    @ObservationIgnored private var appToShow: InstalledApp?
 
     var filteredApps: [InstalledApp] {
         let query = searchText.trimmingCharacters(in: .whitespaces)
@@ -71,7 +73,30 @@ final class UninstallerModel {
             let found = await Task.detached(priority: .userInitiated) { catalog.installedApps() }.value
             apps = found
             isLoadingApps = false
+            if let app = appToShow {
+                appToShow = nil
+                select(matching: app)
+            }
             await measureSizes(of: found)
+        }
+    }
+
+    /// Selects `app`, for example from Jalan Otomatis. Waits for the list when it isn't loaded yet.
+    func show(_ app: InstalledApp) {
+        searchText = ""
+        if apps.isEmpty {
+            appToShow = app
+            loadAppsIfNeeded()
+        } else {
+            select(matching: app)
+        }
+    }
+
+    /// The app in the list at the same location, if it's still there.
+    private func select(matching app: InstalledApp) {
+        let path = app.url.standardizedFileURL.path(percentEncoded: false)
+        if let match = apps.first(where: { $0.url.standardizedFileURL.path(percentEncoded: false) == path }) {
+            select(match.id)
         }
     }
 
