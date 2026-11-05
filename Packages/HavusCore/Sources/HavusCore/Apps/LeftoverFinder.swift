@@ -17,7 +17,10 @@ public struct Leftover: Sendable, Hashable, Identifiable {
     public let url: URL
     public let kind: Kind
     public let match: Match
+    /// Bytes on disk. When ``isFullyReadable`` is `false`, only what Havus could read.
     public let size: Int64
+    /// `false` when macOS kept Havus out of some or all of it, so ``size`` may be too low, or zero.
+    public let isFullyReadable: Bool
 
     public var id: URL { url }
 }
@@ -99,10 +102,11 @@ public struct LeftoverFinder: Sendable {
                     continue
                 }
                 guard !exclusions.blocks(child), seen.insert(child.pathComponents).inserted else { continue }
+                let measurement = DirectorySize.measure(child)
                 results.append(
                     Leftover(
                         url: child, kind: location.kind, match: match,
-                        size: DirectorySize.allocatedSize(of: child)))
+                        size: measurement.bytes, isFullyReadable: measurement.isComplete))
             }
         }
         return results

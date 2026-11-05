@@ -3,6 +3,7 @@ import Foundation
 /// A throwaway home folder, deleted when the test ends. Tests never touch the real home folder.
 final class TemporaryHome {
     let url: URL
+    private var lockedFolders: [URL] = []
 
     init() throws {
         url = FileManager.default.temporaryDirectory
@@ -11,7 +12,17 @@ final class TemporaryHome {
     }
 
     deinit {
+        for folder in lockedFolders {
+            try? FileManager.default.setAttributes(
+                [.posixPermissions: 0o755], ofItemAtPath: folder.path(percentEncoded: false))
+        }
         try? FileManager.default.removeItem(at: url)
+    }
+
+    /// Takes away every permission on `folder`, like a location macOS won't let Havus read. Undone when the test ends.
+    func lock(_ folder: URL) throws {
+        try FileManager.default.setAttributes([.posixPermissions: 0], ofItemAtPath: folder.path(percentEncoded: false))
+        lockedFolders.append(folder)
     }
 
     @discardableResult
