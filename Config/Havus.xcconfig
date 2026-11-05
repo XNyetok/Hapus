@@ -19,6 +19,11 @@ INFOPLIST_KEY_CFBundleDisplayName = Havus
 INFOPLIST_KEY_LSApplicationCategoryType = public.app-category.utilities
 INFOPLIST_KEY_NSHumanReadableCopyright = © 2026 Debi Kurnia. MIT License.
 
+// Debug builds are a separate app to macOS, with their own Full Disk Access entry and settings. A build with
+// the release bundle ID but a different signature would switch off the Full Disk Access of an installed Havus.
+PRODUCT_BUNDLE_IDENTIFIER[config=Debug] = id.nyetok.havus.debug
+INFOPLIST_KEY_CFBundleDisplayName[config=Debug] = Havus Debug
+
 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
 ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
 SWIFT_EMIT_LOC_STRINGS = YES

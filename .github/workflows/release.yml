@@ -1,7 +1,10 @@
 name: Release
 
-# Push a tag like v0.1.0 → a DRAFT GitHub Release with a universal, ad-hoc signed zip + SHA-256.
-# Nothing is published until a maintainer reviews the draft. No secrets are used yet.
+# Push a tag like v0.1.0 → a DRAFT GitHub Release with a universal zip + SHA-256, signed with the Havus
+# release certificate. Nothing is published until a maintainer reviews the draft.
+#
+# The certificate lives in the "release" environment (secrets HAVUS_SIGNING_P12_BASE64 and
+# HAVUS_SIGNING_P12_PASSWORD), which only tags matching v*.*.* may use. See docs/maintainer.md.
 on:
   push:
     tags: ['v*.*.*']
@@ -14,6 +17,7 @@ jobs:
     name: Build & draft release
     runs-on: macos-latest
     timeout-minutes: 45
+    environment: release
     permissions:
       contents: write # needed only to create the draft release
     steps:
@@ -21,8 +25,25 @@ jobs:
         with:
           persist-credentials: false
 
-      - name: Build zip (universal, ad-hoc signed)
+      # Without the certificate the app would be ad-hoc signed, and every user would lose Full Disk Access.
+      - name: Import the release certificate
+        env:
+          HAVUS_SIGNING_P12_BASE64: ${{ secrets.HAVUS_SIGNING_P12_BASE64 }}
+          HAVUS_SIGNING_P12_PASSWORD: ${{ secrets.HAVUS_SIGNING_P12_PASSWORD }}
+        run: |
+          if [ -z "$HAVUS_SIGNING_P12_BASE64" ] || [ -z "$HAVUS_SIGNING_P12_PASSWORD" ]; then
+            echo "::error::The release environment has no signing certificate, so this release stops here. See docs/maintainer.md."
+            exit 1
+          fi
+          ./scripts/import-signing-certificate.sh "$RUNNER_TEMP/release-signing.keychain-db"
+          echo "HAVUS_SIGNING_KEYCHAIN=$RUNNER_TEMP/release-signing.keychain-db" >> "$GITHUB_ENV"
+
+      - name: Build zip (universal, signed with the release certificate)
         run: ./scripts/build-release.sh "${GITHUB_REF_NAME#v}" "$GITHUB_RUN_NUMBER"
+
+      - name: Delete the signing keychain
+        if: always()
+        run: security delete-keychain "$RUNNER_TEMP/release-signing.keychain-db" 2>/dev/null || true
 
       - name: Create draft release
         env:

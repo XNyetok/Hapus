@@ -69,6 +69,7 @@ Files and folders the user protects in **Pengaturan → Pengecualian**, or with 
 
 ## macOS permissions
 
+- **Full Disk Access and the signature:** macOS ties the permission to the app's designated requirement. Releases are all signed with one certificate, so the permission survives updates; Debug builds use the bundle ID `id.nyetok.havus.debug`, so they don't disturb it. See [Release signing certificate](maintainer.md#release-signing-certificate).
 - **Full Disk Access:** checked without a prompt by trying to open a TCC-protected file. Checked again whenever the app becomes active, for example after the user comes back from System Settings.
 - **App Management:** macOS sometimes requires it to move other apps to the Trash. If it's denied, Havus shows a button that opens the right settings page.
 
