@@ -33,6 +33,15 @@ final class TemporaryHome {
         return file
     }
 
+    /// Writes `contents` as an XML property list.
+    @discardableResult
+    func makePlist(_ relativePath: String, _ contents: [String: Any]) throws -> URL {
+        let file = url.appending(path: relativePath)
+        try FileManager.default.createDirectory(at: file.deletingLastPathComponent(), withIntermediateDirectories: true)
+        try PropertyListSerialization.data(fromPropertyList: contents, format: .xml, options: 0).write(to: file)
+        return file
+    }
+
     @discardableResult
     func makeFolder(_ relativePath: String) throws -> URL {
         let folder = url.appending(path: relativePath, directoryHint: .isDirectory)

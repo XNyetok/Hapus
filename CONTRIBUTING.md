@@ -102,6 +102,7 @@ Not fluent in Indonesian? Put the English text in your PR description and a main
 | Developer Junk | Sampah Developer |
 | Uninstaller | Hapus Aplikasi |
 | Large & Old Files | File Gede & Lama |
+| Startup Items | Jalan Otomatis |
 | Settings | Pengaturan |
 | Check for Updates | Cek Versi Baru |
 | Scan | Pindai |
@@ -120,6 +121,9 @@ Not fluent in Indonesian? Put the English text in your PR description and a main
 | Add to Exclusions | Masukin ke Pengecualian |
 | Excluded | Dikecualiin |
 | Can't be read | Nggak kebaca |
+| Turn On / Turn Off | Nyalain / Matiin |
+| Running | Lagi jalan |
+| Unused | Nggak kepakai |
 
 ## Commits and pull requests
 

@@ -15,6 +15,12 @@ enum Format {
         return value.formatted(ByteCountFormatStyle(style: .file, spellsOutZero: false, locale: locale))
     }
 
+    /// `3600` → `1 jam` or `1 hour`; `5400` → `1 jam, 30 menit` or `1 hour, 30 minutes`.
+    static func duration(seconds: Int) -> String {
+        Duration.seconds(seconds).formatted(
+            .units(allowed: [.days, .hours, .minutes, .seconds], width: .wide, maximumUnitCount: 2).locale(locale))
+    }
+
     /// Relative date, e.g. `3 bulan yang lalu` or `3 months ago`.
     static func relativeDate(_ date: Date) -> String {
         date.formatted(.relative(presentation: .named).locale(locale))

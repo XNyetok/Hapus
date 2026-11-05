@@ -9,7 +9,8 @@
 │   ├─ Sampah Sistem      JunkCleanerModel(group: .system)      │
 │   ├─ Sampah Developer   JunkCleanerModel(group: .developer)   │
 │   ├─ Hapus Aplikasi     UninstallerModel                      │
-│   └─ File Gede & Lama   LargeFilesModel                       │
+│   ├─ File Gede & Lama   LargeFilesModel                       │
+│   └─ Jalan Otomatis     StartupItemsModel                     │
 │  Pengaturan             ExclusionStore ──► every page model   │
 └───────────────┬───────────────────────────────────────────────┘
                 │ runs in the background (TaskGroup / Task.detached)
@@ -17,6 +18,7 @@
 │  JunkScanner + JunkRule.catalog                               │
 │  AppCatalog + LeftoverFinder                                  │
 │  LargeFileFinder (Spotlight, folder scan fallback)            │
+│  LaunchAgentCatalog + Launchd (launchctl, Login Items)        │
 │  ExclusionList (checked by every scanner and by PathGuard)    │
 │                         │                                     │
 │              FileRemover ──► PathGuard ──► FileManager        │
@@ -58,9 +60,20 @@ When a more specific rule lives inside another rule's folder (for example `Libra
 Files and folders the user protects in **Pengaturan → Pengecualian**, or with **Masukin ke Pengecualian** in a result's right-click menu.
 
 - **What it blocks.** `ExclusionList.blocks(_:)` is true for an excluded path, anything inside it, and any folder that holds it, since removing that folder would remove the excluded item too. Paths are compared in their literal and symlink-resolved forms, without regard to case or Unicode normalization, so a mismatch can only block more.
-- **Where it's checked.** `JunkScanner`, `LeftoverFinder` and `LargeFileFinder` leave blocked items out and don't measure them. `PathGuard` checks the list again before every removal (`.excluded`), so an item that gets past a scanner still can't be removed.
+- **Where it's checked.** `JunkScanner`, `LeftoverFinder`, `LargeFileFinder` and `LaunchAgentCatalog` leave blocked items out and don't measure them. `PathGuard` checks the list again before every removal (`.excluded`), so an item that gets past a scanner still can't be removed.
 - **How pages get it.** `ExclusionStore` keeps the list in UserDefaults (`Exclusions.paths`). `RootView` hands every page model the current `ExclusionList` whenever it changes, and each model drops the results it now blocks. A `.wholeContents` item goes away as a whole when any of its targets is blocked, because its size covers all of them; the next scan brings back the rest. Removing an exclusion takes effect on the next scan.
 - **Apps.** `AppCatalog` still lists excluded apps, so their bundle identifiers keep protecting their data when another app's leftovers are searched. **Hapus Aplikasi** marks them *Dikecualiin* and only offers their leftovers.
+
+## Startup items
+
+**Jalan Otomatis** lists the launch agents in `~/Library/LaunchAgents`: the jobs launchd starts for this user alone, which Havus can change without root.
+
+- **What's listed.** `LaunchAgentCatalog` reads every property list directly in that folder. launchd ignores subfolders, and so does Havus. A file without a `Label`, or without a program to run, shows up as unused, because launchd never loads it; Google Software Update leaves agents like that behind. A program counts as missing only when its full path surely doesn't exist (`ENOENT`), never when macOS hides it or it's on a disk that isn't connected.
+- **Which app it belongs to.** The first match of: the app named in `AssociatedBundleIdentifiers`, which Login Items in System Settings uses too; the outermost app bundle that holds the program; an installed app whose bundle identifier starts the label. When **Hapus Aplikasi** lists that app, the agent's menu can open it there.
+- **Its state.** `Launchd` reads `launchctl list` for the jobs that are loaded and running, and `launchctl print-disabled gui/<uid>` for launchd's overrides, which outrank the file's `Disabled` key. It also asks Background Task Management, through `SMAppService.statusForLegacyPlist(at:)`, whether the user switched the agent off in **System Settings → General → Login Items & Extensions**.
+- **Turning off and on.** Off runs `launchctl disable gui/<uid>/<label>`, then `bootout` to stop the job now. On runs `enable`, then `bootstrap` to load it like at login. Both change only launchd's record, never the file, so they can always be undone. launchd keeps the record by label, so it also covers a file the app writes again. A switch the user flipped in System Settings stays theirs: Havus shows it but leaves it alone. Login Items and launchd keep separate records, so an agent Havus turned off can still look allowed in System Settings.
+- **Removing.** The file goes to the Trash through `FileRemover`, with `~/Library/LaunchAgents` as the only allowed root. Only once it's there is the job booted out. Restoring the file brings the job back at the next login. Turning an agent off is the default the page suggests, because many apps write their agent again when it's missing; removing the app in **Hapus Aplikasi** is the lasting fix.
+- **Not yet.** The agents and daemons in `/Library/LaunchAgents` and `/Library/LaunchDaemons` need root to change, so they wait for the [root helper](#root-helper-plan-next-phase). macOS has no public API that lists every app that opens at login, or the agents apps register with `SMAppService`, so the page links to Login Items in System Settings for those.
 
 ## Concurrency
 
@@ -72,6 +85,7 @@ Files and folders the user protects in **Pengaturan → Pengecualian**, or with 
 - **Full Disk Access and the signature:** macOS ties the permission to the app's designated requirement. Releases are all signed with one certificate, so the permission survives updates; Debug builds use the bundle ID `id.nyetok.havus.debug`, so they don't disturb it. See [Release signing certificate](maintainer.md#release-signing-certificate).
 - **Full Disk Access:** checked without a prompt by trying to open a TCC-protected file. Checked again whenever the app becomes active, for example after the user comes back from System Settings.
 - **App Management:** macOS sometimes requires it to move other apps to the Trash. If it's denied, Havus shows a button that opens the right settings page.
+- **Launch agents:** reading and changing the user's own launch agents needs no permission, because `launchctl` acts only in the user's own GUI domain.
 
 ## Update check
 
