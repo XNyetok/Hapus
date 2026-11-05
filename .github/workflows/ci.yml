@@ -64,8 +64,13 @@ jobs:
             -scheme Havus \
             -configuration Debug \
             -destination 'platform=macOS' \
+            -derivedDataPath build/DerivedData \
             CODE_SIGNING_ALLOWED=NO \
             -quiet
+
+      # Uses the strings the compiler found during the build above.
+      - name: Check that every UI string has English
+        run: ./scripts/check-strings.sh
 
       - name: Check formatting (informational)
         continue-on-error: true

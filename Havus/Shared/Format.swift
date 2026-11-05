@@ -1,18 +1,21 @@
 import Foundation
 
-/// Formatting in Indonesian, matching the UI language.
+/// Sizes and dates in the language Havus runs in (Indonesian or English), so they match the text around them.
 enum Format {
-    static let locale = Locale(identifier: "id_ID")
+    /// The user's locale. macOS gives it the language Havus picked from its localizations, together with the user's
+    /// region and number settings.
+    static var locale: Locale { .autoupdatingCurrent }
 
-    /// `1234567890` → `1,23 GB`, and `0` → `0 byte` (not "Nol kB").
+    /// `1234567890` → `1,23 GB` or `1.23 GB`, as the user's region writes numbers. `0` → `0 byte` in Indonesian or
+    /// `0 bytes` in English (not "Nol kB").
     static func bytes(_ value: Int64) -> String {
         // Below 1 kB the system's Indonesian format says "bita" (seen on macOS 27), so "0 file dipilih · 0 bita".
-        // Use the "byte" everyone says instead.
+        // Use the "byte" everyone says instead. The string catalog makes it "bytes" in English.
         guard value >= 1000 else { return String(localized: "\(value) byte") }
         return value.formatted(ByteCountFormatStyle(style: .file, spellsOutZero: false, locale: locale))
     }
 
-    /// Relative date in Indonesian, e.g. `3 bulan yang lalu` ("3 months ago").
+    /// Relative date, e.g. `3 bulan yang lalu` or `3 months ago`.
     static func relativeDate(_ date: Date) -> String {
         date.formatted(.relative(presentation: .named).locale(locale))
     }

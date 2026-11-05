@@ -1,7 +1,2319 @@
 {
   "sourceLanguage" : "id",
   "strings" : {
-
+    "%@ %lld item dilewati karena lagi dipakai atau butuh izin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ %#@skipped@"
+          },
+          "substitutions" : {
+            "skipped" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg item was skipped because it's in use or needs permission."
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg items were skipped because they're in use or need permission."
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ %2$lld item dilewati karena lagi dipakai atau butuh izin."
+          }
+        }
+      }
+    },
+    "%@ bakal dipindah ke Tong Sampah" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ will be moved to the Trash"
+          }
+        }
+      }
+    },
+    "%@ bisa dibersihin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ can be cleaned up"
+          }
+        }
+      }
+    },
+    "%@ dan %lld file sisanya udah dipindah ke Tong Sampah (%@)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moved %1$@%#@leftovers@ to the Trash (%3$@)."
+          },
+          "substitutions" : {
+            "leftovers" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : " and %arg leftover file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : " and %arg leftover files"
+                    }
+                  },
+                  "zero" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ dan %2$lld file sisanya udah dipindah ke Tong Sampah (%3$@)."
+          }
+        }
+      }
+    },
+    "%@ dari %@ terpakai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ of %@ used"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ dari %2$@ terpakai"
+          }
+        }
+      }
+    },
+    "%@ kosong" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ available"
+          }
+        }
+      }
+    },
+    "%@ lagi jalan. Tutup dulu sebelum dihapus ya." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ is running. Quit it before removing it."
+          }
+        }
+      }
+    },
+    "%@ udah dihapus permanen." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ deleted permanently."
+          }
+        }
+      }
+    },
+    "%@ udah dipindah ke Tong Sampah. Kosongin Tong Sampah biar ruangnya beneran lega." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ moved to the Trash. Empty the Trash to actually free up the space."
+          }
+        }
+      }
+    },
+    "%lld byte" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld byte"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld bytes"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld file (%@) dipindah ke Tong Sampah, %lld gagal." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@files@ (%2$@) moved to the Trash, %3$lld failed."
+          },
+          "substitutions" : {
+            "files" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld file (%2$@) dipindah ke Tong Sampah, %3$lld gagal."
+          }
+        }
+      }
+    },
+    "%lld file (%@) udah dipindah ke Tong Sampah." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@files@ (%2$@) moved to the Trash."
+          },
+          "substitutions" : {
+            "files" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld file (%2$@) udah dipindah ke Tong Sampah."
+          }
+        }
+      }
+    },
+    "%lld file dipilih · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@files@ selected · %2$@"
+          },
+          "substitutions" : {
+            "files" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld file dipilih · %2$@"
+          }
+        }
+      }
+    },
+    "%lld file sisa %@ udah dipindah ke Tong Sampah (%@)." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Moved %#@leftovers@ from %2$@ to the Trash (%3$@)."
+          },
+          "substitutions" : {
+            "leftovers" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg leftover file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg leftover files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld file sisa %2$@ udah dipindah ke Tong Sampah (%3$@)."
+          }
+        }
+      }
+    },
+    "%lld file · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@files@ · %2$@"
+          },
+          "substitutions" : {
+            "files" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld file · %2$@"
+          }
+        }
+      }
+    },
+    "%lld item dilewati karena lagi dipakai atau butuh izin." : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld item was skipped because it's in use or needs permission."
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld items were skipped because they're in use or need permission."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "%lld item dipilih · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%#@items@ selected · %2$@"
+          },
+          "substitutions" : {
+            "items" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg item"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg items"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$lld item dipilih · %2$@"
+          }
+        }
+      }
+    },
+    "Ada file sisa yang nggak bisa dibaca Havus, jadi ukurannya belum lengkap. Nyalain Akses Disk Penuh biar kebaca semua." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus can't read some leftover files, so their sizes aren't complete. Turn on Full Disk Access so it can read them all."
+          }
+        }
+      }
+    },
+    "Akses Disk Penuh belum aktif" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full Disk Access isn't on yet"
+          }
+        }
+      }
+    },
+    "Aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App"
+          }
+        }
+      }
+    },
+    "Arsip Xcode" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xcode archives"
+          }
+        }
+      }
+    },
+    "Batal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cancel"
+          }
+        }
+      }
+    },
+    "Batal pilih semua" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deselect All"
+          }
+        }
+      }
+    },
+    "Belum ada yang dikecualiin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Nothing excluded yet."
+          }
+        }
+      }
+    },
+    "Belum berhasil" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "That didn't work"
+          }
+        }
+      }
+    },
+    "Beres!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "All done!"
+          }
+        }
+      }
+    },
+    "Bersih kinclong!" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Squeaky clean!"
+          }
+        }
+      }
+    },
+    "Bersihin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean Up"
+          }
+        }
+      }
+    },
+    "Bersihin %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clean Up %@"
+          }
+        }
+      }
+    },
+    "Bersihin %lld item?" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Clean up %lld item?"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Clean up %lld items?"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Bersihin sisa ngoding?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Clear out coding leftovers?"
+          }
+        }
+      }
+    },
+    "Bisa juga dari hasil pindai: klik kanan sebuah item, lalu pilih **Masukin ke Pengecualian**." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can also do this from scan results: right-click an item, then choose **Add to Exclusions**."
+          }
+        }
+      }
+    },
+    "Buang aplikasi sekalian sama file sisanya." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove apps together with their leftover files."
+          }
+        }
+      }
+    },
+    "Buat ngosongin Tong Sampah, Havus butuh Akses Disk Penuh. Atau kosongin manual lewat Finder." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "To empty the Trash, Havus needs Full Disk Access. Or empty it yourself in Finder."
+          }
+        }
+      }
+    },
+    "Buka" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open"
+          }
+        }
+      }
+    },
+    "Buka Pengaturan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Butuh Akses Disk Penuh buat ngecek lokasi ini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Needs Full Disk Access to check this location."
+          }
+        }
+      }
+    },
+    "Butuh izin dulu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permission needed"
+          }
+        }
+      }
+    },
+    "Cache" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cache"
+          }
+        }
+      }
+    },
+    "Cache Bun" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bun cache"
+          }
+        }
+      }
+    },
+    "Cache Cargo" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cargo cache"
+          }
+        }
+      }
+    },
+    "Cache CocoaPods" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CocoaPods cache"
+          }
+        }
+      }
+    },
+    "Cache Gradle" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gradle cache"
+          }
+        }
+      }
+    },
+    "Cache Homebrew" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Homebrew cache"
+          }
+        }
+      }
+    },
+    "Cache Simulator" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simulator caches"
+          }
+        }
+      }
+    },
+    "Cache Swift Package Manager" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Swift Package Manager cache"
+          }
+        }
+      }
+    },
+    "Cache SwiftUI Previews" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "SwiftUI Previews cache"
+          }
+        }
+      }
+    },
+    "Cache Yarn" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Yarn cache"
+          }
+        }
+      }
+    },
+    "Cache aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App caches"
+          }
+        }
+      }
+    },
+    "Cache build Go" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Go build cache"
+          }
+        }
+      }
+    },
+    "Cache dan data sementara dari CoreSimulator." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caches and temporary data from CoreSimulator."
+          }
+        }
+      }
+    },
+    "Cache npm" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "npm cache"
+          }
+        }
+      }
+    },
+    "Cache pip" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pip cache"
+          }
+        }
+      }
+    },
+    "Cache pnpm" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pnpm cache"
+          }
+        }
+      }
+    },
+    "Cache, log, dan sisa file yang aman dibuang." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Caches, logs, and leftover files that are safe to throw away."
+          }
+        }
+      }
+    },
+    "Cari Sekarang" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Now"
+          }
+        }
+      }
+    },
+    "Cari Ulang" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search Again"
+          }
+        }
+      }
+    },
+    "Cari aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Search apps"
+          }
+        }
+      }
+    },
+    "Cari file yang makan tempat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find files that take up space"
+          }
+        }
+      }
+    },
+    "Cari file yang makan tempat tapi jarang kamu buka." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Find files that take up space but rarely get opened."
+          }
+        }
+      }
+    },
+    "Catatan aktivitas dan laporan crash dari app. Biasanya cuma kepake buat debugging." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Activity records and crash reports from apps. Usually only useful for debugging."
+          }
+        }
+      }
+    },
+    "Cek Lagi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check Again"
+          }
+        }
+      }
+    },
+    "Cek Versi Baru Otomatis" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for Updates Automatically"
+          }
+        }
+      }
+    },
+    "Cek Versi Baru…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check for Updates…"
+          }
+        }
+      }
+    },
+    "Cek dulu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Review first"
+          }
+        }
+      }
+    },
+    "Cek koneksi internet kamu, lalu coba lagi nanti." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Check your internet connection, then try again later."
+          }
+        }
+      }
+    },
+    "Coba turunin ukuran minimal atau ganti filter terakhir dibuka." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Try a smaller minimum size or a different Last opened filter."
+          }
+        }
+      }
+    },
+    "Cocok dari nama, cek dulu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matched by name, review first"
+          }
+        }
+      }
+    },
+    "Container" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Container"
+          }
+        }
+      }
+    },
+    "Cookies" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cookies"
+          }
+        }
+      }
+    },
+    "Data HTTP" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "HTTP data"
+          }
+        }
+      }
+    },
+    "Data WebKit" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "WebKit data"
+          }
+        }
+      }
+    },
+    "Data aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App data"
+          }
+        }
+      }
+    },
+    "Dependency dan hasil build Gradle yang di-cache." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached Gradle dependencies and build output."
+          }
+        }
+      }
+    },
+    "Dibuka %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opened %@"
+          }
+        }
+      }
+    },
+    "Dihapus permanen, nggak bisa dibalikin. Cek dulu isinya ya." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Deleted permanently, with no way to put it back. Check what's inside first."
+          }
+        }
+      }
+    },
+    "Dikecualiin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Excluded"
+          }
+        }
+      }
+    },
+    "Dipilih" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Selected"
+          }
+        }
+      }
+    },
+    "Diubah %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Modified %@"
+          }
+        }
+      }
+    },
+    "File .crate dari registry Rust yang di-cache." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached .crate files from the Rust registry."
+          }
+        }
+      }
+    },
+    "File Gede & Lama" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Large & Old Files"
+          }
+        }
+      }
+    },
+    "File masih bisa dibalikin dari Tong Sampah sampai kamu ngosonginnya." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You can put the files back from the Trash until you empty it."
+          }
+        }
+      }
+    },
+    "File sementara biar app kebuka lebih cepat. Aman dihapus, nanti dibikin ulang otomatis." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Temporary files that help apps open faster. Safe to remove; apps recreate them automatically."
+          }
+        }
+      }
+    },
+    "File unduhan formula dan cask, sama kayak `brew cleanup`." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Downloaded formula and cask files, just like `brew cleanup`."
+          }
+        }
+      }
+    },
+    "File update iPad" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPad update files"
+          }
+        }
+      }
+    },
+    "File update iPhone" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPhone update files"
+          }
+        }
+      }
+    },
+    "Group container" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Group container"
+          }
+        }
+      }
+    },
+    "Hapus %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove %@"
+          }
+        }
+      }
+    },
+    "Hapus %@ dan %lld file sisanya?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove %1$@%#@leftovers@?"
+          },
+          "substitutions" : {
+            "leftovers" : {
+              "argNum" : 2,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : " and %arg leftover file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : " and %arg leftover files"
+                    }
+                  },
+                  "zero" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : ""
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hapus %1$@ dan %2$lld file sisanya?"
+          }
+        }
+      }
+    },
+    "Hapus %lld file sisa" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Remove %lld Leftover File"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Remove %lld Leftover Files"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Hapus %lld file sisa %@?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove %#@leftovers@ from %2$@?"
+          },
+          "substitutions" : {
+            "leftovers" : {
+              "argNum" : 1,
+              "formatSpecifier" : "lld",
+              "variations" : {
+                "plural" : {
+                  "one" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg leftover file"
+                    }
+                  },
+                  "other" : {
+                    "stringUnit" : {
+                      "state" : "translated",
+                      "value" : "%arg leftover files"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hapus %1$lld file sisa %2$@?"
+          }
+        }
+      }
+    },
+    "Hapus Aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uninstaller"
+          }
+        }
+      }
+    },
+    "Hapus dari daftar" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Remove from list"
+          }
+        }
+      }
+    },
+    "Hasil archive app, termasuk dSYM buat baca crash report. Hapus yang udah nggak kamu butuhin aja." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Archived app builds, including the dSYMs that make crash reports readable. Only remove the ones you no longer need."
+          }
+        }
+      }
+    },
+    "Hasil build Go yang di-cache, sama kayak `go clean -cache`." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached Go build output, just like `go clean -cache`."
+          }
+        }
+      }
+    },
+    "Hasil build dan index Xcode. Dibikin ulang pas kamu build lagi." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xcode build products and indexes. Rebuilt the next time you build."
+          }
+        }
+      }
+    },
+    "Havus" : {
+      "shouldTranslate" : false
+    },
+    "Havus %@ udah ada" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus %@ is available"
+          }
+        }
+      }
+    },
+    "Havus bakal ngecek DerivedData Xcode, cache simulator, sampai cache npm, Homebrew, dan Cargo." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus checks Xcode DerivedData, Simulator caches, and caches from npm, Homebrew, Cargo, and more."
+          }
+        }
+      }
+    },
+    "Havus bakal ngecek cache, log, dan file sisa yang aman dibuang. Kamu tetap bisa milih mana yang mau dihapus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus checks caches, logs, and leftover files that are safe to throw away. You still choose what gets removed."
+          }
+        }
+      }
+    },
+    "Havus kamu udah yang terbaru" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus is up to date"
+          }
+        }
+      }
+    },
+    "Havus nggak bakal nyentuh file dan folder di sini, termasuk semua isinya. Semuanya nggak muncul di hasil pindai, dan nggak bakal dipindah ke Tong Sampah atau dihapus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus never touches the files and folders listed here, or anything inside them. They don't show up in scan results, and they're never moved to the Trash or deleted."
+          }
+        }
+      }
+    },
+    "Havus pakai index Spotlight buat nyari file gede di folder kamu (di luar Library). Nggak ada yang dihapus tanpa persetujuan kamu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus uses the Spotlight index to find large files in your folders (outside Library). Nothing is removed without your OK."
+          }
+        }
+      }
+    },
+    "Installer iOS (.ipsw) yang udah kepake. Bakal diunduh ulang kalau dibutuhin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS installers (.ipsw) that were already used. They're downloaded again if needed."
+          }
+        }
+      }
+    },
+    "Installer iPadOS (.ipsw) yang udah kepake. Bakal diunduh ulang kalau dibutuhin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iPadOS installers (.ipsw) that were already used. They're downloaded again if needed."
+          }
+        }
+      }
+    },
+    "Isi Tong Sampah" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Trash contents"
+          }
+        }
+      }
+    },
+    "Isi Tong Sampah yang dipilih bakal dihapus permanen. Sisanya dipindah ke Tong Sampah, jadi masih bisa dibalikin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "The Trash contents you selected will be deleted permanently. Everything else moves to the Trash, so you can still put it back."
+          }
+        }
+      }
+    },
+    "Kamu masih pakai versi %@. Lihat apa aja yang baru, sekalian cara update-nya, di havus.web.id." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're still on version %@. See what's new and how to update on havus.web.id."
+          }
+        }
+      }
+    },
+    "Kapan aja" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Any time"
+          }
+        }
+      }
+    },
+    "Kecualiin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exclude"
+          }
+        }
+      }
+    },
+    "Kelola" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Manage"
+          }
+        }
+      }
+    },
+    "Kondisi Mac kamu sekarang." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "How your Mac is doing right now."
+          }
+        }
+      }
+    },
+    "Kosongin" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty"
+          }
+        }
+      }
+    },
+    "Kosongin Tong Sampah" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty Trash"
+          }
+        }
+      }
+    },
+    "Kosongin Tong Sampah?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Empty the Trash?"
+          }
+        }
+      }
+    },
+    "Lagi dibersihin…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cleaning up…"
+          }
+        }
+      }
+    },
+    "Lagi dipakai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "In use"
+          }
+        }
+      }
+    },
+    "Lagi ngumpulin daftar aplikasi…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Gathering your apps…"
+          }
+        }
+      }
+    },
+    "Lagi nyari file gede…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for large files…"
+          }
+        }
+      }
+    },
+    "Lagi nyari file sisa…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for leftover files…"
+          }
+        }
+      }
+    },
+    "Lagi nyari sampah… %lld dari %lld lokasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Looking for junk… %lld of %lld locations"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Lagi nyari sampah… %1$lld dari %2$lld lokasi"
+          }
+        }
+      }
+    },
+    "Lampiran Mail yang pernah dibuka" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mail attachments you opened"
+          }
+        }
+      }
+    },
+    "Launch agent" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Launch agent"
+          }
+        }
+      }
+    },
+    "Lebih dari %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than %@"
+          }
+        }
+      }
+    },
+    "Lebih dari 1 tahun lalu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than a year ago"
+          }
+        }
+      }
+    },
+    "Lebih dari 3 bulan lalu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than 3 months ago"
+          }
+        }
+      }
+    },
+    "Lebih dari 6 bulan lalu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "More than 6 months ago"
+          }
+        }
+      }
+    },
+    "Lihat yang Baru" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See What's New"
+          }
+        }
+      }
+    },
+    "Log" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Logs"
+          }
+        }
+      }
+    },
+    "Log aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App logs"
+          }
+        }
+      }
+    },
+    "Masukin ke Pengecualian" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add to Exclusions"
+          }
+        }
+      }
+    },
+    "Mau dikabarin kalau ada versi baru?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Want to know when there's a new version?"
+          }
+        }
+      }
+    },
+    "Metadata cache pnpm. Store utamanya nggak disentuh." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "pnpm's metadata cache. Its main store isn't touched."
+          }
+        }
+      }
+    },
+    "Nanti" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Later"
+          }
+        }
+      }
+    },
+    "Nggak Usah" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No Thanks"
+          }
+        }
+      }
+    },
+    "Nggak ada file sisa yang ketemu." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No leftover files found."
+          }
+        }
+      }
+    },
+    "Nggak ada sampah yang ketemu di sini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No junk found here."
+          }
+        }
+      }
+    },
+    "Nggak ada yang cocok" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No matches"
+          }
+        }
+      }
+    },
+    "Nggak ada yang perlu dibersihin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "There was nothing to clean up."
+          }
+        }
+      }
+    },
+    "Nggak bisa ngecek versi baru" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't check for updates"
+          }
+        }
+      }
+    },
+    "Nggak dipilih" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not selected"
+          }
+        }
+      }
+    },
+    "Nggak kebaca" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Can't be read"
+          }
+        }
+      }
+    },
+    "Ngitung ukuran…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Calculating size…"
+          }
+        }
+      }
+    },
+    "Nyalain" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Turn On"
+          }
+        }
+      }
+    },
+    "Oke" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "OK"
+          }
+        }
+      }
+    },
+    "Paket Bun yang di-cache." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached Bun packages."
+          }
+        }
+      }
+    },
+    "Paket Python yang di-cache." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached Python packages."
+          }
+        }
+      }
+    },
+    "Paket Yarn yang di-cache. Diunduh ulang kalau dibutuhin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached Yarn packages. Downloaded again if needed."
+          }
+        }
+      }
+    },
+    "Paket npm yang di-cache. Diunduh ulang kalau dibutuhin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached npm packages. Downloaded again if needed."
+          }
+        }
+      }
+    },
+    "Pengecualian" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Exclusions"
+          }
+        }
+      }
+    },
+    "Permanen" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Permanent"
+          }
+        }
+      }
+    },
+    "Pilih aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an app"
+          }
+        }
+      }
+    },
+    "Pilih app di sebelah kiri buat lihat file-file sisanya." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select an app on the left to see its leftover files."
+          }
+        }
+      }
+    },
+    "Pilih file atau folder yang nggak boleh disentuh Havus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Choose files or folders Havus must never touch."
+          }
+        }
+      }
+    },
+    "Pilih semua" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Select All"
+          }
+        }
+      }
+    },
+    "Pindahin %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move %@ to Trash"
+          }
+        }
+      }
+    },
+    "Pindahin %lld file ke Tong Sampah?" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Move %lld file to the Trash?"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "Move %lld files to the Trash?"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "Pindahin ke Tong Sampah" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Move to Trash"
+          }
+        }
+      }
+    },
+    "Pindai Lagi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scan Again"
+          }
+        }
+      }
+    },
+    "Pindai Sekarang" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Scan Now"
+          }
+        }
+      }
+    },
+    "Pindai Ulang" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rescan"
+          }
+        }
+      }
+    },
+    "Pod dan spec yang di-cache." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached pods and specs."
+          }
+        }
+      }
+    },
+    "Preferensi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Preferences"
+          }
+        }
+      }
+    },
+    "Repo dan manifest paket Swift yang di-cache." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cached Swift package repositories and manifests."
+          }
+        }
+      }
+    },
+    "Ringkasan" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Overview"
+          }
+        }
+      }
+    },
+    "Ruang terpakai" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Space used"
+          }
+        }
+      }
+    },
+    "Salinan lampiran yang pernah kamu buka dari Mail. Lampiran aslinya tetap ada di email." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Copies of attachments you opened in Mail. The originals stay in your email."
+          }
+        }
+      }
+    },
+    "Sampah Developer" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Developer Junk"
+          }
+        }
+      }
+    },
+    "Sampah Sistem" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "System Junk"
+          }
+        }
+      }
+    },
+    "Sebagian dipilih" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Partly selected"
+          }
+        }
+      }
+    },
+    "Sebagian isinya nggak bisa dibaca Havus, jadi ukuran aslinya bisa lebih gede." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus can't read part of it, so the real size may be larger."
+          }
+        }
+      }
+    },
+    "Sehari sekali, Havus bisa ngecek lewat internet apakah ada versi baru. Nggak ada data apa pun soal kamu atau Mac kamu yang dikirim. Bisa kamu ubah kapan aja di menu **Havus → Cek Versi Baru Otomatis**." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Once a day, Havus can check online whether there's a new version. Nothing about you or your Mac is sent. You can change this anytime in **Havus → Check for Updates Automatically**."
+          }
+        }
+      }
+    },
+    "Semua isi Tong Sampah bakal dihapus permanen dan nggak bisa dibalikin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything in the Trash will be deleted permanently. This can't be undone."
+          }
+        }
+      }
+    },
+    "Semua proses jalan di Mac kamu. Havus nggak ngirim data kamu ke internet." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything runs on your Mac. Havus doesn't send your data to the internet."
+          }
+        }
+      }
+    },
+    "Semuanya dipindah ke Tong Sampah, jadi masih bisa dibalikin kalau kamu berubah pikiran." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything moves to the Trash, so you can put it back if you change your mind."
+          }
+        }
+      }
+    },
+    "Semuanya dipindah ke Tong Sampah, jadi masih bisa dibalikin." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything moves to the Trash, so you can still put it back."
+          }
+        }
+      }
+    },
+    "Siap bersih-bersih?" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Ready to clean up?"
+          }
+        }
+      }
+    },
+    "Simbol debug per versi iOS. Disalin ulang pas device dicolok, tapi lumayan lama." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Debug symbols for each iOS version. Copied again when you plug in a device, but that takes a while."
+          }
+        }
+      }
+    },
+    "Simulator khusus SwiftUI Previews. Dibikin ulang otomatis." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Simulators used only for SwiftUI Previews. Recreated automatically."
+          }
+        }
+      }
+    },
+    "Sisa build dan cache tool ngoding yang bisa dibikin ulang." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Build leftovers and coding tool caches that can be rebuilt."
+          }
+        }
+      }
+    },
+    "Skrip aplikasi" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "App scripts"
+          }
+        }
+      }
+    },
+    "Status jendela" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saved window state"
+          }
+        }
+      }
+    },
+    "Tambah file atau folder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Add a file or folder"
+          }
+        }
+      }
+    },
+    "Tampilkan di Finder" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Show in Finder"
+          }
+        }
+      }
+    },
+    "Tanpa izin ini, beberapa lokasi (kayak Tong Sampah, lampiran Mail, dan data app lain) bakal dilewati. Buka **Privacy & Security → Full Disk Access**, terus nyalain Havus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Without it, Havus skips some locations, like the Trash, Mail attachments, and other apps' data. Open **Privacy & Security → Full Disk Access**, then turn on Havus."
+          }
+        }
+      }
+    },
+    "Terakhir dibuka" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last opened"
+          }
+        }
+      }
+    },
+    "Tutup %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Quit %@"
+          }
+        }
+      }
+    },
+    "Ukuran minimal" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Minimum size"
+          }
+        }
+      }
+    },
+    "Versi %@ yang kamu pakai ini udah yang paling baru." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ is the newest version."
+          }
+        }
+      }
+    },
+    "Versi %@ · %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Version %@ · %@"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Versi %1$@ · %2$@"
+          }
+        }
+      }
+    },
+    "Versi yang kamu pakai ini udah yang paling baru." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "You're using the newest version."
+          }
+        }
+      }
+    },
+    "Xcode DerivedData" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Xcode DerivedData"
+          }
+        }
+      }
+    },
+    "iOS Device Support" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "iOS Device Support"
+          }
+        }
+      }
+    },
+    "macOS nggak ngizinin Havus baca isinya, jadi ukurannya belum ketahuan." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS doesn't let Havus read what's inside, so its size is unknown."
+          }
+        }
+      }
+    },
+    "macOS nolak mindahin %@. Coba nyalain Havus di **Privacy & Security → App Management**, atau hapus manual lewat Finder." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS wouldn't move %@. Try turning on Havus in **Privacy & Security → App Management**, or remove it yourself in Finder."
+          }
+        }
+      }
+    }
   },
   "version" : "1.0"
 }

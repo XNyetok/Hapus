@@ -13,4 +13,4 @@
 - [ ] No secrets, certificates, Team IDs or personal data in this change
 - [ ] Every file removal goes through `FileRemover` (no direct `FileManager.removeItem`/`trashItem` calls)
 - [ ] New or changed cleanup rules include evidence that they're safe, plus tests
-- [ ] UI text is casual Indonesian, addressing the user as "kamu" (see the glossary in CONTRIBUTING.md)
+- [ ] UI text is casual Indonesian, addressing the user as "kamu", with English in `Localizable.xcstrings` (see the glossary in CONTRIBUTING.md)
