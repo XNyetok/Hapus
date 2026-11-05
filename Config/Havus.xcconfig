@@ -6,6 +6,7 @@
 
 PRODUCT_NAME = Havus
 PRODUCT_BUNDLE_IDENTIFIER = id.nyetok.havus
+// Local builds only: scripts/build-release.sh takes a release's version from its tag.
 MARKETING_VERSION = 0.1.0
 CURRENT_PROJECT_VERSION = 1
 

@@ -58,21 +58,22 @@ Trade-offs: Havus runs only on macOS (which is the goal), and contributors need 
 - **Uninstaller:** reads `Info.plist`, then looks for leftovers by bundle ID in `~/Library/...`. `NSRunningApplication` checks whether the app is running. System apps are recognized by their location in `/System`, a symlink into the system *cryptex* (for example Safari), or the SIP `restricted` flag.
 - **Large and old files:** Spotlight `MDQuery` (`kMDItemFSSize`, `kMDItemLastUsedDate`). If Spotlight returns nothing, Havus scans the standard folders directly. Files inside *packages* (such as the Photos library) and in `~/Library` are always skipped.
 - **Permissions:** Full Disk Access is detected by trying to open a TCC-protected file, which never triggers a prompt. An `x-apple.systempreferences:` deep link takes the user straight to the right settings page.
+- **Startup items:** reads the property lists in `~/Library/LaunchAgents` with `PropertyListSerialization`, asks launchd through `/bin/launchctl` (`list` and `print-disabled`, then `disable` + `bootout` or `enable` + `bootstrap` in the user's `gui/<uid>` domain, which needs no root), and reads the switches in Login Items with `SMAppService.statusForLegacyPlist(at:)`. Removing an agent goes through `FileRemover` like every other removal.
 - **Later (root access):** `SMAppService.daemon` + XPC, validating the caller's *code signing requirement* on the connection.
 
 ## Distribution
 
-For now there's **no Apple Developer Program membership**, so releases are ad-hoc signed zips on GitHub Releases with a SHA-256 checksum.
+For now there's **no Apple Developer Program membership**, so releases are zips on GitHub Releases with a SHA-256 checksum, signed with a self-signed certificate instead of a Developer ID, and not notarized.
 
 What that means:
 
-- Since macOS 15, the right-click → Open trick is gone. Users have to go to System Settings → Privacy & Security → **Open Anyway**.
-- Full Disk Access is tied to the app's signature. Ad-hoc signatures change with every build, so users have to grant the permission again after each update.
+- Since macOS 15, the right-click → Open trick is gone. Users have to go to System Settings → Privacy & Security → **Open Anyway**, once for each version.
+- Full Disk Access is tied to the app's signature. Up to 0.2.0, releases were ad-hoc signed, and an ad-hoc signature changes with every build, so users had to grant the permission again after each update. Since 0.3.0, every release is signed with the same certificate, so the permission survives updates. See [Release signing certificate](maintainer.md#release-signing-certificate).
 - Homebrew 5.0 (November 2025) removed the `--no-quarantine` option, and casks that fail Gatekeeper checks were scheduled to be disabled on 1 September 2026. The official Homebrew Cask only becomes realistic after notarization.
 
 The upgrade path: Apple Developer Program → Developer ID certificate → notarization (`notarytool`) → Homebrew Cask, and optionally Sparkle for auto-updates. The steps are in [maintainer.md](maintainer.md).
 
-**Update check (added 5 November 2026).** Havus couldn't tell users about new versions, so they had to find out from GitHub or havus.web.id. The app now has an opt-in check: once a day it asks GitHub's API for the latest release tag, then links to the changelog on havus.web.id. It uses plain `URLSession`, so there's still no third-party dependency. Real auto-updates with Sparkle wait for notarization. Until then, an ad-hoc signed app with the Hardened Runtime may refuse to load `Sparkle.framework` unless library validation is turned off. That isn't worth it in an app with Full Disk Access, especially since the permission would still reset after every update. Details in [architecture.md](architecture.md#update-check).
+**Update check (added 5 November 2026).** Havus couldn't tell users about new versions, so they had to find out from GitHub or havus.web.id. The app now has an opt-in check: once a day it asks GitHub's API for the latest release tag, then links to the changelog on havus.web.id. It uses plain `URLSession`, so there's still no third-party dependency. Real auto-updates with Sparkle wait for notarization. Until then, an app with the Hardened Runtime and without a Developer ID may refuse to load `Sparkle.framework` unless library validation is turned off, and that isn't worth it in an app with Full Disk Access. Details in [architecture.md](architecture.md#update-check).
 
 ## Open-source repository security
 

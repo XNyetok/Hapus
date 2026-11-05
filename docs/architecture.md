@@ -120,4 +120,4 @@ Some features, such as system maintenance and caches in `/Library`, need root. T
 - A separate helper daemon registered with `SMAppService.daemon(plistName:)`. The user approves it in System Settings → Login Items.
 - App ↔ helper communication over XPC. The helper validates the caller's *code signing requirement* (`NSXPCConnection.setCodeSigningRequirement`), so only Havus can command it.
 - The helper accepts only commands from a fixed allowlist, never arbitrary paths, and runs its own root-side `PathGuard`.
-- Prerequisite: a Developer ID, since an ad-hoc signed helper isn't suitable for production.
+- Prerequisite: a Developer ID and notarization (#23). The self-signed release certificate, used since 0.3.0, keeps Full Disk Access across updates, but a helper that runs as root should come from a notarized app.
