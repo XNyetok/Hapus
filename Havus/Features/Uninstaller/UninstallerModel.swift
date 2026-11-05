@@ -97,7 +97,7 @@ final class UninstallerModel {
         selectedAppID = id
         leftovers = []
         leftoverSelection = []
-        isSelectedAppExcluded = selectedApp.map { exclusions.blocks($0.url) } ?? false
+        isSelectedAppExcluded = selectedApp.map { self.exclusions.blocks($0.url) } ?? false
         includesApp = !isSelectedAppExcluded
         outcome = nil
         refreshRunningState()
