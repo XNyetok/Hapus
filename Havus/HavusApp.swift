@@ -13,7 +13,6 @@ struct HavusApp: App {
                 .environment(permissions)
                 .environment(updates)
                 .environment(exclusions)
-                .environment(\.locale, Format.locale)
                 .frame(minWidth: 860, minHeight: 560)
         }
         .defaultSize(width: 1040, height: 700)
@@ -23,7 +22,6 @@ struct HavusApp: App {
         Settings {
             SettingsView()
                 .environment(exclusions)
-                .environment(\.locale, Format.locale)
         }
     }
 }

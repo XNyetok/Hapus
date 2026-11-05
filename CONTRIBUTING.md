@@ -30,7 +30,7 @@ macOS ties the **Full Disk Access** permission to the app's signature. Ad-hoc bu
 ## Project layout
 
 ```
-Havus/                  SwiftUI app: views, state and the Indonesian UI copy
+Havus/                  SwiftUI app: views, state and the UI copy (Indonesian, with English)
 Packages/HavusCore/     Core logic: scanning, cleanup rules, PathGuard, removal (+ tests)
 Config/                 Build settings (xcconfig)
 design/                 App icon source (SVG), rendered to PNGs by make icon
@@ -56,17 +56,21 @@ Rules live in [`JunkRule+Catalog.swift`](Packages/HavusCore/Sources/HavusCore/Ju
 - [ ] The data is **regenerable** by the app or tool that owns it (caches, logs, build products). Never documents, databases or user settings.
 - [ ] The PR description includes **evidence**, such as official docs or an official command like `brew cleanup` or `go clean -cache`.
 - [ ] Pick a `safety`: `.safe` if it can be deleted at any time, `.review` if the user should look first.
-- [ ] Add the UI title and description in [`JunkRule+Copy.swift`](Havus/Features/Junk/JunkRule+Copy.swift). The compiler reminds you if you forget.
+- [ ] Add the UI title and description in [`JunkRule+Copy.swift`](Havus/Features/Junk/JunkRule+Copy.swift), and their English in [`Localizable.xcstrings`](Havus/Localizable.xcstrings). The compiler reminds you of the first, CI of the second.
 - [ ] Run `make test`. `catalogIsCompleteAndConservative` checks that rules stay inside the home folder and never delete permanently.
 
 ## Code style
 
-- Identifiers, code comments, commit messages and docs are in **English**. Only the app's UI text is in **Indonesian**.
+- Identifiers, code comments, commit messages and docs are in **English**. UI text is written in **Indonesian** in the code, with an English translation in the string catalog (see below).
 - Format with the `swift-format` that ships with Xcode: `make format` before committing, `make lint` to check.
 - Swift 6 strict concurrency: UI and models are `@MainActor`; heavy work (disk scans) runs in background tasks.
 - New logic goes into `HavusCore`, with tests. Tests use a temporary home folder and never touch the real one.
 
-## UI copy (Indonesian)
+## UI copy (Indonesian and English)
+
+Havus shows Indonesian or English, whichever comes first in the Mac's preferred languages. Indonesian is the source language: the strings in the code are Indonesian, and the English lives in [`Havus/Localizable.xcstrings`](Havus/Localizable.xcstrings).
+
+### Indonesian
 
 The app speaks casual, friendly Indonesian. Keep it consistent:
 
@@ -76,12 +80,30 @@ The app speaks casual, friendly Indonesian. Keep it consistent:
 - Dialogs that delete permanently are **never** playful: state the risk plainly.
 - Write UI strings as Indonesian literals in SwiftUI; Xcode adds them to `Localizable.xcstrings`.
 
-Not fluent in Indonesian? Put the English text in your PR description and a maintainer will help with the copy. Use this glossary to stay consistent:
+### English
 
-| English | UI term |
+Every UI string also needs its English, with the same friendly tone in plain words.
+
+- Add it in Xcode's String Catalog editor (`Localizable.xcstrings`). Xcode adds new strings to the catalog when you build in Xcode; from the command line, `make strings` does it.
+- Talk to the user as "you"; contractions are fine. Buttons and menu items use title case (*Scan Now*, *Move to Trash*), everything else sentence case.
+- A string with a count needs plural forms, such as *1 file* and *3 files*: choose **Vary by Plural** in the catalog editor. When that string has other arguments too, number them in the English, such as `Moved %1$@%#@leftovers@ to the Trash (%3$@).` Unnumbered ones next to a plural show the wrong values or crash the app.
+- CI fails when a string has no English, or when the catalog keeps a string the code no longer uses.
+
+### Glossary
+
+Not fluent in Indonesian? Put the English text in your PR description and a maintainer will help with the Indonesian. Use these terms in both languages:
+
+| English | Indonesian |
 |---|---|
+| Overview | Ringkasan |
+| System Junk | Sampah Sistem |
+| Developer Junk | Sampah Developer |
+| Uninstaller | Hapus Aplikasi |
+| Large & Old Files | File Gede & Lama |
+| Settings | Pengaturan |
+| Check for Updates | Cek Versi Baru |
 | Scan | Pindai |
-| Clean | Bersihin |
+| Clean Up | Bersihin |
 | Trash | Tong Sampah |
 | Move to Trash | Pindahin ke Tong Sampah |
 | Empty Trash | Kosongin Tong Sampah |

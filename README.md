@@ -6,7 +6,7 @@
 
 Havus (a playful twist on *hapus*, Indonesian for "delete") cleans caches, logs and developer junk, uninstalls apps together with their leftovers, and finds large files you rarely open. Everything runs locally on your Mac: no account, no ads, no telemetry.
 
-The app's interface is in casual Indonesian. [Ringkasan dalam Bahasa Indonesia ada di bawah.](#bahasa-indonesia)
+The app speaks casual Indonesian and English, following your Mac's language. [Ringkasan dalam Bahasa Indonesia ada di bawah.](#bahasa-indonesia)
 
 > [!WARNING]
 > Havus is in early development. Everything goes to the Trash first, but please review before you clean.
@@ -24,13 +24,17 @@ The app's interface is in casual Indonesian. [Ringkasan dalam Bahasa Indonesia a
 
 - **Safety first.** Every item is previewed and selectable. Everything goes to the Trash, except when you explicitly empty the Trash.
 - **Only touches what it knows.** Cleanup locations come from an auditable rule list ([`JunkRule+Catalog.swift`](Packages/HavusCore/Sources/HavusCore/Junk/JunkRule+Catalog.swift)), and every deletion is checked again by `PathGuard`.
-- **Leaves alone what you protect.** Files and folders on your exclusion list (**Pengaturan → Pengecualian**, or right-click a result) never show up in results, and `PathGuard` refuses to remove them or any folder that holds them.
+- **Leaves alone what you protect.** Files and folders on your exclusion list (**Settings → Exclusions**, or right-click a result) never show up in results, and `PathGuard` refuses to remove them or any folder that holds them.
 - **Private.** No telemetry, no analytics. Havus goes online for one thing only, and only if you turn it on: once a day it asks GitHub for the latest version number. Nothing about you or your Mac is sent.
 - **Lightweight.** Native Swift + SwiftUI with zero third-party dependencies. Version 0.1.0: 1.5 MB app, about 34 MB of memory when idle.
 
 ## Requirements
 
 macOS 14 Sonoma or later, on Apple silicon or Intel.
+
+## Language
+
+Havus speaks Indonesian and English. It uses whichever of the two comes first in your preferred languages (**System Settings → General → Language & Region**), and Indonesian when neither is on the list. To choose a language for Havus alone, click **+** under **Applications** in the same pane.
 
 ## Installation
 
@@ -49,7 +53,7 @@ Havus releases aren't notarized by Apple yet, so macOS blocks the app the first 
 
 ### Updating
 
-Havus can't install updates by itself yet, but it can tell you when there's a new version. Choose **Nyalain** when *Ringkasan* asks, or turn on **Havus → Cek Versi Baru Otomatis** in the menu bar. **Havus → Cek Versi Baru…** checks right away. When a new version is out, Havus links to [what's new](https://havus.web.id/changelog/), and [havus.web.id/update](https://havus.web.id/update/) has the steps to install it.
+Havus can't install updates by itself yet, but it can tell you when there's a new version. Choose **Turn On** when *Overview* asks, or turn on **Havus → Check for Updates Automatically** in the menu bar. **Havus → Check for Updates…** checks right away. When a new version is out, Havus links to [what's new](https://havus.web.id/changelog/), and [havus.web.id/update](https://havus.web.id/update/) has the steps to install it.
 
 ### Build from source
 
@@ -78,11 +82,11 @@ Each open item has its own issue, where you can follow progress, share ideas or 
 - [ ] Login items and launch agents manager: [#18](https://github.com/XNyetok/Havus/issues/18)
 - [ ] Maintenance tasks that need root (`SMAppService` + XPC helper): [#19](https://github.com/XNyetok/Havus/issues/19)
 - [ ] Browser privacy cleanup: [#20](https://github.com/XNyetok/Havus/issues/20)
-- [ ] English UI localization: [#22](https://github.com/XNyetok/Havus/issues/22)
 - [ ] Notarization and Homebrew Cask: [#23](https://github.com/XNyetok/Havus/issues/23)
 - [x] App icon
 - [x] New version notifications (opt-in, once a day)
 - [x] Exclusion list (files and folders Havus never touches)
+- [x] English UI, following your Mac's language
 
 ## Contributing
 
@@ -103,6 +107,8 @@ The source code is released under the [MIT License](LICENSE) © 2026 Debi Kurnia
 ## Bahasa Indonesia
 
 **Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, sampai nemuin file gede yang jarang dibuka. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin. Ada file atau folder yang nggak boleh disentuh? Masukin ke **Pengaturan → Pengecualian**, atau klik kanan item di hasil pindai.
+
+**Bahasa:** Havus bisa bahasa Indonesia dan Inggris, dan ngikutin bahasa yang duluan di daftar **System Settings → General → Language & Region**. Mac kamu pakai bahasa Inggris, tapi mau Havus tetap bahasa Indonesia? Di halaman yang sama, klik **+** di bagian **Applications**, pilih Havus, lalu pilih Bahasa Indonesia.
 
 **Cara install:** unduh `Havus-x.y.z.zip` dari halaman [Releases](../../releases), ekstrak, lalu pindahin `Havus.app` ke folder **Applications**. Karena belum di-notarize Apple, waktu pertama kali dibuka kamu perlu ke **System Settings → Privacy & Security**, lalu klik **Open Anyway**. Biar hasil scan lengkap, nyalain Havus di **Privacy & Security → Full Disk Access**.
 

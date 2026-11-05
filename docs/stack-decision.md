@@ -50,7 +50,7 @@ Trade-offs: Havus runs only on macOS (which is the goal), and contributors need 
 | Xcode project | Synchronized folders (Xcode 16+ format) | Adding files doesn't touch `project.pbxproj`, so fewer merge conflicts |
 | Sandbox | Off | A cleaner must read other apps' caches. As a result, Havus can't ship on the Mac App Store |
 | Hardened Runtime | On | Required for notarization later |
-| UI language | Indonesian (String Catalog, source language `id`) | Ready for more localizations |
+| UI language | Indonesian and English (String Catalog, source language `id`) | Follows the Mac's preferred languages |
 
 ## macOS APIs per feature
 

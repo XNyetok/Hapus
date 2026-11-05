@@ -24,7 +24,7 @@
 └───────────────────────────────────────────────────────────────┘
 ```
 
-**The app** (`Havus/`) contains only views, state and the Indonesian UI copy (the page names above are what users see). **HavusCore** (`Packages/HavusCore/`) contains all logic that touches the disk, and all of it is testable without the UI.
+**The app** (`Havus/`) contains only views, state and the UI copy (the page names above are the Indonesian ones users see; see [Languages](#languages)). **HavusCore** (`Packages/HavusCore/`) contains all logic that touches the disk, and all of it is testable without the UI.
 
 ## Removal flow
 
@@ -81,12 +81,21 @@ The only network access in Havus. It tells the user about a new version; it neve
 - **Only the tag is read.** The tag must look like `vX.Y.Z`; the release notes and assets are ignored. The answer can't change anything in the app except the version number shown, and the link always goes to `https://havus.web.id/changelog/#vX.Y.Z`. The website builds that page from the same GitHub releases.
 - **Failures stay quiet.** When an automatic check fails, Havus tries again the next day. A check started from the menu shows an alert that it couldn't connect.
 
+## Languages
+
+The UI is in Indonesian and English.
+
+- **Indonesian is the source.** UI text is written as Indonesian literals in SwiftUI, and those literals are the keys of `Havus/Localizable.xcstrings`, which holds the English for each one, with plural forms where a string has a count. Indonesian is also the project's development language, so it needs no `id.lproj`: a string without English shows its Indonesian key.
+- **macOS picks the language.** Havus runs in whichever of the two comes first in the user's preferred languages, or in the language set for Havus under **Applications** in **System Settings → General → Language & Region**. When neither is listed, it uses Indonesian, the development language. The app never chooses or stores a language itself.
+- **Sizes and dates follow it.** `Format` uses the current locale, which macOS builds from the app's language and the user's region, so they match the text around them (`3 bulan yang lalu`, `3 months ago`).
+- **CI checks the catalog.** While building, the compiler lists the strings it finds in `.stringsdata` files. `scripts/check-strings.sh` syncs a copy of the catalog with them and fails when a string has no English, or the catalog keeps one the code no longer uses. `make strings` writes new strings into the catalog itself, like a build in Xcode does.
+
 ## Adding a feature
 
 1. Logic → `Packages/HavusCore/Sources/HavusCore/<Feature>/`, with tests in `Tests/HavusCoreTests/`.
 2. UI → `Havus/Features/<Feature>/` (model + view). Use the components in `Havus/Shared/Components.swift` and the tokens in `Design.swift`.
 3. Need a new page? Add a case to `SidebarItem`.
-4. Write UI text as Indonesian literals in SwiftUI; Xcode adds them to `Localizable.xcstrings`. See the glossary in [CONTRIBUTING.md](../CONTRIBUTING.md).
+4. Write UI text as Indonesian literals in SwiftUI, then add the English in `Localizable.xcstrings`. See [Languages](#languages) and the glossary in [CONTRIBUTING.md](../CONTRIBUTING.md).
 5. Offering files for removal? Take the page's `ExclusionList` (see `setExclusions(_:)` in the existing models) and pass it to the scanner and to `PathGuard`.
 
 ## Root helper plan (next phase)

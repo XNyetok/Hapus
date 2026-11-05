@@ -5,10 +5,11 @@ SCHEME     := Havus
 DERIVED    := build/DerivedData
 APP        := $(DERIVED)/Build/Products/Debug/Havus.app
 CORE       := Packages/HavusCore
-SWIFT_SRC  := Havus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift scripts/render-icon.swift
+SWIFT_SRC  := Havus $(CORE)/Sources $(CORE)/Tests $(CORE)/Package.swift scripts/render-icon.swift \
+              scripts/check-strings.swift
 
 .DEFAULT_GOAL := help
-.PHONY: help setup open build run test lint format scan icon release clean
+.PHONY: help setup open build run test strings lint format scan icon release clean
 
 help: ## List available commands
 	@grep -E '^[a-z]+:.*## ' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*## "}; {printf "  make %-8s %s\n", $$1, $$2}'
@@ -28,6 +29,9 @@ run: build ## Build and launch the app
 
 test: ## Run the HavusCore unit tests
 	swift test --package-path $(CORE)
+
+strings: build ## Add new UI strings to the string catalog and check that each has English
+	./scripts/check-strings.sh --write
 
 lint: ## Check code formatting
 	xcrun swift-format lint --recursive $(SWIFT_SRC)
