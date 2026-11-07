@@ -132,13 +132,16 @@ public struct DiskUsageScanner: Sendable {
                 url: url, kind: .folder, bytes: listing.bytes, isComplete: isComplete, children: nil,
                 otherItems: .none)
         }
+        let children = listing.kept.sorted(by: Self.isListedBefore)
         return DiskUsageItem(
-            url: url, kind: .folder, bytes: listing.bytes, isComplete: isComplete,
-            children: listing.kept.sorted {
-                $0.bytes != $1.bytes
-                    ? $0.bytes > $1.bytes : $0.name.localizedStandardCompare($1.name) == .orderedAscending
-            },
+            url: url, kind: .folder, bytes: listing.bytes, isComplete: isComplete, children: children,
             otherItems: listing.others)
+    }
+
+    /// Biggest first; the same size sorts by name, like Finder.
+    private static func isListedBefore(_ first: DiskUsageItem, _ second: DiskUsageItem) -> Bool {
+        if first.bytes != second.bytes { return first.bytes > second.bytes }
+        return first.name.localizedStandardCompare(second.name) == .orderedAscending
     }
 
     /// A folder Havus couldn't open. Gone or cloud-only counts as empty; refused by macOS counts as unreadable.
@@ -172,6 +175,10 @@ private struct Listing {
     var isComplete = true
     /// Where in ``kept`` the smallest item is, once it's full.
     private var smallest = 0
+
+    init(limit: Int) {
+        self.limit = limit
+    }
 
     var isEmpty: Bool { kept.isEmpty }
 
