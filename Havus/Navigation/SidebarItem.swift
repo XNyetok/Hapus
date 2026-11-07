@@ -1,7 +1,7 @@
 import SwiftUI
 
 enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
-    case overview, systemJunk, developerJunk, uninstaller, largeFiles, startupItems
+    case overview, systemJunk, developerJunk, uninstaller, largeFiles, diskUsage, startupItems
 
     var id: Self { self }
 
@@ -12,6 +12,7 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
         case .developerJunk: "Sampah Developer"
         case .uninstaller: "Hapus Aplikasi"
         case .largeFiles: "File Gede & Lama"
+        case .diskUsage: "Peta Disk"
         case .startupItems: "Jalan Otomatis"
         }
     }
@@ -23,6 +24,7 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
         case .developerJunk: "Sisa build dan cache tool ngoding yang bisa dibikin ulang."
         case .uninstaller: "Buang aplikasi sekalian sama file sisanya."
         case .largeFiles: "Cari file yang makan tempat tapi jarang kamu buka."
+        case .diskUsage: "Lihat folder mana yang paling makan tempat."
         case .startupItems: "Program yang jalan sendiri di belakang layar, tanpa kamu buka."
         }
     }
@@ -34,6 +36,7 @@ enum SidebarItem: String, CaseIterable, Identifiable, Hashable {
         case .developerJunk: "hammer"
         case .uninstaller: "square.grid.2x2"
         case .largeFiles: "doc.text.magnifyingglass"
+        case .diskUsage: "chart.bar.doc.horizontal"
         case .startupItems: "autostartstop"
         }
     }

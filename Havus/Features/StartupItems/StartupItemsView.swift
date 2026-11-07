@@ -18,7 +18,6 @@ struct StartupItemsView: View {
             ActionBar {
                 Text("Item lain, kayak aplikasi yang kebuka pas login, diatur di Pengaturan Sistem.")
                     .foregroundStyle(.secondary)
-                    .fixedSize(horizontal: false, vertical: true)
             } trailing: {
                 Button("Buka Login Items") { model.openLoginItemsSettings() }
             }

@@ -10,6 +10,7 @@
 │   ├─ Sampah Developer   JunkCleanerModel(group: .developer)   │
 │   ├─ Hapus Aplikasi     UninstallerModel                      │
 │   ├─ File Gede & Lama   LargeFilesModel                       │
+│   ├─ Peta Disk          DiskUsageModel (read-only)            │
 │   └─ Jalan Otomatis     StartupItemsModel                     │
 │  Pengaturan             ExclusionStore ──► every page model   │
 └───────────────┬───────────────────────────────────────────────┘
@@ -18,6 +19,7 @@
 │  JunkScanner + JunkRule.catalog                               │
 │  AppCatalog + LeftoverFinder                                  │
 │  LargeFileFinder (Spotlight, folder scan fallback)            │
+│  DiskUsageScanner (sizes per folder, removes nothing)         │
 │  LaunchAgentCatalog + Launchd (launchctl, Login Items)        │
 │  ExclusionList (checked by every scanner and by PathGuard)    │
 │                         │                                     │
@@ -60,7 +62,7 @@ When a more specific rule lives inside another rule's folder (for example `Libra
 Files and folders the user protects in **Pengaturan → Pengecualian**, or with **Masukin ke Pengecualian** in a result's right-click menu.
 
 - **What it blocks.** `ExclusionList.blocks(_:)` is true for an excluded path, anything inside it, and any folder that holds it, since removing that folder would remove the excluded item too. Paths are compared in their literal and symlink-resolved forms, without regard to case or Unicode normalization, so a mismatch can only block more.
-- **Where it's checked.** `JunkScanner`, `LeftoverFinder`, `LargeFileFinder` and `LaunchAgentCatalog` leave blocked items out and don't measure them. `PathGuard` checks the list again before every removal (`.excluded`), so an item that gets past a scanner still can't be removed.
+- **Where it's checked.** `JunkScanner`, `LeftoverFinder`, `LargeFileFinder` and `LaunchAgentCatalog` leave blocked items out and don't measure them. `PathGuard` checks the list again before every removal (`.excluded`), so an item that gets past a scanner still can't be removed. **Peta Disk** is the exception: it removes nothing, so it measures excluded items too, or the map would hide where space goes, and marks them *Dikecualiin*.
 - **How pages get it.** `ExclusionStore` keeps the list in UserDefaults (`Exclusions.paths`). `RootView` hands every page model the current `ExclusionList` whenever it changes, and each model drops the results it now blocks. A `.wholeContents` item goes away as a whole when any of its targets is blocked, because its size covers all of them; the next scan brings back the rest. Removing an exclusion takes effect on the next scan.
 - **Apps.** `AppCatalog` still lists excluded apps, so their bundle identifiers keep protecting their data when another app's leftovers are searched. **Hapus Aplikasi** marks them *Dikecualiin* and only offers their leftovers.
 
@@ -74,6 +76,17 @@ Files and folders the user protects in **Pengaturan → Pengecualian**, or with 
 - **Turning off and on.** Off runs `launchctl disable gui/<uid>/<label>`, then `bootout` to stop the job now. On runs `enable`, then `bootstrap` to load it like at login. Both change only launchd's record, never the file, so they can always be undone. launchd keeps the record by label, so it also covers a file the app writes again. A switch the user flipped in System Settings stays theirs: Havus shows it but leaves it alone. Login Items and launchd keep separate records, so an agent Havus turned off can still look allowed in System Settings.
 - **Removing.** The file goes to the Trash through `FileRemover`, with `~/Library/LaunchAgents` as the only allowed root. Only once it's there is the job booted out. Restoring the file brings the job back at the next login. Turning an agent off is the default the page suggests, because many apps write their agent again when it's missing; removing the app in **Hapus Aplikasi** is the lasting fix.
 - **Not yet.** The agents and daemons in `/Library/LaunchAgents` and `/Library/LaunchDaemons` need root to change, so they wait for the [root helper](#root-helper-plan-next-phase). macOS has no public API that lists every app that opens at login, or the agents apps register with `SMAppService`, so the page links to Login Items in System Settings for those.
+
+## Disk map
+
+**Peta Disk** shows where the space in the home folder goes, biggest first, and opens a folder when it's clicked. It's read-only: nothing on the page removes anything.
+
+- **One pass.** `DiskUsageScanner` walks the home folder once, hidden items included, and adds up the space allocated to each folder, like `DirectorySize`. Symbolic links are never followed. Packages, such as apps and Photos libraries, are measured as a whole and never opened.
+- **Light on memory.** A folder is read one entry at a time, never listed all at once, because one folder can hold a hundred thousand files (a framework's view cache, say); listing those at once took over 1 GB. Each folder keeps its 50 biggest items and adds up the rest (*N item lain*), and a folder under 10 MB keeps no list at all. Opening such a folder scans it on its own, which is quick since it's small. A 46 GB home folder took about 30 seconds.
+- **Cloud files stay in the cloud.** The scan turns off `IOPOL_TYPE_VFS_MATERIALIZE_DATALESS_FILES` for its thread, so files and folders that only exist in iCloud Drive or a File Provider app (Dropbox, Google Drive, OneDrive) are never downloaded. They count as the space they take on the Mac, which is next to nothing.
+- **What it can't read.** Without Full Disk Access, macOS keeps some folders closed. They show *Nggak kebaca*, or their size with a `+`, like in **Hapus Aplikasi**, and a folder with such parts gets a note at the top of its list with a button to the setting.
+- **VoiceOver.** Each row has its own name, size and *Dikecualiin* as its label and its share as its value, e.g. *Library, Lebih dari 15,92 GB, 34%*. Combining the row's children left it without a name.
+- **Bars, not a treemap.** Each row has a bar for its share of the folder on screen, in the accent color on a lighter track, next to its size. Bars on one baseline compare sizes more exactly than the areas of a treemap, every name stays readable, and the page is a plain list for VoiceOver.
 
 ## Concurrency
 
@@ -108,7 +121,7 @@ The UI is in Indonesian and English.
 ## Adding a feature
 
 1. Logic → `Packages/HavusCore/Sources/HavusCore/<Feature>/`, with tests in `Tests/HavusCoreTests/`.
-2. UI → `Havus/Features/<Feature>/` (model + view). Use the components in `Havus/Shared/Components.swift` and the tokens in `Design.swift`.
+2. UI → `Havus/Features/<Feature>/` (model + view). Use the components in `Havus/Shared/Components.swift` and the tokens in `Design.swift`. Outside a `List` or `ScrollView`, never use `.fixedSize(horizontal: false, vertical: true)` on text, such as in an `ActionBar`: the window measures the page's minimum height with the text squeezed narrow, where it grows hundreds of points tall, and the whole page, sidebar included, then overflows the window and gets cut off.
 3. Need a new page? Add a case to `SidebarItem`.
 4. Write UI text as Indonesian literals in SwiftUI, then add the English in `Localizable.xcstrings`. See [Languages](#languages) and the glossary in [CONTRIBUTING.md](../CONTRIBUTING.md).
 5. Offering files for removal? Take the page's `ExclusionList` (see `setExclusions(_:)` in the existing models) and pass it to the scanner and to `PathGuard`.

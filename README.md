@@ -4,7 +4,7 @@
 
 **A lightweight, open-source Mac cleaner that minds its own business.**
 
-Havus (a playful twist on *hapus*, Indonesian for "delete") cleans caches, logs and developer junk, uninstalls apps together with their leftovers, finds large files you rarely open, and turns off programs that start on their own. Everything runs locally on your Mac: no account, no ads, no telemetry.
+Havus (a playful twist on *hapus*, Indonesian for "delete") cleans caches, logs and developer junk, uninstalls apps together with their leftovers, finds large files you rarely open, shows which folders take up the most space, and turns off programs that start on their own. Everything runs locally on your Mac: no account, no ads, no telemetry.
 
 The app speaks casual Indonesian and English, following your Mac's language. [Ringkasan dalam Bahasa Indonesia ada di bawah.](#bahasa-indonesia)
 
@@ -19,13 +19,14 @@ The app speaks casual Indonesian and English, following your Mac's language. [Ri
 | **Developer junk** (*Sampah Developer*) | Xcode (DerivedData, Archives, Device Support, Previews), Simulator caches, Homebrew, npm, Yarn, pnpm, CocoaPods, SwiftPM, pip, Go, Gradle, Bun, Cargo |
 | **Uninstaller** (*Hapus Aplikasi*) | Removes an app together with its leftovers, or only the leftovers to "reset" it |
 | **Large & old files** (*File Gede & Lama*) | Finds big, rarely opened files using the Spotlight index, so it's fast |
+| **Disk map** (*Peta Disk*) | Shows which folders in your home folder take up the most space, biggest first. Click a folder to look inside. It only looks: nothing is removed here |
 | **Startup items** (*Jalan Otomatis*) | Lists the launch agents in your Library with the app each belongs to. Turn one off, or move it to the Trash |
 
 ## Principles
 
 - **Safety first.** Every item is previewed and selectable. Everything goes to the Trash, except when you explicitly empty the Trash.
 - **Only touches what it knows.** Cleanup locations come from an auditable rule list ([`JunkRule+Catalog.swift`](Packages/HavusCore/Sources/HavusCore/Junk/JunkRule+Catalog.swift)), and every deletion is checked again by `PathGuard`.
-- **Leaves alone what you protect.** Files and folders on your exclusion list (**Settings → Exclusions**, or right-click a result) never show up in results, and `PathGuard` refuses to remove them or any folder that holds them.
+- **Leaves alone what you protect.** Files and folders on your exclusion list (**Settings → Exclusions**, or right-click a result) never show up in cleanup results, and `PathGuard` refuses to remove them or any folder that holds them.
 - **Private.** No telemetry, no analytics. Havus goes online for one thing only, and only if you turn it on: once a day it asks GitHub for the latest version number. Nothing about you or your Mac is sent.
 - **Lightweight.** Native Swift + SwiftUI with zero third-party dependencies. Version 0.1.0: 1.5 MB app, about 34 MB of memory when idle.
 
@@ -77,11 +78,10 @@ macOS protects some locations (the Trash, Mail attachments, other apps' data). F
 
 ## Roadmap
 
-Everything Havus does today is free and will stay free. Items marked *(Pro candidate)* may become part of an optional paid tier later. Safety features, such as the exclusion list, will always be free.
+Everything Havus does today is free and will stay free. An optional paid tier may come later, but safety features, such as the exclusion list, will always be free.
 
 Each open item has its own issue, where you can follow progress, share ideas or offer to help. The [roadmap label](https://github.com/XNyetok/Havus/issues?q=label%3Aroadmap) lists them all.
 
-- [ ] Disk usage visualization *(Pro candidate)*: [#17](https://github.com/XNyetok/Havus/issues/17)
 - [ ] Login items and launch agents manager: [#18](https://github.com/XNyetok/Havus/issues/18) (your own launch agents are done; system-wide ones need root)
 - [ ] Maintenance tasks that need root (`SMAppService` + XPC helper): [#19](https://github.com/XNyetok/Havus/issues/19)
 - [ ] Browser privacy cleanup: [#20](https://github.com/XNyetok/Havus/issues/20)
@@ -90,6 +90,7 @@ Each open item has its own issue, where you can follow progress, share ideas or 
 - [x] New version notifications (opt-in, once a day)
 - [x] Exclusion list (files and folders Havus never touches)
 - [x] English UI, following your Mac's language
+- [x] Disk map: which folders take up the most space
 
 ## Contributing
 
@@ -109,7 +110,7 @@ The source code is released under the [MIT License](LICENSE) © 2026 Debi Kurnia
 
 ## Bahasa Indonesia
 
-**Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, nemuin file gede yang jarang dibuka, sampai matiin program yang jalan otomatis. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin. Ada file atau folder yang nggak boleh disentuh? Masukin ke **Pengaturan → Pengecualian**, atau klik kanan item di hasil pindai.
+**Havus** (plesetan dari kata *hapus*) adalah pembersih Mac yang ringan, open source, dan nggak kepo. Havus bantu kamu bersihin cache, log, sisa build developer, aplikasi beserta file sisanya, nemuin file gede yang jarang dibuka, nunjukin folder mana yang paling makan tempat, sampai matiin program yang jalan otomatis. Semuanya jalan lokal di Mac kamu, tanpa akun, iklan, atau telemetri. Semua yang dihapus masuk Tong Sampah dulu, jadi masih bisa dibalikin. Ada file atau folder yang nggak boleh disentuh? Masukin ke **Pengaturan → Pengecualian**, atau klik kanan item di hasil pindai.
 
 **Bahasa:** Havus bisa bahasa Indonesia dan Inggris, dan ngikutin bahasa yang duluan di daftar **System Settings → General → Language & Region**. Mac kamu pakai bahasa Inggris, tapi mau Havus tetap bahasa Indonesia? Di halaman yang sama, klik **+** di bagian **Applications**, pilih Havus, lalu pilih Bahasa Indonesia.
 

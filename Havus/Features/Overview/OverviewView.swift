@@ -11,7 +11,7 @@ struct OverviewView: View {
                 PageHeader(item: .overview)
                 UpdateBanner()
                 if let disk {
-                    DiskCard(disk: disk)
+                    DiskCard(disk: disk) { open(.diskUsage) }
                 }
                 FullDiskAccessBanner()
                 // Always 2×2 with the four cleanup tools, so they stay balanced at any window width.
@@ -41,6 +41,7 @@ struct OverviewView: View {
 
 private struct DiskCard: View {
     let disk: DiskSpace
+    let showDiskUsage: () -> Void
 
     var body: some View {
         VStack(alignment: .leading, spacing: Design.Spacing.m) {
@@ -58,6 +59,10 @@ private struct DiskCard: View {
             ProgressView(value: disk.usedFraction)
                 .tint(usageTint)
                 .accessibilityLabel("Ruang terpakai")
+            // The accent color, like the app's other text buttons, rather than the blue of a web link.
+            Button("Lihat yang makan tempat", action: showDiskUsage)
+                .buttonStyle(.plain)
+                .foregroundStyle(.tint)
         }
         .card()
     }

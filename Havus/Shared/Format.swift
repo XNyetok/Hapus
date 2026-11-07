@@ -15,6 +15,13 @@ enum Format {
         return value.formatted(ByteCountFormatStyle(style: .file, spellsOutZero: false, locale: locale))
     }
 
+    /// `0.42` → `42%`, as the user's region writes it. A share that rounds to zero but isn't says `<1%`.
+    static func percent(_ fraction: Double) -> String {
+        let style = FloatingPointFormatStyle<Double>.Percent(locale: locale).precision(.fractionLength(0))
+        guard fraction > 0, fraction < 0.005 else { return fraction.formatted(style) }
+        return "<" + 0.01.formatted(style)
+    }
+
     /// `3600` → `1 jam` or `1 hour`; `5400` → `1 jam, 30 menit` or `1 hour, 30 minutes`.
     static func duration(seconds: Int) -> String {
         Duration.seconds(seconds).formatted(

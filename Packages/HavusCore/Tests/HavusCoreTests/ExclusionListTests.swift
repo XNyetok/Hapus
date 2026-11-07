@@ -16,6 +16,18 @@ struct ExclusionListTests {
         #expect(list.blocks(home.url.appending(path: "Library/Caches")))
     }
 
+    @Test func coversTheItemAndEverythingInsideItButNotFoldersThatHoldIt() throws {
+        let home = try TemporaryHome()
+        let models = try home.makeFolder("Library/Caches/com.example.keep/models")
+        let list = ExclusionList([models])
+
+        #expect(list.covers(models))
+        #expect(list.covers(models.appending(path: "model.bin")))
+        #expect(!list.covers(home.url.appending(path: "Library/Caches/com.example.keep")))
+        #expect(!list.covers(home.url.appending(path: "Library/Caches/com.example.keep/modelsx")))
+        #expect(!ExclusionList().covers(models))
+    }
+
     @Test func leavesSiblingsAloneEvenWithACommonPrefix() throws {
         let home = try TemporaryHome()
         let keep = try home.makeFolder("Library/Caches/com.example.keep")
