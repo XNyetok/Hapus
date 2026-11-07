@@ -40,6 +40,10 @@ extension View {
 }
 
 /// Bottom bar with a page's summary on the left and its primary action on the right.
+///
+/// Text in it wraps on its own. Never give it `.fixedSize(horizontal: false, vertical: true)`: the page's minimum
+/// height is measured with the text squeezed narrow, where it grows hundreds of points tall, and the whole window
+/// content, sidebar included, then gets laid out taller than the window and cut off at both ends.
 struct ActionBar<Leading: View, Trailing: View>: View {
     @ViewBuilder var leading: Leading
     @ViewBuilder var trailing: Trailing
@@ -237,6 +241,13 @@ struct SizeText: View {
                 .help("Sebagian isinya nggak bisa dibaca Havus, jadi ukuran aslinya bisa lebih gede.")
                 .accessibilityLabel("Lebih dari \(Format.bytes(bytes))")
         }
+    }
+
+    /// What VoiceOver says for the size, for a row that names itself.
+    static func spoken(bytes: Int64, isComplete: Bool) -> String {
+        if isComplete { return Format.bytes(bytes) }
+        if bytes == 0 { return String(localized: "Nggak kebaca") }
+        return String(localized: "Lebih dari \(Format.bytes(bytes))")
     }
 }
 

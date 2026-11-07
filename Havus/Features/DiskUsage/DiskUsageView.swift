@@ -51,18 +51,21 @@ struct DiskUsageView: View {
         }
     }
 
+    // Nothing outside the list may use `fixedSize(horizontal: false, vertical: true)`. The page's minimum height is
+    // measured with its text squeezed narrow, where such a text grows hundreds of points tall. The window doesn't grow
+    // along, so the whole page, sidebar included, gets laid out taller than the window and is cut off at both ends.
     private func results(_ folder: DiskUsageItem) -> some View {
         VStack(spacing: 0) {
-            if model.root?.isComplete == false, !permissions.hasFullDiskAccess {
-                FullDiskAccessBanner()
-                    .padding(.horizontal, Design.Spacing.xxl)
-                    .padding(.bottom, Design.Spacing.l)
-            }
             List {
                 Section {
+                    if !folder.isComplete, !permissions.hasFullDiskAccess {
+                        unreadableNotice
+                    }
                     contents(of: folder)
                 } header: {
+                    // In the list, so its columns line up with the rows below, with or without a scroll bar.
                     FolderHeader(model: model, folder: folder)
+                        .padding(.bottom, Design.Spacing.s)
                 }
             }
             .listStyle(.inset)
@@ -73,14 +76,32 @@ struct DiskUsageView: View {
 
             ActionBar {
                 Text(
-                    "Di sini cuma buat ngelihat. Buat bersihin, pakai **Sampah Sistem**, **Sampah Developer**, atau **File Gede & Lama**."
+                    "Di sini nggak ada yang dihapus. Buat bersihin, pakai **Sampah Sistem**, **Sampah Developer**, atau **File Gede & Lama**."
                 )
                 .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
             } trailing: {
                 Button("Pindai Ulang") { model.scan() }
             }
         }
+    }
+
+    /// While the folder on screen has parts macOS keeps closed without Full Disk Access, so its size is too low. A row
+    /// in the list, so it scrolls away with it and can't push the page out of the window.
+    private var unreadableNotice: some View {
+        HStack(spacing: Design.Spacing.m) {
+            Image(systemName: "lock.fill")
+                .foregroundStyle(.orange)
+                .accessibilityHidden(true)
+            Text(
+                "Sebagian isi folder ini nggak bisa dibaca Havus, jadi ukurannya belum lengkap. Nyalain Akses Disk Penuh, terus pindai ulang."
+            )
+            .fixedSize(horizontal: false, vertical: true)
+            Spacer(minLength: Design.Spacing.m)
+            Button("Buka Pengaturan") { permissions.openFullDiskAccessSettings() }
+        }
+        .card(padding: Design.Spacing.m)
+        .padding(.bottom, Design.Spacing.s)
+        .listRowSeparator(.hidden)
     }
 
     @ViewBuilder
@@ -107,8 +128,10 @@ struct DiskUsageView: View {
 
     @ViewBuilder
     private func row(_ item: DiskUsageItem, share: Double) -> some View {
-        let row = DiskUsageRow(
-            item: item, share: share, isExcluded: model.isExcluded(item), isOpening: model.opening == item.id)
+        let isExcluded = model.isExcluded(item)
+        let row = DiskUsageRow(item: item, share: share, isExcluded: isExcluded, isOpening: model.opening == item.id)
+        // Named on the element VoiceOver lands on. Combining the row's children left it without a name: VoiceOver said
+        // only the share, such as "79%, button".
         Group {
             if item.kind == .folder {
                 Button {
@@ -117,9 +140,15 @@ struct DiskUsageView: View {
                     row
                 }
                 .buttonStyle(.plain)
+                .accessibilityLabel(spokenName(of: item, isExcluded: isExcluded))
+                .accessibilityValue(Format.percent(share))
                 .accessibilityHint("Buka folder ini")
             } else {
                 row
+                    .accessibilityElement(children: .ignore)
+                    .accessibilityAddTraits(.isStaticText)
+                    .accessibilityLabel(spokenName(of: item, isExcluded: isExcluded))
+                    .accessibilityValue(Format.percent(share))
             }
         }
         .contextMenu {
@@ -133,39 +162,56 @@ struct DiskUsageView: View {
     private func share(_ bytes: Int64, of folder: DiskUsageItem) -> Double {
         folder.bytes > 0 ? Double(bytes) / Double(folder.bytes) : 0
     }
+
+    /// The name, the size and whether it's excluded, e.g. "Library, More than 15.92 GB". The share follows as the value.
+    private func spokenName(of item: DiskUsageItem, isExcluded: Bool) -> Text {
+        var parts = [item.name, SizeText.spoken(bytes: item.bytes, isComplete: item.isComplete)]
+        if isExcluded { parts.append(String(localized: "Dikecualiin")) }
+        return Text(verbatim: parts.joined(separator: ", "))
+    }
 }
 
-/// Where the user is, with a way back up, and how big the folder on screen is.
+/// Where the user is, with a way back up, and how big the folder on screen is. Built on the same columns as
+/// ``DiskUsageRow``: the back button sits above the icons, the folder names above theirs, the size above their sizes.
 private struct FolderHeader: View {
     let model: DiskUsageModel
     let folder: DiskUsageItem
 
     var body: some View {
-        HStack(spacing: Design.Spacing.s) {
-            if model.path.count > 1 {
-                Button {
-                    model.goUp()
-                } label: {
-                    Image(systemName: "chevron.left")
-                        .font(.body.weight(.semibold))
-                        .frame(width: 24, height: 24)
-                        .contentShape(Rectangle())
+        HStack(spacing: Design.Spacing.m) {
+            Group {
+                if model.path.count > 1 {
+                    Button {
+                        model.goUp()
+                    } label: {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                            .frame(width: 24, height: 24)
+                            .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.tint)
+                    .keyboardShortcut(.upArrow, modifiers: .command)
+                    .help("Balik ke folder di atasnya")
+                    .accessibilityLabel("Balik")
+                } else {
+                    Image(systemName: "house")
+                        .foregroundStyle(.secondary)
+                        .accessibilityHidden(true)
                 }
-                .buttonStyle(.plain)
-                .foregroundStyle(.tint)
-                .keyboardShortcut(.upArrow, modifiers: .command)
-                .help("Balik ke folder di atasnya")
-                .accessibilityLabel("Balik")
             }
+            .frame(width: 24)
             Breadcrumb(path: model.path) { model.goBack(to: $0) }
             Spacer(minLength: Design.Spacing.m)
             SizeText(bytes: folder.bytes, isComplete: folder.isComplete)
-                .font(.title3.weight(.semibold))
+                .fontWeight(.semibold)
                 .foregroundStyle(.primary)
                 .monospacedDigit()
+            // Above the rows' chevrons.
+            Color.clear
+                .frame(width: 16, height: 1)
         }
         .font(.title3)
-        .padding(.bottom, Design.Spacing.s)
     }
 }
 
@@ -180,7 +226,11 @@ private struct Breadcrumb: View {
             if path.count > 3 {
                 crumbs([0, nil] + path.indices.suffix(2).map { $0 })
             }
-            crumbs([path.count - 1])
+            // The folder on screen alone, shortened in the middle when even that doesn't fit, so a long name never
+            // makes the page wider than the window.
+            title(path.count - 1)
+                .lineLimit(1)
+                .truncationMode(.middle)
         }
     }
 
@@ -208,17 +258,29 @@ private struct Breadcrumb: View {
 
     @ViewBuilder
     private func crumb(_ index: Int) -> some View {
-        let name = path[index].name
         if index == path.count - 1 {
-            Text(name)
-                .fontWeight(.semibold)
-                .foregroundStyle(.primary)
-                .accessibilityAddTraits(.isHeader)
+            title(index)
         } else {
-            Button(name) { goTo(index) }
-                .buttonStyle(.plain)
-                .foregroundStyle(.tint)
+            Button {
+                goTo(index)
+            } label: {
+                name(index)
+            }
+            .buttonStyle(.plain)
+            .foregroundStyle(.tint)
         }
+    }
+
+    /// The folder on screen.
+    private func title(_ index: Int) -> some View {
+        name(index)
+            .fontWeight(.semibold)
+            .foregroundStyle(.primary)
+            .accessibilityAddTraits(.isHeader)
+    }
+
+    private func name(_ index: Int) -> Text {
+        Text(path[index].name)
     }
 }
 
@@ -251,8 +313,6 @@ private struct DiskUsageRow: View {
         .padding(.vertical, 2)
         .contentShape(Rectangle())
         .help(Format.path(item.url))
-        .accessibilityElement(children: .combine)
-        .accessibilityValue(Format.percent(share))
     }
 
     @ViewBuilder
@@ -296,7 +356,11 @@ private struct OtherItemsRow: View {
         }
         .padding(.vertical, 2)
         .help("Item yang lebih kecil, digabung biar daftarnya nggak kepanjangan.")
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .ignore)
+        .accessibilityAddTraits(.isStaticText)
+        .accessibilityLabel(
+            Text(verbatim: "\(String(localized: "\(other.count) item lain")), \(Format.bytes(other.bytes))")
+        )
         .accessibilityValue(Format.percent(share))
     }
 }

@@ -1163,12 +1163,12 @@
         }
       }
     },
-    "Di sini cuma buat ngelihat. Buat bersihin, pakai **Sampah Sistem**, **Sampah Developer**, atau **File Gede & Lama**." : {
+    "Di sini nggak ada yang dihapus. Buat bersihin, pakai **Sampah Sistem**, **Sampah Developer**, atau **File Gede & Lama**." : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "This page only shows where space goes. To clean up, use **System Junk**, **Developer Junk** or **Large & Old Files**."
+            "value" : "Nothing is removed here. To clean up, use **System Junk**, **Developer Junk** or **Large & Old Files**."
           }
         }
       }
@@ -2604,6 +2604,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Partly selected"
+          }
+        }
+      }
+    },
+    "Sebagian isi folder ini nggak bisa dibaca Havus, jadi ukurannya belum lengkap. Nyalain Akses Disk Penuh, terus pindai ulang." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus can't read part of this folder, so its size is incomplete. Turn on Full Disk Access, then scan again."
           }
         }
       }

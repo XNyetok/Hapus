@@ -59,8 +59,10 @@ private struct DiskCard: View {
             ProgressView(value: disk.usedFraction)
                 .tint(usageTint)
                 .accessibilityLabel("Ruang terpakai")
+            // The accent color, like the app's other text buttons, rather than the blue of a web link.
             Button("Lihat yang makan tempat", action: showDiskUsage)
-                .buttonStyle(.link)
+                .buttonStyle(.plain)
+                .foregroundStyle(.tint)
         }
         .card()
     }
