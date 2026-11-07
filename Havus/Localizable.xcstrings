@@ -175,6 +175,16 @@
         }
       }
     },
+    "%@ udah dihitung" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%@ counted so far"
+          }
+        }
+      }
+    },
     "%@ udah dipindah ke Tong Sampah." : {
       "localizations" : {
         "en" : {
@@ -467,6 +477,28 @@
         }
       }
     },
+    "%lld item lain" : {
+      "localizations" : {
+        "en" : {
+          "variations" : {
+            "plural" : {
+              "one" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld other item"
+                }
+              },
+              "other" : {
+                "stringUnit" : {
+                  "state" : "translated",
+                  "value" : "%lld other items"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "%lld launch agent" : {
       "localizations" : {
         "en" : {
@@ -525,6 +557,26 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Xcode archives"
+          }
+        }
+      }
+    },
+    "Balik" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back"
+          }
+        }
+      }
+    },
+    "Balik ke folder di atasnya" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Back to the enclosing folder"
           }
         }
       }
@@ -717,6 +769,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Open Settings"
+          }
+        }
+      }
+    },
+    "Buka folder ini" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Opens this folder"
           }
         }
       }
@@ -1101,6 +1163,16 @@
         }
       }
     },
+    "Di sini cuma buat ngelihat. Buat bersihin, pakai **Sampah Sistem**, **Sampah Developer**, atau **File Gede & Lama**." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This page only shows where space goes. To clean up, use **System Junk**, **Developer Junk** or **Large & Old Files**."
+          }
+        }
+      }
+    },
     "Dibuka %@" : {
       "localizations" : {
         "en" : {
@@ -1267,6 +1339,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "The file is already gone."
+          }
+        }
+      }
+    },
+    "Folder ini kosong." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "This folder is empty."
           }
         }
       }
@@ -1538,6 +1620,16 @@
         }
       }
     },
+    "Havus ngitung ukuran tiap folder di folder home kamu, termasuk yang tersembunyi. Cuma dilihat, nggak ada yang dihapus." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Havus adds up the size of every folder in your home folder, hidden ones included. It only looks: nothing gets removed."
+          }
+        }
+      }
+    },
     "Havus pakai index Spotlight buat nyari file gede di folder kamu (di luar Library). Nggak ada yang dihapus tanpa persetujuan kamu." : {
       "localizations" : {
         "en" : {
@@ -1594,6 +1686,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Other items, like apps that open at login, are managed in System Settings."
+          }
+        }
+      }
+    },
+    "Item yang lebih kecil, digabung biar daftarnya nggak kepanjangan." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Smaller items, added up so the list stays short."
           }
         }
       }
@@ -1768,6 +1870,16 @@
         }
       }
     },
+    "Lagi ngitung ukuran folder…" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Adding up folder sizes…"
+          }
+        }
+      }
+    },
     "Lagi ngumpulin daftar aplikasi…" : {
       "localizations" : {
         "en" : {
@@ -1874,12 +1986,42 @@
         }
       }
     },
+    "Lihat folder mana yang paling makan tempat." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See which folders take up the most space."
+          }
+        }
+      }
+    },
+    "Lihat ke mana ruang disk kamu" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See where your disk space goes"
+          }
+        }
+      }
+    },
     "Lihat yang Baru" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "See What's New"
+          }
+        }
+      }
+    },
+    "Lihat yang makan tempat" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "See What Takes Up Space"
           }
         }
       }
@@ -2180,6 +2322,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Permanent"
+          }
+        }
+      }
+    },
+    "Peta Disk" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Disk Map"
           }
         }
       }
@@ -2738,6 +2890,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "iOS Device Support"
+          }
+        }
+      }
+    },
+    "macOS nggak ngizinin Havus baca isi folder ini." : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "macOS doesn't let Havus read what's in this folder."
           }
         }
       }

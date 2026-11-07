@@ -102,6 +102,7 @@ Not fluent in Indonesian? Put the English text in your PR description and a main
 | Developer Junk | Sampah Developer |
 | Uninstaller | Hapus Aplikasi |
 | Large & Old Files | File Gede & Lama |
+| Disk Map | Peta Disk |
 | Startup Items | Jalan Otomatis |
 | Settings | Pengaturan |
 | Check for Updates | Cek Versi Baru |

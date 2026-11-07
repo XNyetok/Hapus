@@ -28,6 +28,15 @@ public struct ExclusionList: Sendable, Hashable {
         }
     }
 
+    /// Whether `url` is excluded itself or inside an excluded folder. Unlike ``blocks(_:)``, a folder that only holds
+    /// an excluded item doesn't count, so a page can mark what the exclusion list protects as a whole.
+    public func covers(_ url: URL) -> Bool {
+        guard !keys.isEmpty else { return false }
+        return Self.forms(of: url, resolving: PathGuard.canonical).contains { target in
+            keys.contains { target.starts(with: $0) }
+        }
+    }
+
     /// The literal and the resolved form of `url`. Names are compared without regard to case or Unicode
     /// normalization, like on the default APFS volume. Comparing loosely can only block more, never less.
     private static func forms(of url: URL, resolving resolve: (URL) -> URL) -> [[String]] {

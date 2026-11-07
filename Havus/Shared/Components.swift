@@ -220,6 +220,26 @@ struct FullDiskAccessBanner: View {
     }
 }
 
+/// A size, or what Havus knows about it when it couldn't read everything, instead of looking empty ("0 byte").
+struct SizeText: View {
+    let bytes: Int64
+    /// `false` when Havus couldn't read all of it, so `bytes` is only what it could read.
+    let isComplete: Bool
+
+    var body: some View {
+        if isComplete {
+            Text(Format.bytes(bytes))
+        } else if bytes == 0 {
+            Text("Nggak kebaca")
+                .help("macOS nggak ngizinin Havus baca isinya, jadi ukurannya belum ketahuan.")
+        } else {
+            Text(verbatim: "\(Format.bytes(bytes))+")
+                .help("Sebagian isinya nggak bisa dibaca Havus, jadi ukuran aslinya bisa lebih gede.")
+                .accessibilityLabel("Lebih dari \(Format.bytes(bytes))")
+        }
+    }
+}
+
 /// App icon as Finder shows it.
 struct FileIcon: View {
     let url: URL

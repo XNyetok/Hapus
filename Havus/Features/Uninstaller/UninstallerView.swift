@@ -264,7 +264,7 @@ private struct ComponentRow: View {
             }
             Spacer()
             if let size {
-                sizeLabel(size)
+                SizeText(bytes: size, isComplete: isSizeComplete)
                     .monospacedDigit()
                     .foregroundStyle(.secondary)
             } else {
@@ -275,21 +275,6 @@ private struct ComponentRow: View {
         .padding(.vertical, Design.Spacing.m)
         .selectableRow(isSelected ? .on : .off, toggle: toggle)
         .disabled(!isEnabled)
-    }
-
-    /// A folder Havus couldn't read says so, instead of looking empty ("0 byte").
-    @ViewBuilder
-    private func sizeLabel(_ size: Int64) -> some View {
-        if isSizeComplete {
-            Text(Format.bytes(size))
-        } else if size == 0 {
-            Text("Nggak kebaca")
-                .help("macOS nggak ngizinin Havus baca isinya, jadi ukurannya belum ketahuan.")
-        } else {
-            Text(verbatim: "\(Format.bytes(size))+")
-                .help("Sebagian isinya nggak bisa dibaca Havus, jadi ukuran aslinya bisa lebih gede.")
-                .accessibilityLabel("Lebih dari \(Format.bytes(size))")
-        }
     }
 }
 

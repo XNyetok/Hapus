@@ -10,6 +10,7 @@ struct RootView: View {
     @State private var developerJunk = JunkCleanerModel(group: .developer)
     @State private var uninstaller = UninstallerModel()
     @State private var largeFiles = LargeFilesModel()
+    @State private var diskUsage = DiskUsageModel()
     @State private var startupItems = StartupItemsModel()
 
     var body: some View {
@@ -23,6 +24,7 @@ struct RootView: View {
                 Section("Kelola") {
                     row(.uninstaller)
                     row(.largeFiles)
+                    row(.diskUsage)
                     row(.startupItems)
                 }
             }
@@ -39,6 +41,7 @@ struct RootView: View {
             developerJunk.setExclusions(list)
             uninstaller.setExclusions(list)
             largeFiles.setExclusions(list)
+            diskUsage.setExclusions(list)
             startupItems.setExclusions(list)
         }
         .task { updates.checkIfDue() }
@@ -72,6 +75,8 @@ struct RootView: View {
             UninstallerView(model: uninstaller)
         case .largeFiles:
             LargeFilesView(model: largeFiles)
+        case .diskUsage:
+            DiskUsageView(model: diskUsage)
         case .startupItems:
             StartupItemsView(model: startupItems) { app in
                 uninstaller.show(app)
